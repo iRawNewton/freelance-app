@@ -1,8 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelance_app/dev/screens/home/widgets/category.dart';
 import 'package:freelance_app/dev/screens/home/widgets/search.dart';
 import 'package:freelance_app/dev/screens/home/widgets/services.dart';
+import 'package:freelance_app/dev/screens/home/widgets/static_section.dart';
+import 'package:freelance_app/dev/screens/home/widgets/stats.dart';
+import 'package:freelance_app/dev/screens/home/widgets/testimonial.dart';
 import 'package:freelance_app/dev/screens/home/widgets/trending_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -127,6 +131,17 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const ServicesPage(),
+                const SizedBox(height: 24.0),
+                const StaticSectionOne(),
+                SizedBox(
+                  child: CachedNetworkImage(
+                      imageUrl:
+                          'https://demoapus1.com/freeio/wp-content/uploads/2022/09/h1.jpg'),
+                ),
+                const SizedBox(height: 24.0),
+                const StatsApp(),
+                const SizedBox(height: 24.0),
+                const TestimonialSection(),
                 const SizedBox(height: 24.0),
               ],
             ),
