@@ -1,5 +1,8 @@
+// homepage first section
+
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,7 +30,7 @@ class _HomeWidget1State extends State<HomeWidget1> {
       width: MediaQuery.sizeOf(context).width,
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: NetworkImage(
+          image: CachedNetworkImageProvider(
               'https://demoapus1.com/freeio/wp-content/uploads/2022/10/slider1.jpg'),
           fit: BoxFit.fitHeight,
         ),
@@ -62,7 +65,10 @@ class _HomeWidget1State extends State<HomeWidget1> {
                   ),
                   const SizedBox(height: 15.0),
                   Container(
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 5.0, vertical: 5.0),
@@ -112,6 +118,7 @@ class _HomeWidget1State extends State<HomeWidget1> {
                           ),
                           SizedBox(
                             width: MediaQuery.sizeOf(context).width,
+                            height: 40.0,
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   elevation: 0,
