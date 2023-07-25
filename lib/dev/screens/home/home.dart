@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:freelance_app/dev/screens/home/widgets/blog.dart';
 import 'package:freelance_app/dev/screens/home/widgets/category.dart';
 import 'package:freelance_app/dev/screens/home/widgets/search.dart';
 import 'package:freelance_app/dev/screens/home/widgets/services.dart';
@@ -145,6 +146,66 @@ class _HomePageState extends State<HomePage> {
                 const TestimonialSection(),
                 const SizedBox(height: 24.0),
                 const StaticSectionTwo(),
+                const SizedBox(height: 24.0),
+                const BlogSection(),
+                const SizedBox(height: 24.0),
+                Container(
+                  color: const Color(0xffffede8),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 24.0),
+                        Text(
+                          'Find the talent needed to get your business growing.',
+                          style: GoogleFonts.roboto(
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        const SizedBox(height: 24.0),
+                        Text(
+                          'Advertise your jobs to millions of monthly users and search 15.8 million CVs',
+                          style: GoogleFonts.roboto(
+                              fontSize: 14.0, color: Colors.black87),
+                        ),
+                        const SizedBox(height: 24.0),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: SizedBox(
+                            height: 50.0,
+                            child: Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: ElevatedButton.icon(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xff1f4b3f),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                ),
+                                icon: const Icon(
+                                  Icons.north_east,
+                                  color: Colors.white,
+                                ),
+                                label: Text(
+                                  'Find Talent',
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 30.0),
+                      ],
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 24.0),
               ],
             ),
