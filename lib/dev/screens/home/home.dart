@@ -5,6 +5,7 @@ import 'package:freelance_app/dev/screens/home/widgets/category.dart';
 import 'package:freelance_app/dev/screens/home/widgets/search.dart';
 import 'package:freelance_app/dev/screens/home/widgets/services.dart';
 import 'package:freelance_app/dev/screens/home/widgets/static_section.dart';
+import 'package:freelance_app/dev/screens/home/widgets/static_section1.dart';
 import 'package:freelance_app/dev/screens/home/widgets/stats.dart';
 import 'package:freelance_app/dev/screens/home/widgets/testimonial.dart';
 import 'package:freelance_app/dev/screens/home/widgets/trending_service.dart';
@@ -142,6 +143,8 @@ class _HomePageState extends State<HomePage> {
                 const StatsApp(),
                 const SizedBox(height: 24.0),
                 const TestimonialSection(),
+                const SizedBox(height: 24.0),
+                const StaticSectionTwo(),
                 const SizedBox(height: 24.0),
               ],
             ),
