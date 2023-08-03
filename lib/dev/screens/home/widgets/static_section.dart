@@ -56,7 +56,7 @@ class _StaticSectionOneState extends State<StaticSectionOne> {
                       ),
                     ),
                     SizedBox(
-                      width: ScreenSize.width(context) * 0.80,
+                      width: ScreenSize.width(context) * 0.75,
                       child: Text(
                         'Check any pro\'s work samples, client reviews, and identity verification.',
                         style: GoogleFonts.roboto(
@@ -94,7 +94,7 @@ class _StaticSectionOneState extends State<StaticSectionOne> {
                       ),
                     ),
                     SizedBox(
-                      width: ScreenSize.width(context) * 0.80,
+                      width: ScreenSize.width(context) * 0.75,
                       child: Text(
                         'Check any pro\'s work samples, client reviews, and identity verification.',
                         style: GoogleFonts.roboto(
@@ -132,7 +132,7 @@ class _StaticSectionOneState extends State<StaticSectionOne> {
                       ),
                     ),
                     SizedBox(
-                      width: ScreenSize.width(context) * 0.80,
+                      width: ScreenSize.width(context) * 0.75,
                       child: Text(
                         'Check any pro\'s work samples, client reviews, and identity verification.',
                         style: GoogleFonts.roboto(
