@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:freelance_app/res/colors.dart';
-import 'package:freelance_app/res/dimens.dart';
-import 'package:freelance_app/res/strings.dart';
+import 'package:freelance_app/res/constants/colors.dart';
+import 'package:freelance_app/res/constants/dimens.dart';
+import 'package:freelance_app/res/constants/strings.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CategorySpace extends StatefulWidget {

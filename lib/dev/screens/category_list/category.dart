@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelance_app/dev/screens/category_list/widgets/products_list.dart';
+import 'package:freelance_app/dev/screens/product_desc.dart/product_desc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CategoryPage extends StatefulWidget {
@@ -192,16 +193,24 @@ class _CategoryPageState extends State<CategoryPage> {
                         ],
                       ),
                       const SizedBox(height: 36.0),
-                      const ProductList(
-                        imgUrl:
-                            'https://demoapus1.com/freeio/wp-content/uploads/2022/11/service12-495x370.jpg',
-                        category: 'Development & IT',
-                        title:
-                            'Web Development, with HTML, CSS, JavaScript and PHP',
-                        ratings: '4',
-                        reviews: '54',
-                        user: 'Agent Pakulla',
-                        price: '29',
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const ProductDesc()));
+                        },
+                        child: const ProductList(
+                          imgUrl:
+                              'https://demoapus1.com/freeio/wp-content/uploads/2022/11/service12-495x370.jpg',
+                          category: 'Development & IT',
+                          title:
+                              'Web Development, with HTML, CSS, JavaScript and PHP',
+                          ratings: '4',
+                          reviews: '54',
+                          user: 'Agent Pakulla',
+                          price: '29',
+                        ),
                       ),
                       const SizedBox(height: 14.0),
                       const ProductList(
