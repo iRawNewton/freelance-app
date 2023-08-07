@@ -355,55 +355,76 @@ class _ProductDescState extends State<ProductDesc> {
                       const AboutUsSection(),
                       const SizedBox(height: 30.0),
                       Container(
-                        child: Column(
-                          children: [
-                            const CustomText(
-                              title: '3 Reviews',
-                              size: 20.0,
-                              color: CustomColors.primaryTextColor,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 12.0),
-                              child: Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  color: const Color(0xffFFEDE8),
-                                ),
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 14.0),
-                                  child: Column(
-                                    children: [
-                                      CustomText(
-                                        title: '4.0',
-                                        size: 35.0,
-                                        color: Color(0xffE1C03F),
-                                        weight: FontWeight.bold,
-                                      ),
-                                      CustomText(
-                                        title: '★★★★',
-                                        size: 15.0,
-                                        color: Color(0xffE1C03F),
-                                      ),
-                                      CustomText(
-                                        title: '3 ratings',
-                                        size: 15.0,
-                                        color: CustomColors.primaryTextColor,
-                                      ),
-                                    ],
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.shade300,
+                                blurRadius: 15.0,
+                                blurStyle: BlurStyle.normal,
+                                offset: const Offset(0, 1),
+                                spreadRadius: 0.5,
+                              ),
+                            ]),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 30.0),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 14.0),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: CustomText(
+                                    title: '3 Reviews',
+                                    size: 20.0,
+                                    color: CustomColors.primaryTextColor,
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 30.0),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 12.0),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12.0),
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: const Color(0xffFFEDE8),
+                                  ),
+                                  child: const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 14.0),
+                                    child: Column(
+                                      children: [
+                                        CustomText(
+                                          title: '4.0',
+                                          size: 35.0,
+                                          color: Color(0xffE1C03F),
+                                          weight: FontWeight.bold,
+                                        ),
+                                        CustomText(
+                                          title: '★★★★',
+                                          size: 15.0,
+                                          color: Color(0xffE1C03F),
+                                        ),
+                                        CustomText(
+                                          title: '3 ratings',
+                                          size: 15.0,
+                                          color: CustomColors.primaryTextColor,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 30.0),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12.0),
+                                child: Column(
+                                  children: [
+                                    Row(children: [
                                       SizedBox(
                                         width:
                                             MediaQuery.sizeOf(context).width *
@@ -426,48 +447,147 @@ class _ProductDescState extends State<ProductDesc> {
                                         ),
                                       ),
                                       const CustomText(
-                                        title: '90%',
-                                        size: 16.0,
-                                        color: CustomColors.primaryTextColor,
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.15,
-                                        child: const CustomText(
-                                          title: '5 Star',
-                                          size: 16.0,
-                                          color: CustomColors.primaryTextColor,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.70,
-                                        child: LinearPercentIndicator(
-                                          animation: true,
-                                          animateFromLastPercent: true,
-                                          percent: 0.9,
-                                          progressColor: Colors.amber,
-                                        ),
-                                      ),
-                                      const CustomText(
                                         title: '67%',
                                         size: 16.0,
                                         color: CustomColors.primaryTextColor,
                                       ),
-                                    ],
-                                  ),
-                                ],
+                                    ]),
+                                    const SizedBox(height: 10.0),
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.15,
+                                          child: const CustomText(
+                                            title: '4 Star',
+                                            size: 16.0,
+                                            color:
+                                                CustomColors.primaryTextColor,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.70,
+                                          child: LinearPercentIndicator(
+                                            animation: true,
+                                            animateFromLastPercent: true,
+                                            percent: 0.9,
+                                            progressColor: Colors.amber,
+                                          ),
+                                        ),
+                                        const CustomText(
+                                          title: '90%',
+                                          size: 16.0,
+                                          color: CustomColors.primaryTextColor,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10.0),
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.15,
+                                          child: const CustomText(
+                                            title: '3 Star',
+                                            size: 16.0,
+                                            color:
+                                                CustomColors.primaryTextColor,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.70,
+                                          child: LinearPercentIndicator(
+                                            animation: true,
+                                            animateFromLastPercent: true,
+                                            percent: 0.4,
+                                            progressColor: Colors.amber,
+                                          ),
+                                        ),
+                                        const CustomText(
+                                          title: '40%',
+                                          size: 16.0,
+                                          color: CustomColors.primaryTextColor,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10.0),
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.15,
+                                          child: const CustomText(
+                                            title: '2 Star',
+                                            size: 16.0,
+                                            color:
+                                                CustomColors.primaryTextColor,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.70,
+                                          child: LinearPercentIndicator(
+                                            animation: true,
+                                            animateFromLastPercent: true,
+                                            percent: 0.75,
+                                            progressColor: Colors.amber,
+                                          ),
+                                        ),
+                                        const CustomText(
+                                          title: '75%',
+                                          size: 16.0,
+                                          color: CustomColors.primaryTextColor,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10.0),
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.15,
+                                          child: const CustomText(
+                                            title: '1 Star',
+                                            size: 16.0,
+                                            color:
+                                                CustomColors.primaryTextColor,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.70,
+                                          child: LinearPercentIndicator(
+                                            animation: true,
+                                            animateFromLastPercent: true,
+                                            percent: 0.35,
+                                            progressColor: Colors.amber,
+                                          ),
+                                        ),
+                                        const CustomText(
+                                          title: '35%',
+                                          size: 16.0,
+                                          color: CustomColors.primaryTextColor,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
+                      const SizedBox(height: 50.0),
                     ],
                   ),
                 ],
