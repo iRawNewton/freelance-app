@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:freelance_app/dev/screens/product_desc.dart/widgets/about_us.dart';
+import 'package:freelance_app/dev/screens/product_desc.dart/widgets/basic.dart';
 import 'package:freelance_app/dev/screens/product_desc.dart/widgets/basic_stats.dart';
+import 'package:freelance_app/dev/screens/product_desc.dart/widgets/faqs.dart';
 import 'package:freelance_app/dev/screens/product_desc.dart/widgets/product_title.dart';
 import 'package:freelance_app/dev/ui_global/text_widget.dart';
+import 'package:freelance_app/res/constants/colors.dart';
 import 'package:freelance_app/res/constants/strings.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../ui_global/carousel.dart';
 
@@ -16,6 +21,7 @@ class ProductDesc extends StatefulWidget {
 }
 
 class _ProductDescState extends State<ProductDesc> {
+  PageController controller = PageController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -233,33 +239,236 @@ class _ProductDescState extends State<ProductDesc> {
                         ),
                         const SizedBox(height: 10.0),
                         const Divider(),
+                        const SizedBox(height: 20.0),
                         // FAQ's
                         const Column(
                           children: [
-                            ExpansionTile(
-                              backgroundColor: Color.fromARGB(0, 139, 226, 219),
-                              title: CustomText(
+                            ProductFaqs(
                                 title:
                                     'What methods of payments are supported?',
-                                size: 16.0,
-                                color: Colors.black87,
-                              ),
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                                  child: CustomText(
-                                    title:
-                                        'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.',
-                                    size: 14.0,
-                                    color: Colors.black87,
-                                  ),
-                                )
-                              ],
-                            )
+                                subtitle:
+                                    'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.'),
+                            ProductFaqs(
+                              title: 'Can I cancel at anytime?',
+                              subtitle:
+                                  'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.',
+                            ),
                           ],
-                        )
+                        ),
+                        const SizedBox(height: 30.0),
+                        const Divider(),
+                        const SizedBox(height: 20.0),
                       ],
                     ),
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        height: 50.0,
+                        decoration: BoxDecoration(border: Border.all()),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                controller.animateToPage(0,
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeInOut);
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text('Basic'),
+                              ),
+                            ),
+                            const SizedBox(
+                                height: 50.0, child: VerticalDivider()),
+                            InkWell(
+                              onTap: () {
+                                controller.animateToPage(1,
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeInOut);
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text('Standard'),
+                              ),
+                            ),
+                            const SizedBox(
+                                height: 50.0, child: VerticalDivider()),
+                            InkWell(
+                              onTap: () {
+                                controller.animateToPage(2,
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeInOut);
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text('Premium'),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 250.0,
+                        child: PageView(
+                          controller: controller,
+                          children: const [
+                            BasicPlan(),
+                            StandardPlan(),
+                            PremiumPlan(),
+                          ],
+                        ),
+                      ),
+                      Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: CustomColors.buttonColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            minimumSize: Size(
+                              MediaQuery.sizeOf(context).width * 0.9,
+                              50.0,
+                            ),
+                          ),
+                          onPressed: () {},
+                          icon: const Directionality(
+                            textDirection: TextDirection.ltr,
+                            child: Icon(
+                              Icons.trending_flat,
+                              color: Colors.white,
+                            ),
+                          ),
+                          label: Text(
+                            'Continue',
+                            style: GoogleFonts.roboto(
+                              color: Colors.white,
+                              fontSize: 15.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 30.0),
+                      const AboutUsSection(),
+                      const SizedBox(height: 30.0),
+                      Container(
+                        child: Column(
+                          children: [
+                            const CustomText(
+                              title: '3 Reviews',
+                              size: 20.0,
+                              color: CustomColors.primaryTextColor,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12.0),
+                              child: Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: const Color(0xffFFEDE8),
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 14.0),
+                                  child: Column(
+                                    children: [
+                                      CustomText(
+                                        title: '4.0',
+                                        size: 35.0,
+                                        color: Color(0xffE1C03F),
+                                        weight: FontWeight.bold,
+                                      ),
+                                      CustomText(
+                                        title: '★★★★',
+                                        size: 15.0,
+                                        color: Color(0xffE1C03F),
+                                      ),
+                                      CustomText(
+                                        title: '3 ratings',
+                                        size: 15.0,
+                                        color: CustomColors.primaryTextColor,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 30.0),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12.0),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.15,
+                                        child: const CustomText(
+                                          title: '5 Star',
+                                          size: 16.0,
+                                          color: CustomColors.primaryTextColor,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.70,
+                                        child: LinearPercentIndicator(
+                                          animation: true,
+                                          animateFromLastPercent: true,
+                                          percent: 0.67,
+                                          progressColor: Colors.amber,
+                                        ),
+                                      ),
+                                      const CustomText(
+                                        title: '90%',
+                                        size: 16.0,
+                                        color: CustomColors.primaryTextColor,
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.15,
+                                        child: const CustomText(
+                                          title: '5 Star',
+                                          size: 16.0,
+                                          color: CustomColors.primaryTextColor,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.70,
+                                        child: LinearPercentIndicator(
+                                          animation: true,
+                                          animateFromLastPercent: true,
+                                          percent: 0.9,
+                                          progressColor: Colors.amber,
+                                        ),
+                                      ),
+                                      const CustomText(
+                                        title: '67%',
+                                        size: 16.0,
+                                        color: CustomColors.primaryTextColor,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
