@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelance_app/dev/screens/category_list/widgets/products_list.dart';
 import 'package:freelance_app/dev/screens/product_desc.dart/product_desc.dart';
+import 'package:freelance_app/dev/ui_global/footer.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CategoryPage extends StatefulWidget {
@@ -228,91 +229,7 @@ class _CategoryPageState extends State<CategoryPage> {
                   ),
                 ),
                 const SizedBox(height: 14.0),
-                Container(
-                  height: 100.0,
-                  width: double.infinity,
-                  color: Colors.black87,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Terms of Service',
-                              style: GoogleFonts.roboto(
-                                fontSize: 14.0,
-                                color: Colors.white70,
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                'Privacy Policy',
-                                style: GoogleFonts.roboto(
-                                  fontSize: 14.0,
-                                  color: Colors.white70,
-                                ),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                'Site Map',
-                                style: GoogleFonts.roboto(
-                                  fontSize: 14.0,
-                                  color: Colors.white70,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Follow Us',
-                              style: GoogleFonts.roboto(
-                                fontSize: 16.0,
-                                color: Colors.white70,
-                              ),
-                            ),
-                            const SizedBox(width: 10.0),
-                            SvgPicture.asset(
-                              'lib/res/assets/icons/facebook.svg',
-                              height: 18.0,
-                              colorFilter: const ColorFilter.mode(
-                                  Colors.white, BlendMode.srcIn),
-                            ),
-                            const SizedBox(width: 10.0),
-                            SvgPicture.asset(
-                              'lib/res/assets/icons/twitter.svg',
-                              height: 18.0,
-                              colorFilter: const ColorFilter.mode(
-                                  Colors.white, BlendMode.srcIn),
-                            ),
-                            const SizedBox(width: 10.0),
-                            SvgPicture.asset(
-                              'lib/res/assets/icons/instagram.svg',
-                              height: 18.0,
-                              colorFilter: const ColorFilter.mode(
-                                  Colors.white, BlendMode.srcIn),
-                            ),
-                            const SizedBox(width: 10.0),
-                            SvgPicture.asset(
-                              'lib/res/assets/icons/linkedin.svg',
-                              height: 18.0,
-                              colorFilter: const ColorFilter.mode(
-                                  Colors.white, BlendMode.srcIn),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                )
+                const AppFooter(),
               ],
             ),
           ),

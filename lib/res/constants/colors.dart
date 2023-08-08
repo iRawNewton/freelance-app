@@ -7,5 +7,5 @@ class CustomColors {
 
   static const Color backgroundColor = Color(0xff6200EE);
   static const Color primaryTextColor = Color(0xff404145);
-  static const Color secondaryTextColor = Color(0xff62646A);
+  static const Color secondaryTextColor = Color(0xff6B7177);
 }
