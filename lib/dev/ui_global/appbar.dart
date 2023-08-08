@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:freelance_app/auth/screens/login.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TopAppBar extends StatefulWidget {
@@ -21,14 +22,24 @@ class _TopAppBarState extends State<TopAppBar> {
       ),
       leadingWidth: 120.0,
       actions: [
-        Text(
-          'Login',
-          style: GoogleFonts.lato(
-            fontSize: 14.0,
-            color: Colors.black87,
+        TextButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const LoginPage(),
+              ),
+            );
+          },
+          child: Text(
+            'Login',
+            style: GoogleFonts.lato(
+              fontSize: 14.0,
+              color: Colors.black87,
+            ),
           ),
         ),
-        const SizedBox(width: 25.0),
+        const SizedBox(width: 15.0),
         const Icon(Icons.menu),
         const SizedBox(width: 8.0),
       ],
