@@ -314,7 +314,7 @@ class _RatingsSectionState extends State<RatingsSection> {
                       color: Colors.amber,
                     ),
                     onRatingUpdate: (rating) {
-                      print(rating);
+                      debugPrint(rating.toString());
                     },
                   ),
                   const SizedBox(height: 10.0),

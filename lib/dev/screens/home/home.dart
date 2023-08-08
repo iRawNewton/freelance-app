@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:freelance_app/dev/screens/category_list/category.dart';
 import 'package:freelance_app/dev/screens/home/widgets/blog.dart';
 import 'package:freelance_app/dev/screens/home/widgets/category.dart';
@@ -11,6 +11,7 @@ import 'package:freelance_app/dev/screens/home/widgets/static_section1.dart';
 import 'package:freelance_app/dev/screens/home/widgets/stats.dart';
 import 'package:freelance_app/dev/screens/home/widgets/testimonial.dart';
 import 'package:freelance_app/dev/screens/home/widgets/trending_service.dart';
+import 'package:freelance_app/dev/ui_global/appbar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,27 +28,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
-            SliverAppBar(
-              toolbarHeight: 70.0,
-              leading: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: SvgPicture.network(
-                    'https://demoapus1.com/freeio/wp-content/themes/freeio/images/logo.svg'),
-              ),
-              leadingWidth: 120.0,
-              actions: [
-                Text(
-                  'Login',
-                  style: GoogleFonts.lato(
-                    fontSize: 14.0,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(width: 25.0),
-                const Icon(Icons.menu),
-                const SizedBox(width: 8.0),
-              ],
-            ),
+            const TopAppBar(),
           ],
           body: Container(
             width: MediaQuery.sizeOf(context).width,
