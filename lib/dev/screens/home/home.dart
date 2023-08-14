@@ -2,15 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:freelance_app/dev/screens/category_list/category.dart';
-import 'package:freelance_app/dev/screens/home/widgets/blog.dart';
-import 'package:freelance_app/dev/screens/home/widgets/category.dart';
-import 'package:freelance_app/dev/screens/home/widgets/search.dart';
-import 'package:freelance_app/dev/screens/home/widgets/services.dart';
-import 'package:freelance_app/dev/screens/home/widgets/static_section.dart';
-import 'package:freelance_app/dev/screens/home/widgets/static_section1.dart';
-import 'package:freelance_app/dev/screens/home/widgets/stats.dart';
-import 'package:freelance_app/dev/screens/home/widgets/testimonial.dart';
-import 'package:freelance_app/dev/screens/home/widgets/trending_service.dart';
+import 'package:freelance_app/dev/screens/home/views/blog.dart';
+import 'package:freelance_app/dev/screens/home/views/category.dart';
+import 'package:freelance_app/dev/screens/home/views/search.dart';
+import 'package:freelance_app/dev/screens/home/views/services.dart';
+import 'package:freelance_app/dev/screens/home/views/static_section.dart';
+import 'package:freelance_app/dev/screens/home/views/static_section1.dart';
+import 'package:freelance_app/dev/screens/home/views/stats.dart';
+import 'package:freelance_app/dev/screens/home/views/testimonial.dart';
+import 'package:freelance_app/dev/screens/home/views/trending_service.dart';
 import 'package:freelance_app/dev/ui_global/appbar.dart';
 import 'package:google_fonts/google_fonts.dart';
 

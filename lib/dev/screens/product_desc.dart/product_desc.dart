@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:freelance_app/dev/screens/product_desc.dart/widgets/about_us.dart';
-import 'package:freelance_app/dev/screens/product_desc.dart/widgets/basic.dart';
-import 'package:freelance_app/dev/screens/product_desc.dart/widgets/basic_stats.dart';
-import 'package:freelance_app/dev/screens/product_desc.dart/widgets/faqs.dart';
-import 'package:freelance_app/dev/screens/product_desc.dart/widgets/product_title.dart';
-import 'package:freelance_app/dev/screens/product_desc.dart/widgets/ratings.dart';
+import 'package:freelance_app/dev/screens/product_desc.dart/views/about_us.dart';
+import 'package:freelance_app/dev/screens/product_desc.dart/views/basic.dart';
+import 'package:freelance_app/dev/screens/product_desc.dart/views/basic_stats.dart';
+import 'package:freelance_app/dev/screens/product_desc.dart/views/faqs.dart';
+import 'package:freelance_app/dev/screens/product_desc.dart/views/product_title.dart';
+import 'package:freelance_app/dev/screens/product_desc.dart/views/ratings.dart';
 import 'package:freelance_app/dev/ui_global/footer.dart';
 import 'package:freelance_app/res/constants/colors.dart';
 import 'package:freelance_app/res/constants/strings.dart';

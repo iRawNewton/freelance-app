@@ -1,19 +1,18 @@
 import 'package:flutter_svg/svg.dart';
-import 'package:freelance_app/auth/screens/signup.dart';
 import 'package:freelance_app/auth/screens/widgets.dart';
 import 'package:freelance_app/dev/ui_global/footer.dart';
 import 'package:freelance_app/dev/ui_global/text_widget.dart';
 import 'package:freelance_app/res/constants/colors.dart';
 import 'package:neumorphic_ui/neumorphic_ui.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   final String _loginMessage =
       'Join the world\'s largest community of freelancers and connect with other experienced professionals.';
   @override
@@ -50,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                               children: [
                                 const SizedBox(height: 24.0),
                                 const CustomText(
-                                  title: 'Log In',
+                                  title: 'Register',
                                   size: 24.0,
                                   color: CustomColors.primaryTextColor,
                                   weight: FontWeight.bold,
@@ -98,18 +97,14 @@ class _LoginPageState extends State<LoginPage> {
                                               textInputType: TextInputType.text,
                                               hasPassword: true,
                                             ),
-                                            /* forgot password */
-                                            Align(
-                                              alignment: Alignment.centerRight,
-                                              child: TextButton(
-                                                onPressed: () {},
-                                                child: const CustomText(
-                                                  title: 'Forgot Password?',
-                                                  size: 14.0,
-                                                  color: Colors.blue,
-                                                ),
-                                              ),
+                                            /* confirm password */
+                                            const AuthWidget(
+                                              label: 'Confirm Password',
+                                              hintText: 'Confirm Password',
+                                              textInputType: TextInputType.text,
+                                              hasPassword: true,
                                             ),
+                                            const SizedBox(height: 24.0),
                                             /* button */
                                             SizedBox(
                                               width: double.infinity,
@@ -133,47 +128,19 @@ class _LoginPageState extends State<LoginPage> {
                                                   ),
                                                   onPressed: () {},
                                                   icon: const Icon(
-                                                    Icons.login,
+                                                    Icons.app_registration,
                                                     color: Colors.white,
                                                   ),
                                                   label: const CustomText(
-                                                    title: 'Log In',
+                                                    title: 'Register Now',
                                                     size: 16.0,
                                                     color: Colors.white,
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                            /* not a memeber */
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                const CustomText(
-                                                  title: 'Not a member?',
-                                                  size: 14.0,
-                                                  color: CustomColors
-                                                      .primaryTextColor,
-                                                ),
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const SignUpPage(),
-                                                      ),
-                                                    );
-                                                  },
-                                                  child: const CustomText(
-                                                    title: 'Register now',
-                                                    size: 14.0,
-                                                    color: Colors.blue,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
                                             /* social logins */
+                                            /* 
                                             const SizedBox(height: 25.0),
                                             Row(
                                               mainAxisAlignment:
@@ -262,7 +229,8 @@ class _LoginPageState extends State<LoginPage> {
                                                 ),
                                               ],
                                             ),
-                                            const SizedBox(height: 36.0),
+                                            */
+                                            const SizedBox(height: 42.0),
                                             /* end of form box */
                                           ],
                                         ),
