@@ -1,9 +1,11 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:freelance_app/auth/screens/signup.dart';
 import 'package:freelance_app/auth/screens/widgets.dart';
+import 'package:freelance_app/dev/screens/user/dashboard/user_dash.dart';
 import 'package:freelance_app/dev/ui_global/footer.dart';
 import 'package:freelance_app/dev/ui_global/text_widget.dart';
 import 'package:freelance_app/res/constants/colors.dart';
+import 'package:freelance_app/services/remoteservices.dart';
 import 'package:neumorphic_ui/neumorphic_ui.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,6 +18,15 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final String _loginMessage =
       'Join the world\'s largest community of freelancers and connect with other experienced professionals.';
+
+  postData() async {
+    var response = await RemoteService().deleteAdminData();
+    // if (response == '["Listing created successfully"]') {
+    //   setState(() {});
+    // } else {}
+    return response;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -131,7 +142,15 @@ class _LoginPageState extends State<LoginPage> {
                                                       ),
                                                     ),
                                                   ),
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const UserDashboard(),
+                                                      ),
+                                                    );
+                                                  },
                                                   icon: const Icon(
                                                     Icons.login,
                                                     color: Colors.white,

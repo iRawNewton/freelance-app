@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:freelance_app/dev/screens/checkout/checkout.dart';
 import 'package:freelance_app/dev/screens/product_desc.dart/views/about_us.dart';
 import 'package:freelance_app/dev/screens/product_desc.dart/views/basic.dart';
 import 'package:freelance_app/dev/screens/product_desc.dart/views/basic_stats.dart';
@@ -334,7 +335,14 @@ class _ProductDescState extends State<ProductDesc> {
                               50.0,
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Checkout(),
+                              ),
+                            );
+                          },
                           icon: const Directionality(
                             textDirection: TextDirection.ltr,
                             child: Icon(

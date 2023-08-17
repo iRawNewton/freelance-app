@@ -6,6 +6,9 @@ class ConstStrings {
   static const String unExpectedError = 'Your Unexpected Error Here';
   static const String emailError = 'Your Error Here';
   static const String passwordError = 'Your Error Here';
+  static const String baseUrl = 'https://freelancer-app.kyptronixllp.co.in';
 }
 
 const String iconLocation = 'lib/res/assets/icons';
+
+const String apiUrl = 'https://freelancer-app.kyptronixllp.co.in/';
