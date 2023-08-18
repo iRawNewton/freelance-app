@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
-            const TopAppBar(),
+            TopAppBar(onTap: () {}),
           ],
           body: Container(
             width: MediaQuery.sizeOf(context).width,

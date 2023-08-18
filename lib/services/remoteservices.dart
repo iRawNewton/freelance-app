@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:freelance_app/res/constants/strings.dart';
 
@@ -15,8 +14,8 @@ class RemoteService {
     String baseUrl = ConstStrings.baseUrl;
     String apiUrl = '$baseUrl/auth/admin_login.php';
 
-    DateTime now = DateTime.now();
-    String formattedTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
+    // DateTime now = DateTime.now();
+    // String formattedTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
 
     // Send the POST request
     var response = await http.post(Uri.parse(apiUrl), body: {
@@ -30,7 +29,7 @@ class RemoteService {
     });
 
     if (response.statusCode == 200) {
-      print('object');
+      // print('object');
       // final jsonResponse = jsonDecode(response.body);
       // final message = jsonResponse['message'];
       // return message.toString();

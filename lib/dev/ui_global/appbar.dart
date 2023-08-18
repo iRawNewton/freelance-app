@@ -4,7 +4,8 @@ import 'package:freelance_app/auth/screens/login.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TopAppBar extends StatefulWidget {
-  const TopAppBar({super.key});
+  const TopAppBar({super.key, required this.onTap});
+  final void Function() onTap;
 
   @override
   State<TopAppBar> createState() => _TopAppBarState();
@@ -40,7 +41,12 @@ class _TopAppBarState extends State<TopAppBar> {
           ),
         ),
         const SizedBox(width: 15.0),
-        const Icon(Icons.menu),
+        IconButton(
+          onPressed: widget.onTap,
+          icon: const Icon(
+            Icons.menu,
+          ),
+        ),
         const SizedBox(width: 8.0),
       ],
     );

@@ -32,7 +32,9 @@ class _CategoryPageState extends State<CategoryPage> {
       child: Scaffold(
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
-            const TopAppBar(),
+            TopAppBar(
+              onTap: () {},
+            ),
           ],
           body: Container(
             color: Colors.white70,

@@ -62,7 +62,7 @@ class _CheckoutState extends State<Checkout> {
               ],
             )
           ],
-          body: Container(
+          body: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Padding(

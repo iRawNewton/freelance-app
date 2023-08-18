@@ -7,7 +7,16 @@ import '../../../../../res/constants/dimens.dart';
 import '../../../../../res/constants/strings.dart';
 
 class UserProfileStats extends StatefulWidget {
-  const UserProfileStats({super.key});
+  const UserProfileStats({
+    super.key,
+    required this.image1,
+    required this.image2,
+    required this.title1,
+    required this.title2,
+    required this.stat1,
+    required this.stat2,
+  });
+  final String image1, image2, title1, title2, stat1, stat2;
 
   @override
   State<UserProfileStats> createState() => _UserProfileStatsState();
@@ -56,7 +65,7 @@ class _UserProfileStatsState extends State<UserProfileStats> {
                       Align(
                         alignment: Alignment.topLeft,
                         child: SvgPicture.asset(
-                          '$iconLocation/contract.svg',
+                          '$iconLocation/${widget.image1}',
                           colorFilter: const ColorFilter.mode(
                             CustomColors.primaryColor,
                             BlendMode.srcIn,
@@ -70,7 +79,7 @@ class _UserProfileStatsState extends State<UserProfileStats> {
                 ),
                 const SizedBox(height: 12.0),
                 Text(
-                  'Posted Projects',
+                  widget.title1,
                   style: GoogleFonts.roboto(
                     fontSize: 13.0,
                     fontWeight: FontWeight.w400,
@@ -79,7 +88,7 @@ class _UserProfileStatsState extends State<UserProfileStats> {
                 ),
                 const SizedBox(height: 4.0),
                 Text(
-                  '1',
+                  widget.stat1,
                   style: GoogleFonts.roboto(
                     fontSize: 16.0,
                     fontWeight: FontWeight.w500,
@@ -128,7 +137,7 @@ class _UserProfileStatsState extends State<UserProfileStats> {
                       Align(
                         alignment: Alignment.topLeft,
                         child: SvgPicture.asset(
-                          '$iconLocation/checked.svg',
+                          '$iconLocation/${widget.image2}',
                           colorFilter: const ColorFilter.mode(
                             CustomColors.primaryColor,
                             BlendMode.srcIn,
@@ -142,7 +151,7 @@ class _UserProfileStatsState extends State<UserProfileStats> {
                 ),
                 const SizedBox(height: 12.0),
                 Text(
-                  'Completed Projects',
+                  widget.title2,
                   style: GoogleFonts.roboto(
                     fontSize: 13.0,
                     fontWeight: FontWeight.w400,
@@ -151,7 +160,7 @@ class _UserProfileStatsState extends State<UserProfileStats> {
                 ),
                 const SizedBox(height: 4.0),
                 Text(
-                  '0',
+                  widget.stat2,
                   style: GoogleFonts.roboto(
                     fontSize: 16.0,
                     fontWeight: FontWeight.w500,
