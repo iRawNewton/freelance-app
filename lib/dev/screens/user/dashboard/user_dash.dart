@@ -66,6 +66,80 @@ class _UserDashboardState extends State<UserDashboard> {
                     ),
                     const SizedBox(height: 14.0),
                     // const SearchBar(),
+                    // post services
+                    SizedBox(
+                      height: 40.0,
+                      width: MediaQuery.sizeOf(context).width,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          backgroundColor: CustomColors.buttonColor,
+                        ),
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return SimpleDialog(
+                                  backgroundColor: Colors.white,
+                                  title: const Align(
+                                    alignment: Alignment.topCenter,
+                                    child: CustomText(
+                                      title: 'Select a service',
+                                      size: 20.0,
+                                      color: CustomColors.primaryTextColor,
+                                      weight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  children: [
+                                    const Divider(),
+                                    SimpleDialogOption(
+                                      onPressed: () {
+                                        Navigator.pop(context,
+                                            "Option 1"); // Return the chosen option
+                                      },
+                                      child: const CustomText(
+                                        title: '1. Freelancing',
+                                        size: 16.0,
+                                        color: CustomColors.primaryTextColor,
+                                      ),
+                                    ),
+                                    SimpleDialogOption(
+                                      onPressed: () {
+                                        Navigator.pop(context,
+                                            "Option 2"); // Return the chosen option
+                                      },
+                                      child: const CustomText(
+                                        title: '2. Post a Service',
+                                        size: 16.0,
+                                        color: CustomColors.primaryTextColor,
+                                      ),
+                                    ),
+                                    SimpleDialogOption(
+                                      onPressed: () {
+                                        Navigator.pop(context,
+                                            "Option 3"); // Return the chosen option
+                                      },
+                                      child: const CustomText(
+                                        title: '3. Post a JOB',
+                                        size: 16.0,
+                                        color: CustomColors.primaryTextColor,
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              });
+                        },
+                        child: const CustomText(
+                          title: 'Post a service',
+                          size: 14.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 40.0),
+                    // view full profile
                     SizedBox(
                       height: 40.0,
                       width: MediaQuery.sizeOf(context).width,

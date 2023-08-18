@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:freelance_app/dev/screens/user/profile_info/personal_info.dart';
 import 'package:freelance_app/dev/ui_global/drawer_list.dart';
 import 'package:freelance_app/dev/ui_global/text_widget.dart';
 import 'package:freelance_app/res/constants/colors.dart';
@@ -94,7 +95,15 @@ class _UserDrawerState extends State<UserDrawer> {
                   icon: Icons.dashboard,
                   title: 'Dashboard',
                 ),
-                const DrawerList(
+                DrawerList(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PersonalInfo(),
+                      ),
+                    );
+                  },
                   icon: Icons.edit,
                   title: 'Edit Profile',
                 ),

@@ -13,12 +13,14 @@ class CheckoutFormWidget extends StatefulWidget {
     required this.hintText,
     required this.isImp,
     required this.textInputType,
+    this.maxLines,
   });
   final double width;
   final TextEditingController controller;
   final String label, hintText;
   final bool isImp;
   final TextInputType textInputType;
+  final int? maxLines;
   @override
   State<CheckoutFormWidget> createState() => _CheckoutFormWidgetState();
 }
@@ -52,6 +54,7 @@ class _CheckoutFormWidgetState extends State<CheckoutFormWidget> {
           child: TextFormField(
             controller: widget.controller,
             keyboardType: widget.textInputType,
+            maxLines: widget.maxLines,
             textCapitalization: TextCapitalization.sentences,
             style: GoogleFonts.roboto(
               color: CustomColors.primaryTextColor,

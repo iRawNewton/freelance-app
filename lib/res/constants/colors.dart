@@ -9,4 +9,10 @@ class CustomColors {
 
   static const Color primaryTextColor = Color(0xff404145);
   static const Color secondaryTextColor = Color(0xff6B7177);
+
+  // bootstrap colors
+  static const Color danger = Color(0xffd9534f);
+  static const Color success = Color(0xff5cb85c);
+  static const Color warning = Color(0xfff0ad4e);
+  static const Color info = Color(0xff5bc0de);
 }
