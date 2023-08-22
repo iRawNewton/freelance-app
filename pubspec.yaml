@@ -46,6 +46,11 @@ dependencies:
   fluent_ui: ^4.7.2
   intl: ^0.18.0
   http: ^1.1.0
+  textfield_tags: ^2.0.2
+  intl_phone_number_input: ^0.7.3+1
+  change_app_package_name: ^1.1.0
+  firebase_core: ^2.15.1
+  firebase_auth: ^4.7.3
 
 dev_dependencies:
   flutter_test:

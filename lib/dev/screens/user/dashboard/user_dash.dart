@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_app/dev/screens/user/dashboard/views/profile_stats.dart';
 import 'package:freelance_app/dev/screens/user/drawer/user_drawer.dart';
+import 'package:freelance_app/dev/screens/user/post_service/post.dart';
 import 'package:freelance_app/dev/ui_global/text_widget.dart';
 import 'package:freelance_app/res/constants/colors.dart';
 import '../../../ui_global/appbar.dart';
@@ -96,8 +97,13 @@ class _UserDashboardState extends State<UserDashboard> {
                                     const Divider(),
                                     SimpleDialogOption(
                                       onPressed: () {
-                                        Navigator.pop(context,
-                                            "Option 1"); // Return the chosen option
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const PostServiceFreelance(),
+                                          ),
+                                        ); // Return the chosen option
                                       },
                                       child: const CustomText(
                                         title: '1. Freelancing',

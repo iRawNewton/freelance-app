@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "586917316827",
+    "project_id": "freelance-app-4a354",
+    "storage_bucket": "freelance-app-4a354.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586917316827:android:30d85e12cc56771311a4fe",
+        "android_client_info": {
+          "package_name": "com.kyptronix.freelance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586917316827-m7n9bsmojs1ebm2169jn1mucf6c4pmo1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCa-CyihftcMjDHaYGxGAMm6l0pgQIUkpU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "586917316827-m7n9bsmojs1ebm2169jn1mucf6c4pmo1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

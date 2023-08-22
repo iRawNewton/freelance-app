@@ -139,6 +139,22 @@ class _SignUpPageState extends State<SignUpPage> {
                                                 ),
                                               ),
                                             ),
+                                            // login
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const CustomText(
+                                                  title:
+                                                      'Alread have an account? login now',
+                                                  size: 12.0,
+                                                  color: CustomColors
+                                                      .primaryTextColor,
+                                                ),
+                                              ),
+                                            ),
                                             /* social logins */
                                             /* 
                                             const SizedBox(height: 25.0),

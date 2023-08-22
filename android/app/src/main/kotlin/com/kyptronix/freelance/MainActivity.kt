@@ -1,4 +1,4 @@
-package com.example.freelance_app
+package com.kyptronix.freelance
 
 import io.flutter.embedding.android.FlutterActivity
 
