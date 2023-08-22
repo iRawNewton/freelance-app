@@ -1,4 +1,9 @@
 // import 'package:intl/intl.dart';
+import 'dart:convert';
+import 'dart:math';
+
+import 'package:crypto/crypto.dart';
+import 'package:freelance_app/res/constants/convert.dart';
 import 'package:http/http.dart' as http;
 import 'package:freelance_app/res/constants/strings.dart';
 
@@ -6,6 +11,38 @@ String baseUrl = ConstStrings.baseUrl;
 String apiUrl = '$baseUrl/auth/admin_login.php';
 
 class RemoteService {
+  // auth
+  Future signUp(
+    String email,
+    String password,
+  ) async {
+    String baseUrl = ConstStrings.baseUrl;
+    String apiUrl = '$baseUrl/auth/user_register.php';
+
+    String username = generateUsername(email);
+    String hashPassword = generateSHA256String(password);
+
+    // DateTime now = DateTime.now();
+    // String formattedTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
+
+    // Send the POST request
+    var response = await http.post(Uri.parse(apiUrl), body: {
+      'username': username,
+      'email': email,
+      'password_hash': hashPassword,
+    });
+
+    if (response.statusCode == 200) {
+      // print('object');
+      // final jsonResponse = jsonDecode(response.body);
+      // final message = jsonResponse['message'];
+      // return message.toString();
+    } else {
+      return 'Error occurred';
+    }
+  }
+
+  // ********************
   Future postCategory(
     String categoryName,
     String categoryIcon,

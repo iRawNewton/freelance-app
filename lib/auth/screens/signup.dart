@@ -1,4 +1,5 @@
 import 'package:flutter_svg/svg.dart';
+import 'package:freelance_app/auth/bloc/post_bloc_bloc.dart';
 import 'package:freelance_app/auth/screens/widgets.dart';
 import 'package:freelance_app/dev/ui_global/footer.dart';
 import 'package:freelance_app/dev/ui_global/text_widget.dart';
@@ -15,6 +16,19 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final String _loginMessage =
       'Join the world\'s largest community of freelancers and connect with other experienced professionals.';
+
+  // variables
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _confirmPassword = TextEditingController();
+
+  // final PostBlocBloc postBloc = PostBlocBloc();
+  // @override
+  // void initState() {
+  //   postBloc.add(PostInitialPostEvent());
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -83,7 +97,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                             const SizedBox(height: 15.0),
                                             /* start of form box */
                                             /* email */
-                                            const AuthWidget(
+                                            AuthWidget(
+                                              controller: _email,
                                               label: 'Email',
                                               hintText: 'Email',
                                               textInputType:
@@ -91,14 +106,16 @@ class _SignUpPageState extends State<SignUpPage> {
                                               hasPassword: false,
                                             ),
                                             /* password */
-                                            const AuthWidget(
+                                            AuthWidget(
+                                              controller: _password,
                                               label: 'Password',
                                               hintText: 'Password',
                                               textInputType: TextInputType.text,
                                               hasPassword: true,
                                             ),
                                             /* confirm password */
-                                            const AuthWidget(
+                                            AuthWidget(
+                                              controller: _confirmPassword,
                                               label: 'Confirm Password',
                                               hintText: 'Confirm Password',
                                               textInputType: TextInputType.text,

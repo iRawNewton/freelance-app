@@ -6,11 +6,13 @@ import '../../res/constants/colors.dart';
 class AuthWidget extends StatefulWidget {
   const AuthWidget({
     super.key,
+    required this.controller,
     required this.label,
     required this.hintText,
     required this.textInputType,
     required this.hasPassword,
   });
+  final TextEditingController controller;
   final String label, hintText;
   final TextInputType textInputType;
   final bool hasPassword;
@@ -55,6 +57,7 @@ class _AuthWidgetState extends State<AuthWidget> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20.0, 0.0, 10.0, 0.0),
             child: TextField(
+              controller: widget.controller,
               keyboardType: widget.textInputType,
               obscureText: isPassword,
               decoration: InputDecoration(

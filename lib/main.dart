@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:freelance_app/dev/screens/home/home.dart';
 
-void main() {
+void main() async {
+  // firebase
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  // await FirebaseMessaging.instance.getInitialMessage();
   runApp(const MyApp());
 }
 

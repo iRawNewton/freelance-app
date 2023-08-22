@@ -19,6 +19,8 @@ class _LoginPageState extends State<LoginPage> {
   final String _loginMessage =
       'Join the world\'s largest community of freelancers and connect with other experienced professionals.';
 
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
   postData() async {
     var response = await RemoteService().deleteAdminData();
     // if (response == '["Listing created successfully"]') {
@@ -95,7 +97,8 @@ class _LoginPageState extends State<LoginPage> {
                                             const SizedBox(height: 15.0),
                                             /* start of form box */
                                             /* email */
-                                            const AuthWidget(
+                                            AuthWidget(
+                                              controller: _email,
                                               label: 'Email',
                                               hintText: 'Email',
                                               textInputType:
@@ -103,7 +106,8 @@ class _LoginPageState extends State<LoginPage> {
                                               hasPassword: false,
                                             ),
                                             /* password */
-                                            const AuthWidget(
+                                            AuthWidget(
+                                              controller: _password,
                                               label: 'Password',
                                               hintText: 'Password',
                                               textInputType: TextInputType.text,
