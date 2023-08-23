@@ -1,6 +1,9 @@
 // import 'package:intl/intl.dart';
+// DateTime now = DateTime.now();
+// String formattedTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
 import 'dart:convert';
 
+import 'package:freelance_app/models/users.dart';
 import 'package:freelance_app/res/constants/convert.dart';
 import 'package:http/http.dart' as http;
 import 'package:freelance_app/res/constants/strings.dart';
@@ -8,7 +11,7 @@ import 'package:freelance_app/res/constants/strings.dart';
 String baseUrl = ConstStrings.baseUrl;
 String apiUrl = '$baseUrl/auth/admin_login.php';
 
-class RemoteService {
+class PostRemoteService {
   // auth
   Future<String> signUp(
     String email,
@@ -19,9 +22,6 @@ class RemoteService {
 
     String username = generateUsername(email);
     String hashPassword = generateSHA256String(password);
-
-    // DateTime now = DateTime.now();
-    // String formattedTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
 
     // Send the POST request
     var response = await http.post(Uri.parse(apiUrl), body: {
@@ -123,5 +123,24 @@ class RemoteService {
       // print("Admin data deleted successfully");
       // print(json.decode(response.body));
     } else {}
+  }
+}
+
+class GetRemoteService {
+  Future<List<Users>?> getUserInfo(email) async {
+    String baseUrl = ConstStrings.baseUrl;
+    String apiUrl = '$baseUrl/auth/user_register.php';
+
+    // Create query parameters
+    Map<String, String> headers = {
+      'email': email,
+    };
+
+    var response = await http.get(Uri.parse(apiUrl), headers: headers);
+    if (response.statusCode == 200) {
+      var json = response.body;
+      return usersFromJson(json);
+    }
+    return null;
   }
 }

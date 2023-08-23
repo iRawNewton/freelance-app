@@ -14,6 +14,7 @@ class Users {
   String userId;
   String username;
   String email;
+  String passwordHash;
   String firstName;
   String lastName;
   String languageProficiency;
@@ -27,6 +28,7 @@ class Users {
     required this.userId,
     required this.username,
     required this.email,
+    required this.passwordHash,
     required this.firstName,
     required this.lastName,
     required this.languageProficiency,
@@ -41,6 +43,7 @@ class Users {
         userId: json["user_id"],
         username: json["username"],
         email: json["email"],
+        passwordHash: json["password_hash"],
         firstName: json["first_name"],
         lastName: json["last_name"],
         languageProficiency: json["language_proficiency"],
@@ -55,6 +58,7 @@ class Users {
         "user_id": userId,
         "username": username,
         "email": email,
+        "password_hash": passwordHash,
         "first_name": firstName,
         "last_name": lastName,
         "language_proficiency": languageProficiency,

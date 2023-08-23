@@ -33,7 +33,7 @@ class _SignUpPageState extends State<SignUpPage> {
   bool isPasswordValid = false;
 
   Future signUp<String>(context, email, password) async {
-    var response = await RemoteService().signUp(email, password);
+    var response = await PostRemoteService().signUp(email, password);
 
     if (response == 'Data inserted successfully') {
       setState(() {
