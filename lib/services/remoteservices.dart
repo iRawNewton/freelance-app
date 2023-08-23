@@ -1,8 +1,6 @@
 // import 'package:intl/intl.dart';
 import 'dart:convert';
-import 'dart:math';
 
-import 'package:crypto/crypto.dart';
 import 'package:freelance_app/res/constants/convert.dart';
 import 'package:http/http.dart' as http;
 import 'package:freelance_app/res/constants/strings.dart';
@@ -12,7 +10,7 @@ String apiUrl = '$baseUrl/auth/admin_login.php';
 
 class RemoteService {
   // auth
-  Future signUp(
+  Future<String> signUp(
     String email,
     String password,
   ) async {
@@ -33,10 +31,12 @@ class RemoteService {
     });
 
     if (response.statusCode == 200) {
-      // print('object');
-      // final jsonResponse = jsonDecode(response.body);
-      // final message = jsonResponse['message'];
-      // return message.toString();
+      var jsonResponse = jsonDecode(response.body);
+      if (jsonResponse == 'Data inserted successfully') {
+        return 'Data inserted successfully';
+      } else {
+        return 'Dublicate data';
+      }
     } else {
       return 'Error occurred';
     }

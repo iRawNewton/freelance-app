@@ -24,3 +24,17 @@ generateSHA256String(String password) {
   // Convert the digest to a hex string
   return (digest.toString());
 }
+
+bool emailValidityChecker(String email) {
+  final emailRegExp = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+  return emailRegExp.hasMatch(email);
+}
+
+bool passwordValidChecker(String password) {
+  // Regular expression to match password criteria
+  final passwordRegExp = RegExp(
+    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$',
+  );
+
+  return passwordRegExp.hasMatch(password);
+}

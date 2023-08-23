@@ -1,10 +1,15 @@
 import 'package:flutter_svg/svg.dart';
-import 'package:freelance_app/auth/bloc/post_bloc_bloc.dart';
 import 'package:freelance_app/auth/screens/widgets.dart';
+import 'package:freelance_app/dev/screens/user/edit_profile/steptest.dart';
 import 'package:freelance_app/dev/ui_global/footer.dart';
+import 'package:freelance_app/dev/ui_global/loading_indicator.dart';
+import 'package:freelance_app/dev/ui_global/snackbar.dart';
 import 'package:freelance_app/dev/ui_global/text_widget.dart';
 import 'package:freelance_app/res/constants/colors.dart';
+import 'package:freelance_app/services/remoteservices.dart';
 import 'package:neumorphic_ui/neumorphic_ui.dart';
+
+import '../../res/constants/convert.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -22,12 +27,31 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
 
-  // final PostBlocBloc postBloc = PostBlocBloc();
-  // @override
-  // void initState() {
-  //   postBloc.add(PostInitialPostEvent());
-  //   super.initState();
-  // }
+  bool isPasswordCorrect = false;
+  bool isLoading = false;
+  bool isEmailValid = false;
+  bool isPasswordValid = false;
+
+  Future signUp<String>(context, email, password) async {
+    var response = await RemoteService().signUp(email, password);
+
+    if (response == 'Data inserted successfully') {
+      // customSnackBar(context, 'Registered Successfully', CustomColors.danger,
+      //     Colors.white);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Home(),
+        ),
+      );
+    } else if (response == 'Dublicate data') {
+      customSnackBar(context, 'An account with same email id already exists',
+          CustomColors.warning, Colors.black87);
+    } else {
+      customSnackBar(context, 'Error! Please try again.', CustomColors.danger,
+          Colors.white);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,246 +69,278 @@ class _SignUpPageState extends State<SignUpPage> {
             SizedBox(width: 8.0),
           ],
         ),
-        body: Container(
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height,
-          color: CustomColors.accentColor2,
-          child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Column(
+        body: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height,
+              color: CustomColors.accentColor2,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Column(
-                              children: [
-                                const SizedBox(height: 24.0),
-                                const CustomText(
-                                  title: 'Register',
-                                  size: 24.0,
-                                  color: CustomColors.primaryTextColor,
-                                  weight: FontWeight.bold,
-                                ),
-                                const SizedBox(height: 10.0),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 14.0),
-                                  child: CustomText(
-                                    title: _loginMessage,
-                                    size: 14.0,
-                                    color: CustomColors.primaryTextColor,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                const SizedBox(height: 24.0),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 14.0),
-                                  child: Card(
-                                    elevation: 0,
-                                    child: Padding(
+                          Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Column(
+                                  children: [
+                                    const SizedBox(height: 24.0),
+                                    const CustomText(
+                                      title: 'Register',
+                                      size: 24.0,
+                                      color: CustomColors.primaryTextColor,
+                                      weight: FontWeight.bold,
+                                    ),
+                                    const SizedBox(height: 10.0),
+                                    Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 12.0),
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const SizedBox(height: 15.0),
-                                            /* start of form box */
-                                            /* email */
-                                            AuthWidget(
-                                              controller: _email,
-                                              label: 'Email',
-                                              hintText: 'Email',
-                                              textInputType:
-                                                  TextInputType.emailAddress,
-                                              hasPassword: false,
-                                            ),
-                                            /* password */
-                                            AuthWidget(
-                                              controller: _password,
-                                              label: 'Password',
-                                              hintText: 'Password',
-                                              textInputType: TextInputType.text,
-                                              hasPassword: true,
-                                            ),
-                                            /* confirm password */
-                                            AuthWidget(
-                                              controller: _confirmPassword,
-                                              label: 'Confirm Password',
-                                              hintText: 'Confirm Password',
-                                              textInputType: TextInputType.text,
-                                              hasPassword: true,
-                                            ),
-                                            const SizedBox(height: 24.0),
-                                            /* button */
-                                            SizedBox(
-                                              width: double.infinity,
-                                              child: Directionality(
-                                                textDirection:
-                                                    TextDirection.rtl,
-                                                child: ElevatedButton.icon(
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    elevation: 0,
-                                                    backgroundColor:
-                                                        CustomColors
-                                                            .buttonColor,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                        10.0,
+                                          horizontal: 14.0),
+                                      child: CustomText(
+                                        title: _loginMessage,
+                                        size: 14.0,
+                                        color: CustomColors.primaryTextColor,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 24.0),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 14.0),
+                                      child: Card(
+                                        elevation: 0,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 12.0),
+                                          child: SizedBox(
+                                            width: double.infinity,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const SizedBox(height: 15.0),
+                                                /* start of form box */
+                                                /* email */
+                                                AuthWidget(
+                                                  controller: _email,
+                                                  label: 'Email',
+                                                  hintText: 'Email',
+                                                  textInputType: TextInputType
+                                                      .emailAddress,
+                                                  hasPassword: false,
+                                                  onChanged: (value) {
+                                                    if (emailValidityChecker(
+                                                        _email.text)) {
+                                                      setState(() {
+                                                        isEmailValid = false;
+                                                      });
+                                                    } else {
+                                                      setState(() {
+                                                        isEmailValid = true;
+                                                      });
+                                                    }
+                                                  },
+                                                ),
+                                                (isEmailValid)
+                                                    ? const Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 15.0),
+                                                        child: Align(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: CustomText(
+                                                            title:
+                                                                'Invalid email address',
+                                                            size: 14.0,
+                                                            color: CustomColors
+                                                                .danger,
+                                                          ),
+                                                        ),
+                                                      )
+                                                    : const SizedBox(),
+                                                /* password */
+                                                AuthWidget(
+                                                  controller: _password,
+                                                  label: 'Password',
+                                                  hintText: 'Password',
+                                                  textInputType:
+                                                      TextInputType.text,
+                                                  hasPassword: true,
+                                                  onChanged: (value) {
+                                                    if (passwordValidChecker(
+                                                        _password.text)) {
+                                                      setState(() {
+                                                        isPasswordValid = false;
+                                                      });
+                                                    } else {
+                                                      setState(() {
+                                                        isPasswordValid = true;
+                                                      });
+                                                    }
+                                                  },
+                                                ),
+                                                (isPasswordValid)
+                                                    ? const Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 15.0),
+                                                        child: Align(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: CustomText(
+                                                            title:
+                                                                'Password must be at least 8 characters long and contain 1 uppercase letter, 1 lowercase letter, and 1 number.',
+                                                            size: 14.0,
+                                                            color: CustomColors
+                                                                .danger,
+                                                          ),
+                                                        ),
+                                                      )
+                                                    : const SizedBox(),
+                                                /* confirm password */
+                                                AuthWidget(
+                                                  controller: _confirmPassword,
+                                                  label: 'Confirm Password',
+                                                  hintText: 'Confirm Password',
+                                                  textInputType:
+                                                      TextInputType.text,
+                                                  hasPassword: true,
+                                                  onChanged: (value) {
+                                                    if (_password.text !=
+                                                        _confirmPassword.text) {
+                                                      setState(() {
+                                                        isPasswordCorrect =
+                                                            true;
+                                                      });
+                                                    } else if (_password.text ==
+                                                        _confirmPassword.text) {
+                                                      setState(() {
+                                                        isPasswordCorrect =
+                                                            false;
+                                                      });
+                                                    }
+                                                  },
+                                                ),
+                                                (isPasswordCorrect)
+                                                    ? const Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 15.0),
+                                                        child: Align(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: CustomText(
+                                                            title:
+                                                                'Password do not match',
+                                                            size: 14.0,
+                                                            color: CustomColors
+                                                                .danger,
+                                                          ),
+                                                        ),
+                                                      )
+                                                    : const SizedBox(),
+
+                                                const SizedBox(height: 24.0),
+                                                /* button */
+                                                SizedBox(
+                                                  width: double.infinity,
+                                                  child: Directionality(
+                                                    textDirection:
+                                                        TextDirection.rtl,
+                                                    child: ElevatedButton.icon(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        elevation: 0,
+                                                        backgroundColor:
+                                                            CustomColors
+                                                                .buttonColor,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                            10.0,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      onPressed: () {
+                                                        if (_email.text
+                                                                .isNotEmpty &&
+                                                            (isPasswordCorrect ==
+                                                                false)) {
+                                                          signUp(
+                                                              context,
+                                                              _email.text,
+                                                              _password.text);
+                                                        } else {
+                                                          customSnackBar(
+                                                            context,
+                                                            'Fields empty or invalid!',
+                                                            CustomColors
+                                                                .warning,
+                                                            Colors.black87,
+                                                          );
+                                                        }
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons.app_registration,
+                                                        color: Colors.white,
+                                                      ),
+                                                      label: const CustomText(
+                                                        title: 'Register Now',
+                                                        size: 16.0,
+                                                        color: Colors.white,
                                                       ),
                                                     ),
                                                   ),
-                                                  onPressed: () {},
-                                                  icon: const Icon(
-                                                    Icons.app_registration,
-                                                    color: Colors.white,
+                                                ),
+                                                // login
+                                                Align(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  child: TextButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: const CustomText(
+                                                      title:
+                                                          'Alread have an account? Login now',
+                                                      size: 12.0,
+                                                      color: CustomColors
+                                                          .primaryTextColor,
+                                                    ),
                                                   ),
-                                                  label: const CustomText(
-                                                    title: 'Register Now',
-                                                    size: 16.0,
-                                                    color: Colors.white,
-                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                            // login
-                                            Align(
-                                              alignment: Alignment.centerRight,
-                                              child: TextButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: const CustomText(
-                                                  title:
-                                                      'Alread have an account? login now',
-                                                  size: 12.0,
-                                                  color: CustomColors
-                                                      .primaryTextColor,
-                                                ),
-                                              ),
-                                            ),
-                                            /* social logins */
-                                            /* 
-                                            const SizedBox(height: 25.0),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                SizedBox(
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.3,
-                                                  child: const Divider(),
-                                                ),
-                                                const CustomText(
-                                                  title: 'or log in with',
-                                                  size: 14.0,
-                                                  color: CustomColors
-                                                      .primaryTextColor,
-                                                ),
-                                                SizedBox(
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.3,
-                                                  child: const Divider(),
-                                                ),
+
+                                                const SizedBox(height: 42.0),
+                                                /* end of form box */
                                               ],
                                             ),
-                                            const SizedBox(height: 40.0),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Neumorphic(
-                                                  style: const NeumorphicStyle(
-                                                    color: Colors.white,
-                                                    depth: 2.0,
-                                                    lightSource:
-                                                        LightSource.top,
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Image.asset(
-                                                      'lib/res/assets/icons/facebook_logo.png',
-                                                      height: 40.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 40.0),
-                                                Neumorphic(
-                                                  style: const NeumorphicStyle(
-                                                    color: Colors.white,
-                                                    depth: 2.0,
-                                                    lightSource:
-                                                        LightSource.top,
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Image.asset(
-                                                      'lib/res/assets/icons/google_logo.png',
-                                                      height: 40.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 40.0),
-                                                Neumorphic(
-                                                  style: const NeumorphicStyle(
-                                                    color: Colors.white,
-                                                    depth: 2.0,
-                                                    lightSource:
-                                                        LightSource.top,
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Image.asset(
-                                                      'lib/res/assets/icons/apple_logo.png',
-                                                      height: 40.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            */
-                                            const SizedBox(height: 42.0),
-                                            /* end of form box */
-                                          ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
+
+                          // Add other content in the SingleChildScrollView as needed
                         ],
                       ),
-
-                      // Add other content in the SingleChildScrollView as needed
-                    ],
+                    ),
                   ),
-                ),
+                  const AppFooter(), // This will stay at the bottom
+                ],
               ),
-              const AppFooter(), // This will stay at the bottom
-            ],
-          ),
+            ),
+            if (isLoading) const LoadingIndicator(),
+          ],
         ),
       ),
     );
