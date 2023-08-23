@@ -204,7 +204,7 @@ class _PostServiceFreelanceState extends State<PostServiceFreelance> {
                             const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3),
                         itemBuilder: (context, index) {
-                          return Row(
+                          return const Row(
                             children: [],
                           );
                         });

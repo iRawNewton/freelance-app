@@ -36,8 +36,13 @@ class _SignUpPageState extends State<SignUpPage> {
     var response = await RemoteService().signUp(email, password);
 
     if (response == 'Data inserted successfully') {
-      // customSnackBar(context, 'Registered Successfully', CustomColors.danger,
-      //     Colors.white);
+      setState(() {
+        isLoading = false;
+      });
+      _email.clear();
+      _password.clear();
+      _confirmPassword.clear();
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -45,12 +50,26 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       );
     } else if (response == 'Dublicate data') {
-      customSnackBar(context, 'An account with same email id already exists',
-          CustomColors.warning, Colors.black87);
+      setState(() {
+        isLoading = false;
+      });
+      customSnackBar(context, 'Error! Please try again', CustomColors.warning,
+          Colors.black87);
     } else {
-      customSnackBar(context, 'Error! Please try again.', CustomColors.danger,
-          Colors.white);
+      setState(() {
+        isLoading = false;
+      });
+      customSnackBar(context, 'An account with same email id already exists',
+          CustomColors.danger, Colors.white);
     }
+  }
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    _confirmPassword.dispose();
+    super.dispose();
   }
 
   @override
@@ -123,6 +142,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                               children: [
                                                 const SizedBox(height: 15.0),
                                                 /* start of form box */
+
                                                 /* email */
                                                 AuthWidget(
                                                   controller: _email,
@@ -162,6 +182,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                                         ),
                                                       )
                                                     : const SizedBox(),
+
                                                 /* password */
                                                 AuthWidget(
                                                   controller: _password,
@@ -201,6 +222,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                                         ),
                                                       )
                                                     : const SizedBox(),
+
                                                 /* confirm password */
                                                 AuthWidget(
                                                   controller: _confirmPassword,
@@ -245,6 +267,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                                     : const SizedBox(),
 
                                                 const SizedBox(height: 24.0),
+
                                                 /* button */
                                                 SizedBox(
                                                   width: double.infinity,
@@ -268,6 +291,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                                         ),
                                                       ),
                                                       onPressed: () {
+                                                        setState(() {
+                                                          isLoading = true;
+                                                        });
                                                         if (_email.text
                                                                 .isNotEmpty &&
                                                             (isPasswordCorrect ==
@@ -277,6 +303,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                                               _email.text,
                                                               _password.text);
                                                         } else {
+                                                          setState(() {
+                                                            isLoading = false;
+                                                          });
                                                           customSnackBar(
                                                             context,
                                                             'Fields empty or invalid!',
@@ -298,6 +327,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                                     ),
                                                   ),
                                                 ),
+
                                                 // login
                                                 Align(
                                                   alignment:

@@ -29,7 +29,6 @@ class RemoteService {
       'email': email,
       'password_hash': hashPassword,
     });
-
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       if (jsonResponse == 'Data inserted successfully') {

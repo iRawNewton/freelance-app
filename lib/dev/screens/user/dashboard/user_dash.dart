@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_app/dev/screens/user/dashboard/views/profile_stats.dart';
 import 'package:freelance_app/dev/screens/user/drawer/user_drawer.dart';
-import 'package:freelance_app/dev/screens/user/post_service/post.dart';
 import 'package:freelance_app/dev/screens/user/profile_info/personal_info.dart';
 import 'package:freelance_app/dev/ui_global/text_widget.dart';
 import 'package:freelance_app/res/constants/colors.dart';

@@ -12,12 +12,14 @@ class AuthWidget extends StatefulWidget {
     required this.textInputType,
     required this.hasPassword,
     this.onChanged,
+    this.onEditingComplete,
   });
   final TextEditingController controller;
   final String label, hintText;
   final TextInputType textInputType;
   final bool hasPassword;
   final void Function(String)? onChanged;
+  final void Function()? onEditingComplete;
   @override
   State<AuthWidget> createState() => _AuthWidgetState();
 }
@@ -81,6 +83,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                     : null,
               ),
               onChanged: widget.onChanged,
+              onEditingComplete: widget.onEditingComplete,
             ),
           ),
         ),
