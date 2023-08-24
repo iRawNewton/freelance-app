@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:freelance_app/dev/screens/home/home.dart';
+import 'UI/global/home/home.dart';
 
 void main() async {
   // firebase

@@ -3,6 +3,7 @@
 // String formattedTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freelance_app/models/users.dart';
 import 'package:freelance_app/res/constants/convert.dart';
 import 'package:http/http.dart' as http;
@@ -32,6 +33,11 @@ class PostRemoteService {
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       if (jsonResponse == 'Data inserted successfully') {
+        // create account on firebase
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
         return 'Data inserted successfully';
       } else {
         return 'Dublicate data';
@@ -41,6 +47,7 @@ class PostRemoteService {
     }
   }
 
+// --------------------------------------------------------
   // ********************
   Future postCategory(
     String categoryName,

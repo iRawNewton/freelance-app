@@ -1,14 +1,14 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:freelance_app/auth/screens/widgets.dart';
-import 'package:freelance_app/dev/screens/user/edit_profile/steptest.dart';
-import 'package:freelance_app/dev/ui_global/footer.dart';
-import 'package:freelance_app/dev/ui_global/loading_indicator.dart';
-import 'package:freelance_app/dev/ui_global/snackbar.dart';
-import 'package:freelance_app/dev/ui_global/text_widget.dart';
+import 'package:freelance_app/res/ui_global/footer.dart';
+import 'package:freelance_app/res/ui_global/loading_indicator.dart';
+import 'package:freelance_app/res/ui_global/snackbar.dart';
+import 'package:freelance_app/res/ui_global/text_widget.dart';
 import 'package:freelance_app/res/constants/colors.dart';
 import 'package:freelance_app/services/remoteservices.dart';
 import 'package:neumorphic_ui/neumorphic_ui.dart';
 
+import '../../UI/global/home/home.dart';
 import '../../res/constants/convert.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -46,7 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const Home(),
+          builder: (context) => const HomePage(),
         ),
       );
     } else if (response == 'Dublicate data') {
@@ -299,9 +299,11 @@ class _SignUpPageState extends State<SignUpPage> {
                                                             (isPasswordCorrect ==
                                                                 false)) {
                                                           signUp(
-                                                              context,
-                                                              _email.text,
-                                                              _password.text);
+                                                            context,
+                                                            _email.text.trim(),
+                                                            _password.text
+                                                                .trim(),
+                                                          );
                                                         } else {
                                                           setState(() {
                                                             isLoading = false;

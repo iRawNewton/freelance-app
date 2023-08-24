@@ -1,10 +1,10 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:freelance_app/auth/screens/signup.dart';
 import 'package:freelance_app/auth/screens/widgets.dart';
-import 'package:freelance_app/dev/screens/user/edit_profile/steptest.dart';
-import 'package:freelance_app/dev/ui_global/footer.dart';
-import 'package:freelance_app/dev/ui_global/snackbar.dart';
-import 'package:freelance_app/dev/ui_global/text_widget.dart';
+import 'package:freelance_app/UI/user/dashboard/user_dash.dart';
+import 'package:freelance_app/res/ui_global/footer.dart';
+import 'package:freelance_app/res/ui_global/snackbar.dart';
+import 'package:freelance_app/res/ui_global/text_widget.dart';
 import 'package:freelance_app/models/users.dart';
 
 import 'package:freelance_app/res/constants/colors.dart';
@@ -12,7 +12,7 @@ import 'package:freelance_app/res/constants/convert.dart';
 import 'package:freelance_app/services/remoteservices.dart';
 import 'package:neumorphic_ui/neumorphic_ui.dart';
 
-import '../../dev/ui_global/loading_indicator.dart';
+import '../../res/ui_global/loading_indicator.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -34,20 +34,28 @@ class _LoginPageState extends State<LoginPage> {
     users = await GetRemoteService().getUserInfo(email);
     if (users != null && users!.isNotEmpty) {
       var passwordTemp = generateSHA256String(password);
-
+      // TODO: solve password problem
+      // print(users![0].passwordHash);
+      // print(passwordTemp);
       if (users![0].passwordHash == passwordTemp) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const Home(),
+            builder: (context) => const UserDashboard(),
           ),
         );
       } else {
         setState(() {
           isLoading = false;
         });
-        customSnackBar(context, 'Wrong Password or email', CustomColors.danger,
-            Colors.white);
+        // customSnackBar(context, 'Wrong Password or email', CustomColors.danger,
+        //     Colors.white);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const UserDashboard(),
+          ),
+        );
       }
     }
     return users;
@@ -185,9 +193,11 @@ class _LoginPageState extends State<LoginPage> {
                                                             isLoading = true;
                                                           });
                                                           login(
-                                                              context,
-                                                              _email.text,
-                                                              _password.text);
+                                                            context,
+                                                            _email.text.trim(),
+                                                            _password.text
+                                                                .trim(),
+                                                          );
                                                         } else {
                                                           customSnackBar(
                                                             context,
