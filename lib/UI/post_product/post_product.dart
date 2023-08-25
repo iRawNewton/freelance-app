@@ -1,11 +1,15 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:freelance_app/UI/user/profile_info/bottom_sheet.dart';
+import 'package:freelance_app/models/service_category.dart';
+import 'package:freelance_app/models/service_subcategory.dart';
 import 'package:freelance_app/res/ui_global/buttons.dart';
 import 'package:freelance_app/res/ui_global/dropdown.dart';
 import 'package:freelance_app/res/ui_global/phone_input.dart';
 import 'package:freelance_app/res/ui_global/snackbar.dart';
+import 'package:freelance_app/services/get_remote_services.dart';
 import '../../../../res/constants/colors.dart';
 import '../../../../res/ui_global/appbar.dart';
 import '../../../../res/ui_global/text_widget.dart';
@@ -41,8 +45,8 @@ class _FreelancePostState extends State<FreelancePost> {
   final TextEditingController _stateValue = TextEditingController();
   final TextEditingController _cityValue = TextEditingController();
   final TextEditingController _profileDesc = TextEditingController();
-  // final TextEditingController _category = TextEditingController();
-  // final TextEditingController _subCategory = TextEditingController();
+  final TextEditingController _category = TextEditingController();
+  final TextEditingController _subCategory = TextEditingController();
   final TextEditingController _title = TextEditingController();
   final TextEditingController _deliveryTime = TextEditingController();
   final TextEditingController _productDescrition = TextEditingController();
@@ -55,12 +59,13 @@ class _FreelancePostState extends State<FreelancePost> {
   final TextEditingController _faq4 = TextEditingController();
   final TextEditingController _faq5 = TextEditingController();
 
-  final List<String> _dropdownItems = [
-    'Categories',
-    'Design & Creative',
-    'Digital Marketing',
-    'Programming & Tech',
+  List<DropdownItem> dropdownItems = [
+    DropdownItem('1', 'Item 1'),
+    DropdownItem('2', 'Item 2'),
+    DropdownItem('3', 'Item 3'),
+    // Add more items as needed
   ];
+  late DropdownItem selectedDropdownItem;
 
   final List<String> options = [
     'Beginner',
@@ -69,10 +74,32 @@ class _FreelancePostState extends State<FreelancePost> {
     'Fluent',
   ];
 
-  // String? selectedValue;
+  List<ServiceCategory>? serviceCategory = [];
+  List<ServiceSubcategory>? serviceSubCategory = [];
 
-  // functions
-  Future<String> basicInfo(
+  // get category
+  getCategory() async {
+    List<ServiceCategory>? response =
+        await GetRemoteService().getCategoriesInfo('', '', '', '', '');
+
+    setState(() {
+      serviceCategory = response;
+    });
+  }
+
+  // get Sub category
+  getSubCategory(String parentId) async {
+    List<ServiceSubcategory>? response =
+        await GetRemoteService().getSubserviceInfo(parentCategoryId: parentId);
+
+    setState(() {
+      serviceSubCategory = response;
+    });
+  }
+
+  String? selectedCategory;
+
+  Future<String> uploadBasicInfo(
     username,
     email,
     phone,
@@ -108,6 +135,12 @@ class _FreelancePostState extends State<FreelancePost> {
       });
     }
     return response;
+  }
+
+  @override
+  void initState() {
+    getCategory();
+    super.initState();
   }
 
   @override
@@ -193,7 +226,7 @@ class _FreelancePostState extends State<FreelancePost> {
 
                                 if (_formKey.currentState!.validate()) {
                                   isLoading = true;
-                                  basicInfo(
+                                  uploadBasicInfo(
                                     _username.text,
                                     'gaurabroy.kyptronix@gmail.com',
                                     _phoneNumber.text,
@@ -215,9 +248,10 @@ class _FreelancePostState extends State<FreelancePost> {
                                 break;
                               case 1:
                                 // do something for step 1
-                                setState(() {
-                                  currentStep = currentStep + 1;
-                                });
+
+                                // setState(() {
+                                //   currentStep = currentStep + 1;
+                                // });
                                 break;
                               case 2:
                                 // do something for step 2
@@ -457,48 +491,142 @@ class _FreelancePostState extends State<FreelancePost> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // categories
-                Padding(
-                  padding: const EdgeInsets.only(left: 0.0),
-                  child: DropdownButton<String>(
-                    isExpanded: true,
-                    elevation: 0,
-                    value: _dropdownItems[0],
-                    // value: _selectedItem,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        // _selectedItem = newValue!;
-                      });
-                    },
-                    items: _dropdownItems.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+                // parent category
+                DropdownButtonFormField2<String>(
+                  isExpanded: true,
+                  decoration: InputDecoration(
+                    // Add Horizontal padding using menuItemStyleData.padding so it matches
+                    // the menu padding when button's width is not specified.
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    // Add more decoration..
+                  ),
+                  hint: const Text(
+                    'Choose category',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  items: serviceCategory?.map((category) {
+                        return DropdownMenuItem<String>(
+                          value: category.categoryId,
+                          child: Text(category.categoryName),
+                        );
+                      }).toList() ??
+                      [],
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please select any one option.';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    //Do something when selected item is changed.
+                    setState(() {
+                      _category.text = value.toString();
+                      getSubCategory(_category.text);
+                    });
+                  },
+                  buttonStyleData: const ButtonStyleData(
+                    padding: EdgeInsets.only(right: 8),
+                  ),
+                  iconStyleData: const IconStyleData(
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      color: Colors.black45,
+                    ),
+                    iconSize: 24,
+                  ),
+                  dropdownStyleData: DropdownStyleData(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  menuItemStyleData: const MenuItemStyleData(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
                   ),
                 ),
+
+                // not in use categories
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 0.0),
+                //   child: DropdownButton<String>(
+                //     isExpanded: true,
+                //     elevation: 0,
+                //     value:
+                //         selectedCategory, // Make sure you have a variable to store the selected category
+                //     onChanged: (String? newValue) {
+                //       setState(() {
+                //         selectedCategory =
+                //             newValue; // Update the selected category
+                //         getSubCategory();
+                //         print(selectedCategory);
+                //       });
+                //     },
+                //     items: serviceCategory?.map((category) {
+                //           return DropdownMenuItem<String>(
+                //             value: category.categoryId,
+                //             child: Text(category.categoryName),
+                //           );
+                //         }).toList() ??
+                //         [],
+                //   ),
+                // ),
+
                 const SizedBox(height: 24.0),
 
                 // sub categories
-                Padding(
-                  padding: const EdgeInsets.only(left: 0.0),
-                  child: DropdownButton<String>(
-                    isExpanded: true,
-                    elevation: 0,
-                    value: _dropdownItems[0],
-                    // value: _selectedItem,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        // _selectedItem = newValue!;
-                      });
-                    },
-                    items: _dropdownItems.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+                DropdownButtonFormField2<String>(
+                  isExpanded: true,
+                  decoration: InputDecoration(
+                    // Add Horizontal padding using menuItemStyleData.padding so it matches
+                    // the menu padding when button's width is not specified.
+                    contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    // Add more decoration..
+                  ),
+                  hint: const Text(
+                    'Choose Sub Category',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  items: serviceSubCategory?.map((subCategory) {
+                        return DropdownMenuItem<String>(
+                          value: subCategory.parentCategoryId,
+                          child: Text(subCategory.subcategoryName),
+                        );
+                      }).toList() ??
+                      [],
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please select any one option.';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    //Do something when selected item is changed.
+                    setState(() {
+                      _subCategory.text = value.toString();
+                    });
+                  },
+                  buttonStyleData: const ButtonStyleData(
+                    padding: EdgeInsets.only(right: 8),
+                  ),
+                  iconStyleData: const IconStyleData(
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      color: Colors.black45,
+                    ),
+                    iconSize: 24,
+                  ),
+                  dropdownStyleData: DropdownStyleData(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  menuItemStyleData: const MenuItemStyleData(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
                   ),
                 ),
 
@@ -701,4 +829,11 @@ class _FreelancePostState extends State<FreelancePost> {
           ),
         ),
       ];
+}
+
+class DropdownItem {
+  final String id;
+  final String categoryName;
+
+  DropdownItem(this.id, this.categoryName);
 }

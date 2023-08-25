@@ -6,13 +6,11 @@ import 'package:freelance_app/res/ui_global/footer.dart';
 import 'package:freelance_app/res/ui_global/snackbar.dart';
 import 'package:freelance_app/res/ui_global/text_widget.dart';
 import 'package:freelance_app/models/users.dart';
-
 import 'package:freelance_app/res/constants/colors.dart';
 import 'package:freelance_app/res/constants/convert.dart';
-import 'package:freelance_app/services/remoteservices.dart';
 import 'package:neumorphic_ui/neumorphic_ui.dart';
-
 import '../../res/ui_global/loading_indicator.dart';
+import '../../services/get_remote_services.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

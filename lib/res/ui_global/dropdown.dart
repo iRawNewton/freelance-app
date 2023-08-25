@@ -48,7 +48,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
           .toList(),
       validator: (value) {
         if (value == null) {
-          return 'Please select gender.';
+          return 'Please select any option.';
         }
         return null;
       },
