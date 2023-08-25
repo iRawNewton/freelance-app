@@ -144,6 +144,32 @@ class _FreelancePostState extends State<FreelancePost> {
   }
 
   @override
+  void dispose() {
+    _fName.dispose();
+    _lName.dispose();
+    _username.dispose();
+    _phoneNumber.dispose();
+    _languageProficiency.dispose();
+    _countryValue.dispose();
+    _stateValue.dispose();
+    _cityValue.dispose();
+    _profileDesc.dispose();
+    _category.dispose();
+    _subCategory.dispose();
+    _title.dispose();
+    _deliveryTime.dispose();
+    _productDescrition.dispose();
+    _serviceProvided.dispose();
+    _toolTechUsed.dispose();
+    _faq1.dispose();
+    _faq2.dispose();
+    _faq3.dispose();
+    _faq4.dispose();
+    _faq5.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -249,18 +275,25 @@ class _FreelancePostState extends State<FreelancePost> {
                               case 1:
                                 // do something for step 1
 
-                                // setState(() {
-                                //   currentStep = currentStep + 1;
-                                // });
+                                setState(() {
+                                  currentStep = currentStep + 1;
+                                });
                                 break;
                               case 2:
                                 // do something for step 2
+                                setState(() {
+                                  currentStep = currentStep + 1;
+                                });
                                 break;
                               case 3:
                                 // do something for step 3
+                                setState(() {
+                                  currentStep = currentStep + 1;
+                                });
                                 break;
                               case 4:
                                 // do something for step 4
+                                print('object');
                                 break;
                               default:
                               // Handle cases not covered by the above steps
