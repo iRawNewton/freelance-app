@@ -3,11 +3,13 @@ import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:freelance_app/UI/user/profile_info/bottom_sheet.dart';
 import 'package:freelance_app/res/ui_global/buttons.dart';
+import 'package:freelance_app/res/ui_global/dropdown.dart';
 import 'package:freelance_app/res/ui_global/phone_input.dart';
-
+import 'package:freelance_app/res/ui_global/snackbar.dart';
 import '../../../../res/constants/colors.dart';
 import '../../../../res/ui_global/appbar.dart';
 import '../../../../res/ui_global/text_widget.dart';
+import '../../res/ui_global/loading_indicator.dart';
 import '../../services/put_remote_services.dart';
 import '../global/checkout/widget/text_field.dart';
 
@@ -20,6 +22,7 @@ class FreelancePost extends StatefulWidget {
 
 class _FreelancePostState extends State<FreelancePost> {
   // variables
+  bool isLoading = false;
   int currentStep = 0;
 
   final _formKey = GlobalKey<FormState>();
@@ -33,6 +36,7 @@ class _FreelancePostState extends State<FreelancePost> {
   final TextEditingController _lName = TextEditingController();
   final TextEditingController _username = TextEditingController();
   final TextEditingController _phoneNumber = TextEditingController();
+  final TextEditingController _languageProficiency = TextEditingController();
   final TextEditingController _countryValue = TextEditingController();
   final TextEditingController _stateValue = TextEditingController();
   final TextEditingController _cityValue = TextEditingController();
@@ -57,6 +61,15 @@ class _FreelancePostState extends State<FreelancePost> {
     'Digital Marketing',
     'Programming & Tech',
   ];
+
+  final List<String> options = [
+    'Beginner',
+    'Intermediate',
+    'Advanced',
+    'Fluent',
+  ];
+
+  // String? selectedValue;
 
   // functions
   Future<String> basicInfo(
@@ -86,9 +99,13 @@ class _FreelancePostState extends State<FreelancePost> {
         residenceCity,
         userBio,
         profilePictureUrl);
-    print(response);
-    if (response == '') {
+
+    if (response == 'Data updated successfully') {
       // do something
+      setState(() {
+        isLoading = false;
+        currentStep += 1;
+      });
     }
     return response;
   }
@@ -97,132 +114,148 @@ class _FreelancePostState extends State<FreelancePost> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) => [
-            TopAppBar(
-              onTap: () {},
-            ),
-          ],
-          body: SizedBox(
-            width: double.infinity,
-            height: double.infinity,
-            child: SingleChildScrollView(
-              physics: const NeverScrollableScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Divider(),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0),
-                    child: CustomText(
-                      title: 'User Information',
-                      size: 18.0,
-                      color: CustomColors.primaryTextColor,
-                      weight: FontWeight.bold,
-                    ),
-                  ),
-                  Theme(
-                    data: Theme.of(context).copyWith(
-                        colorScheme: const ColorScheme.light(
-                      primary: CustomColors.buttonColor,
-                    )),
-                    child: Stepper(
-                      controlsBuilder:
-                          (BuildContext context, ControlsDetails details) {
-                        final isLastStep = currentStep == getSteps().length - 1;
-                        return Container(
-                          margin: const EdgeInsets.only(top: 50.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: CustomButton(
-                                  color: CustomColors.buttonColor,
-                                  title: isLastStep ? 'Save' : 'Next',
-                                  textColor: Colors.white,
-                                  onPressed: () => details.onStepContinue!(),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 15.0,
-                              ),
-                              if (currentStep != 0)
-                                Expanded(
-                                  child: CustomButton(
-                                    color: CustomColors.danger,
-                                    title: 'Cancel',
-                                    textColor: Colors.white,
-                                    onPressed: () => details.onStepCancel!(),
+        body: Stack(
+          children: [
+            NestedScrollView(
+              headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                TopAppBar(
+                  onTap: () {},
+                ),
+              ],
+              body: SizedBox(
+                width: double.infinity,
+                height: double.infinity,
+                child: SingleChildScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Divider(),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12.0),
+                        child: CustomText(
+                          title: 'User Information',
+                          size: 18.0,
+                          color: CustomColors.primaryTextColor,
+                          weight: FontWeight.bold,
+                        ),
+                      ),
+                      Theme(
+                        data: Theme.of(context).copyWith(
+                            colorScheme: const ColorScheme.light(
+                          primary: CustomColors.buttonColor,
+                        )),
+                        child: Stepper(
+                          controlsBuilder:
+                              (BuildContext context, ControlsDetails details) {
+                            final isLastStep =
+                                currentStep == getSteps().length - 1;
+                            return Container(
+                              margin: const EdgeInsets.only(top: 50.0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: CustomButton(
+                                      color: CustomColors.buttonColor,
+                                      title: isLastStep ? 'Save' : 'Next',
+                                      textColor: Colors.white,
+                                      onPressed: () =>
+                                          details.onStepContinue!(),
+                                    ),
                                   ),
-                                ),
-                            ],
-                          ),
-                        );
-                      },
-                      physics: const BouncingScrollPhysics(),
-                      currentStep: currentStep,
-                      steps: getSteps(),
-                      onStepContinue: () {
-                        final isLastStep = currentStep == getSteps().length - 1;
+                                  const SizedBox(
+                                    width: 15.0,
+                                  ),
+                                  if (currentStep != 0)
+                                    Expanded(
+                                      child: CustomButton(
+                                        color: CustomColors.danger,
+                                        title: 'Cancel',
+                                        textColor: Colors.white,
+                                        onPressed: () =>
+                                            details.onStepCancel!(),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            );
+                          },
+                          physics: const BouncingScrollPhysics(),
+                          currentStep: currentStep,
+                          steps: getSteps(),
+                          onStepContinue: () {
+                            final isLastStep =
+                                currentStep == getSteps().length - 1;
 
-                        switch (currentStep) {
-                          case 0:
-                            // do something for step 0
+                            switch (currentStep) {
+                              case 0:
+                                // do something for step 0
 
-                            if (_formKey.currentState!.validate()) {
-                              basicInfo(
-                                _username.text,
-                                'gaurabroy.kyptronix@gmail.com',
-                                _phoneNumber.text,
-                                '_passwordHash',
-                                _fName.text,
-                                _lName.text,
-                                '_languageProficiency',
-                                _countryValue.text,
-                                _stateValue.text,
-                                _cityValue.text,
-                                _profileDesc.text,
-                                '_profilePictureUrl',
-                              );
-                            } else {}
+                                if (_formKey.currentState!.validate()) {
+                                  isLoading = true;
+                                  basicInfo(
+                                    _username.text,
+                                    'gaurabroy.kyptronix@gmail.com',
+                                    _phoneNumber.text,
+                                    '_passwordHash',
+                                    _fName.text,
+                                    _lName.text,
+                                    _languageProficiency.text,
+                                    _countryValue.text,
+                                    _stateValue.text,
+                                    _cityValue.text,
+                                    _profileDesc.text,
+                                    '_profilePictureUrl',
+                                  );
+                                } else {
+                                  customSnackBar(context, 'Fields missing',
+                                      CustomColors.danger, Colors.white);
+                                }
 
-                            break;
-                          case 1:
-                            // do something for step 1
-                            break;
-                          case 2:
-                            // do something for step 2
-                            break;
-                          case 3:
-                            // do something for step 3
-                            break;
-                          case 4:
-                            // do something for step 4
-                            break;
-                          default:
-                          // Handle cases not covered by the above steps
-                        }
+                                break;
+                              case 1:
+                                // do something for step 1
+                                setState(() {
+                                  currentStep = currentStep + 1;
+                                });
+                                break;
+                              case 2:
+                                // do something for step 2
+                                break;
+                              case 3:
+                                // do something for step 3
+                                break;
+                              case 4:
+                                // do something for step 4
+                                break;
+                              default:
+                              // Handle cases not covered by the above steps
+                            }
 
-                        // -----------------------------------------------------------
-                        if (isLastStep) {
-                          // submit form
-                          debugPrint('Completed');
-                        }
-                        //  else {
-                        //   setState(() => currentStep += 1);
-                        // }
-                      },
-                      onStepCancel: currentStep == 0
-                          ? null
-                          : () {
-                              setState(() => currentStep -= 1);
-                            },
-                    ),
+                            // -----------------------------------------------------------
+                            if (isLastStep) {
+                              // submit form
+                              debugPrint('Completed');
+                            }
+                            //  else {
+                            //   setState(() => currentStep += 1);
+                            // }
+                          },
+                          onStepCancel: currentStep == 0
+                              ? null
+                              : () {
+                                  setState(() => currentStep -= 1);
+                                },
+                        ),
+                      ),
+                      const SizedBox(height: 14.0),
+                    ],
                   ),
-                  const SizedBox(height: 14.0),
-                ],
+                ),
               ),
             ),
-          ),
+            if (isLoading) const LoadingIndicator(),
+          ],
         ),
       ),
     );
@@ -336,7 +369,45 @@ class _FreelancePostState extends State<FreelancePost> {
                 ),
                 const SizedBox(height: 24.0),
 
+                // language proficiency
+                const Row(
+                  children: [
+                    CustomText(
+                        title: 'Language Proficiency in English',
+                        size: 14.0,
+                        color: CustomColors.primaryTextColor),
+                    SizedBox(width: 5.0),
+                    CustomText(
+                      title: '*',
+                      size: 14.0,
+                      color: Colors.red,
+                    )
+                  ],
+                ),
+                const SizedBox(height: 5.0),
+                CustomDropDown(
+                  options: options,
+                  controller: _languageProficiency,
+                ),
+                const SizedBox(height: 24.0),
+
                 // country
+                const Row(
+                  children: [
+                    CustomText(
+                        title: 'Select your country',
+                        size: 14.0,
+                        color: CustomColors.primaryTextColor),
+                    SizedBox(width: 5.0),
+                    CustomText(
+                      title: '*',
+                      size: 14.0,
+                      color: Colors.red,
+                    )
+                  ],
+                ),
+                const SizedBox(height: 5.0),
+
                 SelectState(
                   onCountryChanged: (value) {
                     setState(() {

@@ -132,22 +132,3 @@ class PostRemoteService {
     } else {}
   }
 }
-
-class GetRemoteService {
-  Future<List<Users>?> getUserInfo(email) async {
-    String baseUrl = ConstStrings.baseUrl;
-    String apiUrl = '$baseUrl/auth/user_register.php';
-
-    // Create query parameters
-    Map<String, String> headers = {
-      'email': email,
-    };
-
-    var response = await http.get(Uri.parse(apiUrl), headers: headers);
-    if (response.statusCode == 200) {
-      var json = response.body;
-      return usersFromJson(json);
-    }
-    return null;
-  }
-}

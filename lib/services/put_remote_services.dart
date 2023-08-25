@@ -1,8 +1,9 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import '../res/constants/strings.dart';
 
 String baseUrl = ConstStrings.baseUrl;
-String apiUrl = '$baseUrl/auth/admin_login.php';
 
 class PutRemoteService {
   Future<String> putUsers(
@@ -19,8 +20,20 @@ class PutRemoteService {
     userBio,
     profilePictureUrl,
   ) async {
-    // Create a map of data to send in the request body
+    String apiUrl = '$baseUrl/auth/user_register.php';
 
+    // extract the flag and country name
+    // print(residenceCountry);
+
+    // Split the input string using a space as the delimiter
+    List<String> parts = residenceCountry.split(' ');
+
+    String isoCode = parts.sublist(0).first;
+    String countryName =
+        parts.sublist(1).join(' ').trim(); // Trim leading and trailing spaces
+    // Extract the emoji and remove non-uppercase characters
+
+    // Create a map of data to send in the request body
     // Convert the map to JSON
     Map<String, dynamic> data = {
       "username": username,
@@ -30,7 +43,8 @@ class PutRemoteService {
       "first_name": firstName,
       "last_name": lastName,
       "language_proficiency": languageProficiency,
-      "residence_country": residenceCountry,
+      "iso_code": isoCode,
+      "residence_country": countryName,
       "residence_state": residenceState,
       "residence_city": residenceCity,
       "user_bio": userBio,
@@ -43,13 +57,15 @@ class PutRemoteService {
       headers: {"Content-Type": "application/x-www-form-urlencoded"},
       body: data,
     );
-    print(response.body);
+
     if (response.statusCode == 200) {
-      // do something
-      print(response.body);
+      if (jsonDecode(response.body) == 'Data updated successfully') {
+        return 'Data updated successfully';
+      } else {
+        return '404 Error';
+      }
     } else {
-      // do something
+      return '404 Error';
     }
-    return '404 Error';
   }
 }
