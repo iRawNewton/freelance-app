@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:freelance_app/UI/global/category_list/views/products_list.dart';
-import 'package:freelance_app/UI/global/product_desc.dart/product_desc.dart';
+import 'package:freelance_app/presentation/global/category_list/views/products_list.dart';
+import 'package:freelance_app/presentation/global/product_desc.dart/product_desc.dart';
 import 'package:freelance_app/res/ui_global/footer.dart';
 import 'package:google_fonts/google_fonts.dart';
 

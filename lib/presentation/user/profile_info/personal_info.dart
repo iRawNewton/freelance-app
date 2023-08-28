@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:freelance_app/UI/user/profile_info/bottom_sheet.dart';
+import 'package:freelance_app/presentation/user/profile_info/bottom_sheet.dart';
 import 'package:freelance_app/res/ui_global/buttons.dart';
 import 'package:freelance_app/res/ui_global/phone_input.dart';
 import 'package:freelance_app/res/ui_global/tags_textfield.dart';

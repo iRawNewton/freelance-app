@@ -2,7 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:freelance_app/UI/user/profile_info/bottom_sheet.dart';
+import 'package:freelance_app/presentation/user/profile_info/bottom_sheet.dart';
 import 'package:freelance_app/models/service_category.dart';
 import 'package:freelance_app/models/service_subcategory.dart';
 import 'package:freelance_app/res/ui_global/buttons.dart';
@@ -10,6 +10,7 @@ import 'package:freelance_app/res/ui_global/dropdown.dart';
 import 'package:freelance_app/res/ui_global/phone_input.dart';
 import 'package:freelance_app/res/ui_global/snackbar.dart';
 import 'package:freelance_app/services/get_remote_services.dart';
+import 'package:freelance_app/services/post_remote_services.dart';
 import '../../../../res/constants/colors.dart';
 import '../../../../res/ui_global/appbar.dart';
 import '../../../../res/ui_global/text_widget.dart';
@@ -52,20 +53,13 @@ class _FreelancePostState extends State<FreelancePost> {
   final TextEditingController _productDescrition = TextEditingController();
   final TextEditingController _serviceProvided = TextEditingController();
   final TextEditingController _toolTechUsed = TextEditingController();
-  // final TextEditingController _images = TextEditingController();
+
+  ///
   final TextEditingController _faq1 = TextEditingController();
   final TextEditingController _faq2 = TextEditingController();
   final TextEditingController _faq3 = TextEditingController();
   final TextEditingController _faq4 = TextEditingController();
   final TextEditingController _faq5 = TextEditingController();
-
-  List<DropdownItem> dropdownItems = [
-    DropdownItem('1', 'Item 1'),
-    DropdownItem('2', 'Item 2'),
-    DropdownItem('3', 'Item 3'),
-    // Add more items as needed
-  ];
-  late DropdownItem selectedDropdownItem;
 
   final List<String> options = [
     'Beginner',
@@ -133,6 +127,38 @@ class _FreelancePostState extends State<FreelancePost> {
         isLoading = false;
         currentStep += 1;
       });
+    }
+    return response;
+  }
+
+  Future<String> uploadProduct(
+    userId,
+    projectCategory,
+    projectSubcategory,
+    projectTitle,
+    projectMinDelivery,
+    projctDescription,
+    servicesProvided,
+    toolsTechUsed,
+    projectServiceId,
+  ) async {
+    var response = await PostRemoteService().postProducts(
+      userId,
+      projectCategory,
+      projectSubcategory,
+      projectTitle,
+      projectMinDelivery,
+      projctDescription,
+      servicesProvided,
+      toolsTechUsed,
+      projectServiceId,
+    );
+    setState(() {
+      isLoading = false;
+    });
+
+    if (response == 'Data updataed successfully') {
+      print('uploaded');
     }
     return response;
   }
@@ -248,7 +274,7 @@ class _FreelancePostState extends State<FreelancePost> {
 
                             switch (currentStep) {
                               case 0:
-                                // do something for step 0
+                                // do something for step 0 basic information
 
                                 if (_formKey.currentState!.validate()) {
                                   isLoading = true;
@@ -273,27 +299,55 @@ class _FreelancePostState extends State<FreelancePost> {
 
                                 break;
                               case 1:
-                                // do something for step 1
+                                // do something for step 1 product information
 
-                                setState(() {
-                                  currentStep = currentStep + 1;
-                                });
+                                if (_formKey1.currentState!.validate()) {
+                                  setState(() {
+                                    currentStep = currentStep + 1;
+                                  });
+                                }
+
                                 break;
                               case 2:
-                                // do something for step 2
-                                setState(() {
-                                  currentStep = currentStep + 1;
-                                });
+                                // do something for step 2 additional information
+                                if (_formKey2.currentState!.validate()) {
+                                  setState(() {
+                                    currentStep = currentStep + 1;
+                                  });
+                                }
+
                                 break;
                               case 3:
-                                // do something for step 3
+                                // do something for step 3 images
                                 setState(() {
                                   currentStep = currentStep + 1;
                                 });
                                 break;
                               case 4:
-                                // do something for step 4
-                                print('object');
+                                // do something for step 4 faq
+                                if (_formKey4.currentState!.validate()) {
+                                  setState(() {
+                                    isLoading = true;
+                                    uploadProduct(
+                                      '18',
+                                      _category.text,
+                                      _subCategory.text,
+                                      _title.text,
+                                      _deliveryTime.text,
+                                      _productDescrition.text,
+                                      _toolTechUsed.text,
+                                      _serviceProvided.text,
+                                      // ,projectServiceId,
+                                      '1',
+                                    );
+                                    // currentStep = currentStep + 1;
+                                    // save it
+                                  });
+                                } else {
+                                  customSnackBar(context, 'Fields missing',
+                                      CustomColors.danger, Colors.white);
+                                }
+
                                 break;
                               default:
                               // Handle cases not covered by the above steps
@@ -580,32 +634,6 @@ class _FreelancePostState extends State<FreelancePost> {
                   ),
                 ),
 
-                // not in use categories
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 0.0),
-                //   child: DropdownButton<String>(
-                //     isExpanded: true,
-                //     elevation: 0,
-                //     value:
-                //         selectedCategory, // Make sure you have a variable to store the selected category
-                //     onChanged: (String? newValue) {
-                //       setState(() {
-                //         selectedCategory =
-                //             newValue; // Update the selected category
-                //         getSubCategory();
-                //         print(selectedCategory);
-                //       });
-                //     },
-                //     items: serviceCategory?.map((category) {
-                //           return DropdownMenuItem<String>(
-                //             value: category.categoryId,
-                //             child: Text(category.categoryName),
-                //           );
-                //         }).toList() ??
-                //         [],
-                //   ),
-                // ),
-
                 const SizedBox(height: 24.0),
 
                 // sub categories
@@ -618,7 +646,6 @@ class _FreelancePostState extends State<FreelancePost> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
-                    // Add more decoration..
                   ),
                   hint: const Text(
                     'Choose Sub Category',
@@ -626,7 +653,7 @@ class _FreelancePostState extends State<FreelancePost> {
                   ),
                   items: serviceSubCategory?.map((subCategory) {
                         return DropdownMenuItem<String>(
-                          value: subCategory.parentCategoryId,
+                          value: subCategory.subcategoryId,
                           child: Text(subCategory.subcategoryName),
                         );
                       }).toList() ??
@@ -641,6 +668,7 @@ class _FreelancePostState extends State<FreelancePost> {
                     //Do something when selected item is changed.
                     setState(() {
                       _subCategory.text = value.toString();
+                      getSubCategory(_category.text);
                     });
                   },
                   buttonStyleData: const ButtonStyleData(
@@ -707,8 +735,8 @@ class _FreelancePostState extends State<FreelancePost> {
         //  additional information
         /* ------------------------------------------------ */
         Step(
-          state: currentStep > 1 ? StepState.complete : StepState.indexed,
-          isActive: currentStep >= 1,
+          state: currentStep > 2 ? StepState.complete : StepState.indexed,
+          isActive: currentStep >= 2,
           title: const CustomText(
             title: 'Additional Information',
             size: 18.0,
@@ -757,8 +785,8 @@ class _FreelancePostState extends State<FreelancePost> {
         //  add images
         /* ------------------------------------------------ */
         Step(
-          state: currentStep > 1 ? StepState.complete : StepState.indexed,
-          isActive: currentStep >= 1,
+          state: currentStep > 3 ? StepState.complete : StepState.indexed,
+          isActive: currentStep >= 3,
           title: const CustomText(
             title: 'Add Images',
             size: 18.0,
@@ -772,10 +800,10 @@ class _FreelancePostState extends State<FreelancePost> {
               children: [
                 // images 1
                 SizedBox(height: 24.0),
-                Text('image 1'),
-                Text('image 2'),
-                Text('image 3'),
-                Text('image 4'),
+                // Text('image 1'),
+                // Text('image 2'),
+                // Text('image 3'),
+                // Text('image 4'),
               ],
             ),
           ),
@@ -785,8 +813,8 @@ class _FreelancePostState extends State<FreelancePost> {
         //  add FAQ
         /* ------------------------------------------------ */
         Step(
-          state: currentStep > 1 ? StepState.complete : StepState.indexed,
-          isActive: currentStep >= 1,
+          state: currentStep > 4 ? StepState.complete : StepState.indexed,
+          isActive: currentStep >= 4,
           title: const CustomText(
             title: 'FAQs',
             size: 18.0,

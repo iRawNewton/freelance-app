@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_app/UI/user/dashboard/views/profile_stats.dart';
-import 'package:freelance_app/UI/user/dashboard/views/select_service.dart';
-import 'package:freelance_app/UI/user/drawer/user_drawer.dart';
+import 'package:freelance_app/presentation/user/dashboard/views/profile_stats.dart';
+import 'package:freelance_app/presentation/user/dashboard/views/select_service.dart';
+import 'package:freelance_app/presentation/user/drawer/user_drawer.dart';
 import 'package:freelance_app/res/ui_global/text_widget.dart';
 import 'package:freelance_app/res/constants/colors.dart';
 import '../../../../res/ui_global/appbar.dart';

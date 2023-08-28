@@ -1,7 +1,7 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:freelance_app/auth/screens/signup.dart';
 import 'package:freelance_app/auth/screens/widgets.dart';
-import 'package:freelance_app/UI/user/dashboard/user_dash.dart';
+import 'package:freelance_app/presentation/user/dashboard/user_dash.dart';
 import 'package:freelance_app/res/ui_global/footer.dart';
 import 'package:freelance_app/res/ui_global/snackbar.dart';
 import 'package:freelance_app/res/ui_global/text_widget.dart';

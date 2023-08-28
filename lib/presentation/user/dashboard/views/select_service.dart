@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_app/UI/post_product/post_product.dart';
+import 'package:freelance_app/presentation/post_product/post_product.dart';
 
 import '../../../../../res/constants/colors.dart';
 import '../../../../../res/ui_global/text_widget.dart';

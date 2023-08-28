@@ -4,6 +4,7 @@
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/rendering.dart';
 import 'package:freelance_app/res/constants/convert.dart';
 import 'package:http/http.dart' as http;
 import 'package:freelance_app/res/constants/strings.dart';
@@ -44,6 +45,47 @@ class PostRemoteService {
     } else {
       return 'Error occurred';
     }
+  }
+
+  Future<String> postProducts(
+    userId,
+    projectCategory,
+    projectSubcategory,
+    projectTitle,
+    projectMinDelivery,
+    projctDescription,
+    servicesProvided,
+    toolsTechUsed,
+    projectServiceId,
+  ) async {
+    String baseUrl = ConstStrings.baseUrl;
+    String apiUrl = '$baseUrl/product/products.php';
+
+    var response = await http.post(
+      Uri.parse(apiUrl),
+      body: {
+        'user_id': userId,
+        'project_category': projectCategory,
+        'project_subcategory': projectSubcategory,
+        'project_title': projectTitle,
+        'project_min_delivery_time': projectMinDelivery,
+        'project_description': projctDescription,
+        'services_provided': servicesProvided,
+        'tools_and_technologies': toolsTechUsed,
+        'project_service_id': projectServiceId,
+        // 'faqs': '',
+        // '': '',
+      },
+    );
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print('error');
+      print(response.body);
+    }
+
+    return '';
   }
 
 // --------------------------------------------------------

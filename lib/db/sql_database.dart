@@ -17,7 +17,7 @@ CREATE TABLE Admin (
 );
  
  
-service table
+service table 
 ----------------------------------------
 CREATE TABLE Services (
   service_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -26,7 +26,7 @@ CREATE TABLE Services (
 );
 
 
-categories
+ServiceCategories
 -----------------------------------------
 CREATE TABLE ServiceCategories (
     category_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -59,7 +59,9 @@ CREATE TABLE Users (
     password_hash VARCHAR(64) NOT NULL,
     first_name VARCHAR(50),
     last_name VARCHAR(50),
+    phone BIGINT,
     language_proficiency VARCHAR(50),
+    iso_code VARCHAR(11),
     residence_country VARCHAR(100),
     residence_state VARCHAR(100),
     residence_city VARCHAR(100),
@@ -78,8 +80,8 @@ Freelance Project
 CREATE TABLE FreelanceProjects (
     project_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
-    project_category VARCHAR(255) NOT NULL,
-    project_subcategory VARCHAR(255),
+    project_category INT(11) NOT NULL,
+    project_subcategory INT(11),
     project_title VARCHAR(255) NOT NULL,
     project_views INT DEFAULT 0,
     project_min_delivery_time INT,
@@ -93,6 +95,12 @@ CREATE TABLE FreelanceProjects (
         ON UPDATE CASCADE
         ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (project_category) REFERENCES ServiceCategories(category_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (project_subcategory) REFERENCES ServiceSubcategories(subcategory_id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );

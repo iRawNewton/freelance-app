@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_app/UI/global/home/home.dart';
+import 'package:freelance_app/presentation/global/home/home.dart';
 
 class AppTabBar extends StatelessWidget {
   const AppTabBar({super.key});

@@ -5,10 +5,10 @@ import 'package:freelance_app/res/ui_global/loading_indicator.dart';
 import 'package:freelance_app/res/ui_global/snackbar.dart';
 import 'package:freelance_app/res/ui_global/text_widget.dart';
 import 'package:freelance_app/res/constants/colors.dart';
-import 'package:freelance_app/services/remoteservices.dart';
+import 'package:freelance_app/services/post_remote_services.dart';
 import 'package:neumorphic_ui/neumorphic_ui.dart';
 
-import '../../UI/global/home/home.dart';
+import '../../presentation/global/home/home.dart';
 import '../../res/constants/convert.dart';
 
 class SignUpPage extends StatefulWidget {
