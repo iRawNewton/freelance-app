@@ -1,8 +1,10 @@
+import 'dart:io';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:freelance_app/presentation/user/profile_info/bottom_sheet.dart';
+import 'package:freelance_app/presentation/user/profile_info/bottom_sheetEXP.dart';
 import 'package:freelance_app/models/service_category.dart';
 import 'package:freelance_app/models/service_subcategory.dart';
 import 'package:freelance_app/res/ui_global/buttons.dart';
@@ -15,6 +17,7 @@ import '../../../../res/constants/colors.dart';
 import '../../../../res/ui_global/appbar.dart';
 import '../../../../res/ui_global/text_widget.dart';
 import '../../res/ui_global/loading_indicator.dart';
+import '../../services/image_upload.dart';
 import '../../services/put_remote_services.dart';
 import '../global/checkout/widget/text_field.dart';
 
@@ -29,6 +32,7 @@ class _FreelancePostState extends State<FreelancePost> {
   // variables
   bool isLoading = false;
   int currentStep = 0;
+  bool isNetworkImage = true;
 
   final _formKey = GlobalKey<FormState>();
   final _formKey1 = GlobalKey<FormState>();
@@ -37,6 +41,14 @@ class _FreelancePostState extends State<FreelancePost> {
   final _formKey4 = GlobalKey<FormState>();
 
   // controllers
+  File? profilePictureFile;
+  File? galleryFile1;
+  File? galleryFile2;
+  File? galleryFile3;
+  File? galleryFile4;
+  File? galleryFile5;
+
+  final TextEditingController _profilePicture = TextEditingController();
   final TextEditingController _fName = TextEditingController();
   final TextEditingController _lName = TextEditingController();
   final TextEditingController _username = TextEditingController();
@@ -53,6 +65,12 @@ class _FreelancePostState extends State<FreelancePost> {
   final TextEditingController _productDescrition = TextEditingController();
   final TextEditingController _serviceProvided = TextEditingController();
   final TextEditingController _toolTechUsed = TextEditingController();
+
+  final TextEditingController _gallery1 = TextEditingController();
+  final TextEditingController _gallery2 = TextEditingController();
+  final TextEditingController _gallery3 = TextEditingController();
+  final TextEditingController _gallery4 = TextEditingController();
+  final TextEditingController _gallery5 = TextEditingController();
 
   ///
   final TextEditingController _faq1 = TextEditingController();
@@ -77,6 +95,9 @@ class _FreelancePostState extends State<FreelancePost> {
         await GetRemoteService().getCategoriesInfo('', '', '', '', '');
 
     setState(() {
+      _subCategory.clear();
+      serviceSubCategory = [];
+
       serviceCategory = response;
     });
   }
@@ -195,6 +216,15 @@ class _FreelancePostState extends State<FreelancePost> {
     super.dispose();
   }
 
+  void selectPhotoFunc() async {
+    final result = await selectPhoto();
+    setState(() {
+      isNetworkImage = false;
+      _profilePicture.text = result.fileName;
+      profilePictureFile = File(result.filePath);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -293,8 +323,11 @@ class _FreelancePostState extends State<FreelancePost> {
                                     '_profilePictureUrl',
                                   );
                                 } else {
-                                  customSnackBar(context, 'Fields missing',
-                                      CustomColors.danger, Colors.white);
+                                  customSnackBar(
+                                      context,
+                                      'Fields missing or Invalid input',
+                                      CustomColors.danger,
+                                      Colors.white);
                                 }
 
                                 break;
@@ -417,12 +450,22 @@ class _FreelancePostState extends State<FreelancePost> {
                               child: SizedBox(
                                 width: 140.0, // Set a fixed width and height
                                 height: 140.0,
-                                child: CachedNetworkImage(
-                                  imageUrl: 'https://shorturl.at/elV34',
-                                  placeholder: (context, url) =>
-                                      const CircularProgressIndicator(),
-                                  fit: BoxFit.cover,
-                                ),
+                                child: isNetworkImage
+                                    ? CachedNetworkImage(
+                                        imageUrl: 'https://shorturl.at/elV34',
+                                        placeholder: (context, url) =>
+                                            const CircularProgressIndicator(),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : (_profilePicture.text != '')
+                                        ? Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Image.file(
+                                              File(profilePictureFile!.path),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          )
+                                        : const SizedBox(),
                               ),
                             ),
                           ),
@@ -432,12 +475,7 @@ class _FreelancePostState extends State<FreelancePost> {
                             title: 'Update Picture',
                             textColor: Colors.white,
                             onPressed: () {
-                              showModalBottomSheet<void>(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return const UpdateProfileBottomSheet();
-                                },
-                              );
+                              selectPhotoFunc();
                             },
                           )
                         ],
@@ -562,7 +600,7 @@ class _FreelancePostState extends State<FreelancePost> {
         ),
 
         /* ------------------------------------------------ */
-        //  Skills and Experience
+        //  Product and Information
         /* ------------------------------------------------ */
         Step(
           state: currentStep > 1 ? StepState.complete : StepState.indexed,
@@ -668,7 +706,6 @@ class _FreelancePostState extends State<FreelancePost> {
                     //Do something when selected item is changed.
                     setState(() {
                       _subCategory.text = value.toString();
-                      getSubCategory(_category.text);
                     });
                   },
                   buttonStyleData: const ButtonStyleData(
@@ -795,15 +832,105 @@ class _FreelancePostState extends State<FreelancePost> {
           ),
           content: Form(
             key: _formKey3,
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // images 1
-                SizedBox(height: 24.0),
-                // Text('image 1'),
-                // Text('image 2'),
-                // Text('image 3'),
-                // Text('image 4'),
+                const SizedBox(height: 24.0),
+
+                // gallery 1
+
+                InkWell(
+                  onTap: () async {
+                    selectGalleryFunc(_gallery1, galleryFile1);
+                  },
+                  child: CheckoutFormWidget(
+                    width: 1.0,
+                    label: 'Pick image 1',
+                    controller: _gallery1,
+                    hintText: 'Pick image 1',
+                    isImp: true,
+                    textInputType: TextInputType.text,
+                    maxLines: 1,
+                    enabled: false,
+                  ),
+                ),
+                const SizedBox(height: 10.0),
+
+                // gallery 2
+
+                InkWell(
+                  onTap: () async {
+                    selectGalleryFunc(_gallery2, galleryFile1);
+                  },
+                  child: CheckoutFormWidget(
+                    width: 1.0,
+                    label: 'Pick image 2',
+                    controller: _gallery2,
+                    hintText: 'Pick image 2',
+                    isImp: true,
+                    textInputType: TextInputType.text,
+                    maxLines: 1,
+                    enabled: false,
+                  ),
+                ),
+                const SizedBox(height: 10.0),
+
+                // gallery 3
+
+                InkWell(
+                  onTap: () async {
+                    selectGalleryFunc(_gallery3, galleryFile3);
+                  },
+                  child: CheckoutFormWidget(
+                    width: 1.0,
+                    label: 'Pick image 3',
+                    controller: _gallery3,
+                    hintText: 'Pick image 3',
+                    isImp: true,
+                    textInputType: TextInputType.text,
+                    maxLines: 1,
+                    enabled: false,
+                  ),
+                ),
+                const SizedBox(height: 10.0),
+
+                // gallery 4
+
+                InkWell(
+                  onTap: () async {
+                    selectGalleryFunc(_gallery4, galleryFile4);
+                  },
+                  child: CheckoutFormWidget(
+                    width: 1.0,
+                    label: 'Pick image 4',
+                    controller: _gallery4,
+                    hintText: 'Pick image 4',
+                    isImp: true,
+                    textInputType: TextInputType.text,
+                    maxLines: 1,
+                    enabled: false,
+                  ),
+                ),
+                const SizedBox(height: 10.0),
+
+                // gallery 5
+
+                InkWell(
+                  onTap: () async {
+                    selectGalleryFunc(_gallery5, galleryFile5);
+                  },
+                  child: CheckoutFormWidget(
+                    width: 1.0,
+                    label: 'Pick image 5',
+                    controller: _gallery5,
+                    hintText: 'Pick image 5',
+                    isImp: true,
+                    textInputType: TextInputType.text,
+                    maxLines: 1,
+                    enabled: false,
+                  ),
+                ),
               ],
             ),
           ),
@@ -890,6 +1017,13 @@ class _FreelancePostState extends State<FreelancePost> {
           ),
         ),
       ];
+  void selectGalleryFunc(TextEditingController fileName, File? file) async {
+    final result = await selectPhoto();
+    setState(() {
+      fileName.text = result.fileName;
+      file = File(result.filePath);
+    });
+  }
 }
 
 class DropdownItem {
