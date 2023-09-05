@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelance_app/presentation/global/checkout/views/apply_coupon.dart';
 import 'package:freelance_app/presentation/global/checkout/widget/text_field.dart';
-import 'package:freelance_app/res/ui_global/text_widget.dart';
+import 'package:freelance_app/res/widgets/text_widget.dart';
 import 'package:freelance_app/res/constants/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:neumorphic_ui/neumorphic_ui.dart';

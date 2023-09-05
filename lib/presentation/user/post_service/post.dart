@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_app/res/ui_global/buttons.dart';
+import 'package:freelance_app/res/widgets/buttons.dart';
 
 import '../../../../res/constants/colors.dart';
-import '../../../../res/ui_global/appbar.dart';
-import '../../../../res/ui_global/text_widget.dart';
+import '../../../res/widgets/appbar.dart';
+import '../../../res/widgets/text_widget.dart';
 import '../../global/checkout/widget/text_field.dart';
 
 class PostServiceFreelance extends StatefulWidget {

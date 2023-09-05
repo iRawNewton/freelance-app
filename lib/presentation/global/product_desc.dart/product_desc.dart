@@ -7,12 +7,12 @@ import 'package:freelance_app/presentation/global/product_desc.dart/views/basic_
 import 'package:freelance_app/presentation/global/product_desc.dart/views/faqs.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/product_title.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/ratings.dart';
-import 'package:freelance_app/res/ui_global/footer.dart';
+import 'package:freelance_app/res/widgets/footer.dart';
 import 'package:freelance_app/res/constants/colors.dart';
 import 'package:freelance_app/res/constants/strings.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../res/ui_global/carousel.dart';
+import '../../../res/widgets/carousel.dart';
 
 class ProductDesc extends StatefulWidget {
   const ProductDesc({super.key});

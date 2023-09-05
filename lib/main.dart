@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'logic/bloc/profile_info_bloc.dart';
 import 'presentation/global/home/home.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   // firebase
@@ -15,14 +17,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Freelancer Application',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return BlocProvider(
+      create: (context) =>
+          ProfileInfoBloc()..add(ProfileInfoLoadedEvent() as ProfileInfoEvent),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Freelancer Application',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const HomePage(),
       ),
-      home: const HomePage(),
     );
   }
 }

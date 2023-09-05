@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_app/res/ui_global/text_widget.dart';
+import 'package:freelance_app/res/widgets/text_widget.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import '../constants/colors.dart';
@@ -19,6 +19,7 @@ class PhoneInput extends StatefulWidget {
 }
 
 class _PhoneInputState extends State<PhoneInput> {
+  final TextEditingController phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -50,7 +51,7 @@ class _PhoneInputState extends State<PhoneInput> {
               dialCode: '+1',
               isoCode: 'US',
             ),
-            textFieldController: widget.controller,
+            textFieldController: phoneController,
             formatInput: true,
             ignoreBlank: false,
             autoValidateMode: AutovalidateMode.disabled,
@@ -76,7 +77,9 @@ class _PhoneInputState extends State<PhoneInput> {
             ),
 
             onInputChanged: (PhoneNumber number) {
-              // print(number.phoneNumber);
+              setState(() {
+                // widget.controller.text = number.phoneNumber!;
+              });
             },
             onInputValidated: (bool value) {
               // print(value);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:freelance_app/presentation/post_product/post_product.dart';
 
 import '../../../../../res/constants/colors.dart';
-import '../../../../../res/ui_global/text_widget.dart';
+import '../../../../res/widgets/text_widget.dart';
 
 class SelectService extends StatefulWidget {
   const SelectService({super.key});

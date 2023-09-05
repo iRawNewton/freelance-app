@@ -4,7 +4,6 @@
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:freelance_app/res/constants/convert.dart';
 import 'package:http/http.dart' as http;
 import 'package:freelance_app/res/constants/strings.dart';
@@ -77,12 +76,12 @@ class PostRemoteService {
         // '': '',
       },
     );
-    print(response.statusCode);
+
     if (response.statusCode == 200) {
-      print(response.body);
+      // print(response.body);
     } else {
-      print('error');
-      print(response.body);
+      // print('error');
+      // print(response.body);
     }
 
     return '';

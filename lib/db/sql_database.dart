@@ -148,6 +148,26 @@ CREATE TABLE PricingDetails (
 
 
 
+Education
+--------------------------------------------
+CREATE TABLE Education (
+    education_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    institution_name VARCHAR(255) NOT NULL,
+    degree_obtained VARCHAR(255),
+    field_of_study VARCHAR(255),
+    start_date DATE,
+    end_date DATE,
+    grade_or_gpa DECIMAL(4, 2),
+    FOREIGN KEY (user_id)
+        REFERENCES Users(user_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+
+
+
 
 
 *******************************************

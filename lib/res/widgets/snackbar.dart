@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_app/res/ui_global/text_widget.dart';
+import 'package:freelance_app/res/widgets/text_widget.dart';
 
 ScaffoldFeatureController<SnackBar, SnackBarClosedReason> customSnackBar(
     context, message, color, textColor) {

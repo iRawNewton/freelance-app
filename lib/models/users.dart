@@ -17,7 +17,9 @@ class Users {
   String passwordHash;
   String firstName;
   String lastName;
+  String phone;
   String languageProficiency;
+  String isoCode;
   String residenceCountry;
   String residenceState;
   String residenceCity;
@@ -31,7 +33,9 @@ class Users {
     required this.passwordHash,
     required this.firstName,
     required this.lastName,
+    required this.phone,
     required this.languageProficiency,
+    required this.isoCode,
     required this.residenceCountry,
     required this.residenceState,
     required this.residenceCity,
@@ -46,7 +50,9 @@ class Users {
         passwordHash: json["password_hash"],
         firstName: json["first_name"],
         lastName: json["last_name"],
+        phone: json["phone"],
         languageProficiency: json["language_proficiency"],
+        isoCode: json["iso_code"],
         residenceCountry: json["residence_country"],
         residenceState: json["residence_state"],
         residenceCity: json["residence_city"],
@@ -61,7 +67,9 @@ class Users {
         "password_hash": passwordHash,
         "first_name": firstName,
         "last_name": lastName,
+        "phone": phone,
         "language_proficiency": languageProficiency,
+        "iso_code": isoCode,
         "residence_country": residenceCountry,
         "residence_state": residenceState,
         "residence_city": residenceCity,

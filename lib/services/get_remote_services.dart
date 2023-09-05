@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
 import 'package:freelance_app/models/service_category.dart';
 import 'package:http/http.dart' as http;
 
@@ -76,6 +78,55 @@ class GetRemoteService {
     var response = await http.get(Uri.parse(apiUrl), headers: headers);
     if (response.statusCode == 200) {
       var json = response.body;
+      return usersFromJson(json);
+    }
+    return null;
+  }
+
+  Future<List<Users>?> getProfileInfo(String email) async {
+    try {
+      const String baseUrl = ConstStrings.baseUrl;
+      const String apiUrl = '$baseUrl/users/users.php';
+
+      final Map<String, String> headers = {
+        'email': email,
+      };
+
+      final http.Response response = await http
+          .get(
+            Uri.parse(apiUrl),
+            headers: headers,
+          )
+          .timeout(const Duration(seconds: 30)); // Set a timeout of 30 seconds.
+
+      if (response.statusCode == 200) {
+        var jsonResponse = response.body;
+
+        return usersFromJson(jsonResponse);
+      } else {
+        // Handle non-200 status codes gracefully.
+        // print('API request failed with status code: ${response.statusCode}');
+        return null;
+      }
+    } on TimeoutException catch (e) {
+      // Handle timeout errors.
+      debugPrint('Request timed out: $e');
+
+      return null;
+    } catch (e) {
+      // Handle other unexpected errors.
+      debugPrint('An error occurred: $e');
+      return null;
+    }
+  }
+
+  Future<List<Users>?> getProfileInfop(email) async {
+    const String baseUrl = ConstStrings.baseUrl;
+    const String apiUrl = '$baseUrl/users/users.php';
+    var response = await http.get(Uri.parse(apiUrl));
+    if (response.statusCode == 200) {
+      var json = response.body;
+      print(json);
       return usersFromJson(json);
     }
     return null;

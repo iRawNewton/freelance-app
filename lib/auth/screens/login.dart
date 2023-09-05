@@ -2,14 +2,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:freelance_app/auth/screens/signup.dart';
 import 'package:freelance_app/auth/screens/widgets.dart';
 import 'package:freelance_app/presentation/user/dashboard/user_dash.dart';
-import 'package:freelance_app/res/ui_global/footer.dart';
-import 'package:freelance_app/res/ui_global/snackbar.dart';
-import 'package:freelance_app/res/ui_global/text_widget.dart';
+import 'package:freelance_app/res/widgets/footer.dart';
+import 'package:freelance_app/res/widgets/snackbar.dart';
+import 'package:freelance_app/res/widgets/text_widget.dart';
 import 'package:freelance_app/models/users.dart';
 import 'package:freelance_app/res/constants/colors.dart';
 import 'package:freelance_app/res/constants/convert.dart';
 import 'package:neumorphic_ui/neumorphic_ui.dart';
-import '../../res/ui_global/loading_indicator.dart';
+import '../../res/widgets/loading_indicator.dart';
 import '../../services/get_remote_services.dart';
 
 class LoginPage extends StatefulWidget {

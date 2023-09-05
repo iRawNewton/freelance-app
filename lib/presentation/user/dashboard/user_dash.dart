@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:freelance_app/presentation/user/dashboard/views/profile_stats.dart';
 import 'package:freelance_app/presentation/user/dashboard/views/select_service.dart';
 import 'package:freelance_app/presentation/user/drawer/user_drawer.dart';
-import 'package:freelance_app/res/ui_global/text_widget.dart';
+import 'package:freelance_app/presentation/user/profile_info/profile_info.dart';
+import 'package:freelance_app/res/widgets/text_widget.dart';
 import 'package:freelance_app/res/constants/colors.dart';
-import '../../../../res/ui_global/appbar.dart';
+import '../../../res/widgets/appbar.dart';
 
 class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});
@@ -69,7 +70,7 @@ class _UserDashboardState extends State<UserDashboard> {
                     // const SearchBar(),
                     // post services
                     SizedBox(
-                      height: 40.0,
+                      height: 50.0,
                       width: MediaQuery.sizeOf(context).width,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -104,7 +105,14 @@ class _UserDashboardState extends State<UserDashboard> {
                           ),
                           backgroundColor: CustomColors.buttonColor,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const UserProfile(),
+                            ),
+                          );
+                        },
                         child: const CustomText(
                           title: 'View Full Profile',
                           size: 14.0,

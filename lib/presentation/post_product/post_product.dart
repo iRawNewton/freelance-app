@@ -4,20 +4,21 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:freelance_app/presentation/user/profile_info/bottom_sheetEXP.dart';
 import 'package:freelance_app/models/service_category.dart';
 import 'package:freelance_app/models/service_subcategory.dart';
-import 'package:freelance_app/res/ui_global/buttons.dart';
-import 'package:freelance_app/res/ui_global/dropdown.dart';
-import 'package:freelance_app/res/ui_global/phone_input.dart';
-import 'package:freelance_app/res/ui_global/snackbar.dart';
+import 'package:freelance_app/res/widgets/buttons.dart';
+import 'package:freelance_app/res/widgets/dropdown.dart';
+import 'package:freelance_app/res/widgets/phone_input.dart';
+import 'package:freelance_app/res/widgets/snackbar.dart';
 import 'package:freelance_app/services/get_remote_services.dart';
 import 'package:freelance_app/services/post_remote_services.dart';
+import 'package:freelance_app/services/upload_image.dart';
 import '../../../../res/constants/colors.dart';
-import '../../../../res/ui_global/appbar.dart';
-import '../../../../res/ui_global/text_widget.dart';
-import '../../res/ui_global/loading_indicator.dart';
-import '../../services/image_upload.dart';
+import '../../models/users.dart';
+import '../../res/widgets/appbar.dart';
+import '../../res/widgets/text_widget.dart';
+import '../../res/widgets/loading_indicator.dart';
+import '../../services/pick_image.dart';
 import '../../services/put_remote_services.dart';
 import '../global/checkout/widget/text_field.dart';
 
@@ -72,7 +73,7 @@ class _FreelancePostState extends State<FreelancePost> {
   final TextEditingController _gallery4 = TextEditingController();
   final TextEditingController _gallery5 = TextEditingController();
 
-  ///
+  //
   final TextEditingController _faq1 = TextEditingController();
   final TextEditingController _faq2 = TextEditingController();
   final TextEditingController _faq3 = TextEditingController();
@@ -88,6 +89,25 @@ class _FreelancePostState extends State<FreelancePost> {
 
   List<ServiceCategory>? serviceCategory = [];
   List<ServiceSubcategory>? serviceSubCategory = [];
+  List<Users>? userInfo = [];
+
+  // get user details
+  getUserInfo() async {
+    userInfo = await GetRemoteService().getUserInfo('gaurabroy16@gmail.com');
+    if (userInfo!.isNotEmpty) {
+      setState(() {
+        _fName.text = userInfo![0].firstName;
+        _lName.text = userInfo![0].lastName;
+        _username.text = userInfo![0].username;
+        _phoneNumber.text = userInfo![0].phone;
+        _languageProficiency.text = userInfo![0].languageProficiency;
+        _countryValue.text = userInfo![0].residenceCountry;
+        _stateValue.text = userInfo![0].residenceState;
+        _cityValue.text = userInfo![0].residenceCity;
+        _profileDesc.text = userInfo![0].userBio;
+      });
+    }
+  }
 
   // get category
   getCategory() async {
@@ -114,33 +134,37 @@ class _FreelancePostState extends State<FreelancePost> {
 
   String? selectedCategory;
 
+  // upload functions
+
   Future<String> uploadBasicInfo(
-    username,
-    email,
-    phone,
-    passwordHash,
-    firstName,
-    lastName,
-    languageProficiency,
-    residenceCountry,
-    residenceState,
-    residenceCity,
-    userBio,
-    profilePictureUrl,
+    String username,
+    String email,
+    String phone,
+    String passwordHash,
+    String firstName,
+    String lastName,
+    String languageProficiency,
+    String residenceCountry,
+    String residenceState,
+    String residenceCity,
+    String userBio,
+    String profilePictureUrl,
   ) async {
+    // upload data
     var response = await PutRemoteService().putUsers(
-        username,
-        email,
-        phone,
-        passwordHash,
-        firstName,
-        lastName,
-        languageProficiency,
-        residenceCountry,
-        residenceState,
-        residenceCity,
-        userBio,
-        profilePictureUrl);
+      username,
+      email,
+      phone,
+      passwordHash,
+      firstName,
+      lastName,
+      languageProficiency,
+      residenceCountry,
+      residenceState,
+      residenceCity,
+      userBio,
+      profilePictureUrl,
+    );
 
     if (response == 'Data updated successfully') {
       // do something
@@ -150,6 +174,39 @@ class _FreelancePostState extends State<FreelancePost> {
       });
     }
     return response;
+  }
+
+  Future<String> uploadImage(
+      File profilePictureFile, String profilePictureUrl) async {
+    // upload image
+
+    var imgResponse =
+        await ImageUpload().uploadImage(profilePictureFile, profilePictureUrl);
+
+    if (imgResponse.trim() == '"Image uploaded successfully"') {
+      setState(() {
+        customSnackBar(
+          context,
+          'Image updated successfully!',
+          CustomColors.success,
+          Colors.white,
+        );
+      });
+
+      return '';
+    } else {
+      setState(() {
+        isLoading = false;
+        customSnackBar(
+          context,
+          'Something went wrong!',
+          CustomColors.danger,
+          CustomColors.primaryTextColor,
+        );
+      });
+
+      return '';
+    }
   }
 
   Future<String> uploadProduct(
@@ -178,7 +235,7 @@ class _FreelancePostState extends State<FreelancePost> {
       isLoading = false;
     });
 
-    if (response == 'Data updataed successfully') {
+    if (response == 'Data updated successfully') {
       print('uploaded');
     }
     return response;
@@ -186,6 +243,7 @@ class _FreelancePostState extends State<FreelancePost> {
 
   @override
   void initState() {
+    getUserInfo();
     getCategory();
     super.initState();
   }
@@ -222,6 +280,9 @@ class _FreelancePostState extends State<FreelancePost> {
       isNetworkImage = false;
       _profilePicture.text = result.fileName;
       profilePictureFile = File(result.filePath);
+      if (_profilePicture.text.isNotEmpty) {
+        uploadImage(profilePictureFile!, _profilePicture.text);
+      }
     });
   }
 
@@ -320,14 +381,15 @@ class _FreelancePostState extends State<FreelancePost> {
                                     _stateValue.text,
                                     _cityValue.text,
                                     _profileDesc.text,
-                                    '_profilePictureUrl',
+                                    _profilePicture.text,
                                   );
                                 } else {
                                   customSnackBar(
-                                      context,
-                                      'Fields missing or Invalid input',
-                                      CustomColors.danger,
-                                      Colors.white);
+                                    context,
+                                    'Fields missing or Invalid input',
+                                    CustomColors.danger,
+                                    Colors.white,
+                                  );
                                 }
 
                                 break;
