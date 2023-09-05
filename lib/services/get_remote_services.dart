@@ -126,7 +126,7 @@ class GetRemoteService {
     var response = await http.get(Uri.parse(apiUrl));
     if (response.statusCode == 200) {
       var json = response.body;
-      print(json);
+      debugPrint(json);
       return usersFromJson(json);
     }
     return null;

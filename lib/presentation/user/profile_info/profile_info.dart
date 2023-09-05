@@ -52,9 +52,10 @@ class _UserProfileState extends State<UserProfile> {
                     );
                   } else if (state is ProfileInfoLoaded) {
                     return ListView.builder(itemBuilder: (context, index) {
-                      return ListTile();
+                      return const ListTile();
                     });
                   }
+                  return null;
                 },
               );
             },

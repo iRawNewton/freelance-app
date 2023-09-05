@@ -236,7 +236,7 @@ class _FreelancePostState extends State<FreelancePost> {
     });
 
     if (response == 'Data updated successfully') {
-      print('uploaded');
+      debugPrint('uploaded');
     }
     return response;
   }
