@@ -1,16 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelance_app/auth/screens/signup.dart';
 import 'package:freelance_app/auth/screens/widgets.dart';
-import 'package:freelance_app/presentation/user/dashboard/user_dash.dart';
-import 'package:freelance_app/res/widgets/footer.dart';
+import 'package:freelance_app/presentation/global/home/home.dart';
 import 'package:freelance_app/res/widgets/snackbar.dart';
 import 'package:freelance_app/res/widgets/text_widget.dart';
 import 'package:freelance_app/models/users.dart';
 import 'package:freelance_app/res/constants/colors.dart';
-import 'package:freelance_app/res/constants/convert.dart';
+import 'package:freelance_app/tests/testauth.dart';
 import 'package:neumorphic_ui/neumorphic_ui.dart';
 import '../../res/widgets/loading_indicator.dart';
-import '../../services/get_remote_services.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -28,35 +27,59 @@ class _LoginPageState extends State<LoginPage> {
   bool isLoading = false;
   List<Users>? users;
 
-  login(context, String email, String password) async {
-    users = await GetRemoteService().getUserInfo(email);
-    if (users != null && users!.isNotEmpty) {
-      var passwordTemp = generateSHA256String(password);
-      // TODO: solve password problem
-      // print(users![0].passwordHash);
-      // print(passwordTemp);
-      if (users![0].passwordHash == passwordTemp) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const UserDashboard(),
-          ),
-        );
+  void onLoginSuccess(BuildContext context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomePage(),
+      ),
+    );
+  }
+
+  Future<void> login(context, String email, String password) async {
+    try {
+      final userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+
+      // If login is successful, invoke the callback to navigate to a different page.
+      if (userCredential.user != null) {
+        await userCredential.user!.updateDisplayName('John Doe');
+
+        debugPrint(userCredential.user.toString());
+        customSnackBar(context, userCredential.user!.email,
+            CustomColors.success, Colors.white);
+
+        // debugPrint(userCredential.user.updateDisplayName('displayName'));
+        onLoginSuccess(context);
       } else {
-        setState(() {
-          isLoading = false;
-        });
-        // customSnackBar(context, 'Wrong Password or email', CustomColors.danger,
-        //     Colors.white);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const UserDashboard(),
-          ),
-        );
+        // Handle the case where userCredential.user is unexpectedly null.
+        // This should not happen if the Firebase authentication is set up correctly.
+        // You can show an error message or log the issue for debugging.
+        customSnackBar(context, 'Login failed: User is null.',
+            CustomColors.danger, Colors.white);
       }
+    } catch (e) {
+      // Handle login errors here.
+      String errorMessage = "Login failed. Please check your credentials.";
+
+      if (e is FirebaseAuthException) {
+        switch (e.code) {
+          case 'user-not-found':
+            errorMessage = "User not found. Please register first.";
+            break;
+          case 'wrong-password':
+            errorMessage = "Incorrect password. Please try again.";
+            break;
+          default:
+            errorMessage =
+                "An error occurred during login. Please try again later.";
+            break;
+        }
+      }
+
+      // Show an error message to the user.
+      customSnackBar(context, errorMessage, CustomColors.danger, Colors.white);
     }
-    return users;
   }
 
   @override
@@ -85,6 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Expanded(
                     child: SingleChildScrollView(
+                      // physics: const NeverScrollableScrollPhysics(),
                       child: Column(
                         children: [
                           Column(
@@ -188,7 +212,7 @@ class _LoginPageState extends State<LoginPage> {
                                                             _password.text
                                                                 .isNotEmpty) {
                                                           setState(() {
-                                                            isLoading = true;
+                                                            // isLoading = true;
                                                           });
                                                           login(
                                                             context,
@@ -357,7 +381,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  const AppFooter(), // This will stay at the bottom
+                  // const AppFooter(), // This will stay at the bottom
                 ],
               ),
             ),
