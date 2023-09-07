@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:freelance_app/presentation/global/category_list/category.dart';
+import 'package:freelance_app/presentation/global/drawer/global_drawer.dart';
 import 'package:freelance_app/presentation/global/home/views/blog.dart';
 import 'package:freelance_app/presentation/global/home/views/category.dart';
 import 'package:freelance_app/presentation/global/home/views/search.dart';
@@ -22,13 +23,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        key: _scaffoldKey,
+        drawer: const GlobalDrawer(),
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
-            TopAppBar(onTap: () {}),
+            TopAppBar(
+              onTap: () => _scaffoldKey.currentState?.openDrawer(),
+            ),
           ],
           body: Container(
             width: MediaQuery.sizeOf(context).width,

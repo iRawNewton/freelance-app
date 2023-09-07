@@ -9,7 +9,7 @@ import 'package:freelance_app/services/post_remote_services.dart';
 import 'package:neumorphic_ui/neumorphic_ui.dart';
 
 import '../../presentation/global/home/home.dart';
-import '../../res/constants/convert.dart';
+import '../../res/functions/convert.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
