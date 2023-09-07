@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:freelance_app/models/service_category.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/education.dart';
 import '../models/service_subcategory.dart';
 import '../models/users.dart';
 import '../res/constants/strings.dart';
@@ -111,7 +112,6 @@ class GetRemoteService {
     } on TimeoutException catch (e) {
       // Handle timeout errors.
       debugPrint('Request timed out: $e');
-
       return null;
     } catch (e) {
       // Handle other unexpected errors.
@@ -120,15 +120,35 @@ class GetRemoteService {
     }
   }
 
-  Future<List<Users>?> getProfileInfop(email) async {
-    const String baseUrl = ConstStrings.baseUrl;
-    const String apiUrl = '$baseUrl/users/users.php';
-    var response = await http.get(Uri.parse(apiUrl));
-    if (response.statusCode == 200) {
-      var json = response.body;
-      debugPrint(json);
-      return usersFromJson(json);
+  Future<List<Education>?> getEducationInfo(String email) async {
+    try {
+      const String baseUrl = ConstStrings.baseUrl;
+      const String apiUrl = '$baseUrl/users/education.php';
+
+      final Map<String, String> headers = {
+        'email': email,
+      };
+      final http.Response response = await http
+          .get(
+            Uri.parse(apiUrl),
+            headers: headers,
+          )
+          .timeout(const Duration(seconds: 30));
+
+      if (response.statusCode == 200) {
+        return educationFromJson(response.body);
+      } else {
+        // handle non-200 code here
+        return null;
+      }
+    } on TimeoutException catch (e) {
+      // ? Handle timeout errors.
+      debugPrint('Request timed out: $e');
+      return null;
+    } catch (e) {
+      // ? Handle other unexpected errors.
+      debugPrint('An error occured: $e');
+      return null;
     }
-    return null;
   }
 }
