@@ -3,9 +3,14 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../models/service_category.dart';
+import '../../../../services/get_remote_services.dart';
 
 class HomeWidget1 extends StatefulWidget {
   const HomeWidget1({super.key});
@@ -16,13 +21,24 @@ class HomeWidget1 extends StatefulWidget {
 
 class _HomeWidget1State extends State<HomeWidget1> {
   // String _selectedItem = 'Option 1'; // Default selected item
+  final TextEditingController _category = TextEditingController();
 
-  final List<String> _dropdownItems = [
-    'Categories',
-    'Design & Creative',
-    'Digital Marketing',
-    'Programming & Tech',
-  ];
+  List<ServiceCategory>? serviceCategory = [];
+
+  // get category
+  // get category
+  getCategory() async {
+    List<ServiceCategory>? response =
+        await GetRemoteService().getCategoriesInfo('', '', '', '', '');
+
+    setState(() {
+      // _subCategory.clear();
+      // serviceSubCategory = [];
+
+      serviceCategory = response;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,6 +62,7 @@ class _HomeWidget1State extends State<HomeWidget1> {
               child: Column(
                 children: [
                   const SizedBox(height: 10.0),
+                  // ^ title
                   Text(
                     'Hire the best freelancers for any job, online.',
                     style: GoogleFonts.openSans(
@@ -55,6 +72,8 @@ class _HomeWidget1State extends State<HomeWidget1> {
                     ),
                   ),
                   const SizedBox(height: 20.0),
+
+                  // ^ sub title
                   Text(
                     'Millions of people use freeio.com to turn their ideas into reality.',
                     style: GoogleFonts.openSans(
@@ -63,15 +82,16 @@ class _HomeWidget1State extends State<HomeWidget1> {
                       // fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 15.0),
+                  const Spacer(),
+
+                  // ^ card
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5.0, vertical: 5.0),
+                      padding: const EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 15.0),
                       child: Column(
                         children: [
                           Row(
@@ -95,56 +115,94 @@ class _HomeWidget1State extends State<HomeWidget1> {
                             ],
                           ),
                           const Divider(),
+
+                          // ^ category
                           Padding(
-                            padding: const EdgeInsets.only(left: 30.0),
-                            child: DropdownButton<String>(
+                            padding: const EdgeInsets.only(left: 20.0),
+                            child: DropdownButtonFormField2<String>(
                               isExpanded: true,
-                              elevation: 0,
-                              underline: const SizedBox(),
-                              value: _dropdownItems[0],
-                              // value: _selectedItem,
-                              onChanged: (String? newValue) {
+                              hint: const Text(
+                                'Choose category',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                              items: serviceCategory?.map((category) {
+                                    return DropdownMenuItem<String>(
+                                      value: category.categoryId,
+                                      child: Text(category.categoryName),
+                                    );
+                                  }).toList() ??
+                                  [],
+                              // validator: (value) {
+                              //   if (value == null) {
+                              //     return 'Please select any one option.';
+                              //   }
+                              //   return null;
+                              // },
+                              onChanged: (value) {
+                                //Do something when selected item is changed.
                                 setState(() {
-                                  // _selectedItem = newValue!;
+                                  _category.text = value.toString();
                                 });
                               },
-                              items: _dropdownItems.map((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.sizeOf(context).width,
-                            height: 40.0,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  elevation: 0,
-                                  backgroundColor: const Color(0xFF5BBB7B),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0),
+                              buttonStyleData: ButtonStyleData(
+                                height: 50.0,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.transparent,
+                                    width: 0,
                                   ),
                                 ),
-                                onPressed: () {},
-                                child: Text(
-                                  'Search',
-                                  style: GoogleFonts.roboto(
-                                    color: Colors.white,
+                              ),
+                              iconStyleData: const IconStyleData(
+                                icon: Icon(
+                                  Icons.arrow_drop_down,
+                                  color: Colors.black45,
+                                ),
+                                iconSize: 24.0,
+                              ),
+                              dropdownStyleData: DropdownStyleData(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                              menuItemStyleData: const MenuItemStyleData(
+                                padding: EdgeInsets.symmetric(horizontal: 16),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 30.0),
+                            child: SizedBox(
+                              width: MediaQuery.sizeOf(context).width,
+                              height: 40.0,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 0,
+                                    backgroundColor: const Color(0xFF5BBB7B),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
                                   ),
-                                )),
+                                  onPressed: () {},
+                                  child: Text(
+                                    'Search',
+                                    style: GoogleFonts.roboto(
+                                      color: Colors.white,
+                                    ),
+                                  )),
+                            ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 15.0),
+
+                  // ^ Popular searches
                   Text(
                     'Popular Searches : Designer, Web, IOS, PHP, Senior, Engineer',
                     style: GoogleFonts.roboto(
                       color: Colors.white,
-                      fontSize: 15,
+                      fontSize: 15.0,
                       letterSpacing: 1.0,
                     ),
                   ),

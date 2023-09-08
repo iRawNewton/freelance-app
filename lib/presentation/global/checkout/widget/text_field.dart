@@ -11,7 +11,7 @@ class CheckoutFormWidget extends StatefulWidget {
       required this.label,
       required this.controller,
       required this.hintText,
-      required this.isImp,
+      this.isImp,
       required this.textInputType,
       this.maxLines,
       this.enabled,
@@ -19,7 +19,7 @@ class CheckoutFormWidget extends StatefulWidget {
   final double width;
   final TextEditingController controller;
   final String label, hintText;
-  final bool isImp;
+  final bool? isImp;
   final TextInputType textInputType;
   final int? maxLines;
   final bool? enabled;
@@ -44,7 +44,7 @@ class _CheckoutFormWidgetState extends State<CheckoutFormWidget> {
                 color: CustomColors.primaryTextColor,
               ),
               const SizedBox(width: 5.0),
-              widget.isImp
+              widget.isImp ?? false
                   ? const CustomText(
                       title: '*',
                       size: 14.0,

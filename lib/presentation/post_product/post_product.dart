@@ -301,7 +301,7 @@ class _FreelancePostState extends State<FreelancePost> {
                               case 1:
                                 // do something for step 1 product information
 
-                                if (_formKey1.currentState!.validate()) {
+                                if (_formKey2.currentState!.validate()) {
                                   setState(() {
                                     currentStep = currentStep + 1;
                                   });
@@ -310,7 +310,7 @@ class _FreelancePostState extends State<FreelancePost> {
                                 break;
                               case 2:
                                 // do something for step 2 additional information
-                                if (_formKey2.currentState!.validate()) {
+                                if (_formKey3.currentState!.validate()) {
                                   setState(() {
                                     currentStep = currentStep + 1;
                                   });
@@ -581,12 +581,13 @@ class _FreelancePostState extends State<FreelancePost> {
                 const SizedBox(height: 24.0),
                 CheckoutFormWidget(
                   width: 1.0,
-                  label: 'Services Provided',
+                  label: 'Services',
                   controller: _serviceProvided,
                   hintText: 'List the services you will provide',
                   isImp: true,
                   textInputType: TextInputType.multiline,
                   maxLines: 2,
+                  errorText: 'List all the services',
                 ),
 
                 // tools and technology used provided
@@ -640,6 +641,7 @@ class _FreelancePostState extends State<FreelancePost> {
                     textInputType: TextInputType.text,
                     maxLines: 1,
                     enabled: false,
+                    errorText: 'Select 1 image to continue',
                   ),
                 ),
                 const SizedBox(height: 10.0),
@@ -655,7 +657,6 @@ class _FreelancePostState extends State<FreelancePost> {
                     label: 'Pick image 2',
                     controller: _gallery2,
                     hintText: 'Pick image 2',
-                    isImp: true,
                     textInputType: TextInputType.text,
                     maxLines: 1,
                     enabled: false,
@@ -674,7 +675,7 @@ class _FreelancePostState extends State<FreelancePost> {
                     label: 'Pick image 3',
                     controller: _gallery3,
                     hintText: 'Pick image 3',
-                    isImp: true,
+                    isImp: false,
                     textInputType: TextInputType.text,
                     maxLines: 1,
                     enabled: false,
@@ -693,7 +694,6 @@ class _FreelancePostState extends State<FreelancePost> {
                     label: 'Pick image 4',
                     controller: _gallery4,
                     hintText: 'Pick image 4',
-                    isImp: true,
                     textInputType: TextInputType.text,
                     maxLines: 1,
                     enabled: false,
@@ -712,7 +712,6 @@ class _FreelancePostState extends State<FreelancePost> {
                     label: 'Pick image 5',
                     controller: _gallery5,
                     hintText: 'Pick image 5',
-                    isImp: true,
                     textInputType: TextInputType.text,
                     maxLines: 1,
                     enabled: false,
@@ -747,7 +746,7 @@ class _FreelancePostState extends State<FreelancePost> {
                   label: 'What services do you offer as a freelancer?',
                   controller: _faq1,
                   hintText: '',
-                  isImp: false,
+                  isImp: true,
                   textInputType: TextInputType.multiline,
                   maxLines: null,
                 ),
@@ -759,7 +758,7 @@ class _FreelancePostState extends State<FreelancePost> {
                   label: 'What is your typical turnaround time for projects?',
                   controller: _faq2,
                   hintText: '',
-                  isImp: false,
+                  isImp: true,
                   textInputType: TextInputType.multiline,
                   maxLines: null,
                 ),
