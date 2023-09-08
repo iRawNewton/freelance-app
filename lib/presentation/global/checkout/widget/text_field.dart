@@ -5,17 +5,17 @@ import '../../../../../res/constants/colors.dart';
 import '../../../../res/widgets/text_widget.dart';
 
 class CheckoutFormWidget extends StatefulWidget {
-  const CheckoutFormWidget({
-    super.key,
-    required this.width,
-    required this.label,
-    required this.controller,
-    required this.hintText,
-    required this.isImp,
-    required this.textInputType,
-    this.maxLines,
-    this.enabled,
-  });
+  const CheckoutFormWidget(
+      {super.key,
+      required this.width,
+      required this.label,
+      required this.controller,
+      required this.hintText,
+      required this.isImp,
+      required this.textInputType,
+      this.maxLines,
+      this.enabled,
+      this.errorText});
   final double width;
   final TextEditingController controller;
   final String label, hintText;
@@ -23,6 +23,7 @@ class CheckoutFormWidget extends StatefulWidget {
   final TextInputType textInputType;
   final int? maxLines;
   final bool? enabled;
+  final String? errorText;
   @override
   State<CheckoutFormWidget> createState() => _CheckoutFormWidgetState();
 }
@@ -58,6 +59,13 @@ class _CheckoutFormWidgetState extends State<CheckoutFormWidget> {
           width: MediaQuery.sizeOf(context).width * widget.width,
           child: TextFormField(
             controller: widget.controller,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return widget.errorText;
+              }
+              // Add more validation rules if needed
+              return null;
+            },
             keyboardType: widget.textInputType,
             maxLines: widget.maxLines,
             textCapitalization: TextCapitalization.sentences,

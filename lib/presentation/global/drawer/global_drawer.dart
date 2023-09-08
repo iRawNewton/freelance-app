@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:freelance_app/auth/screens/login.dart';
 import 'package:freelance_app/presentation/global/home/home.dart';
+import 'package:freelance_app/presentation/post_product/guideline.dart';
+import 'package:freelance_app/presentation/post_product/post_product.dart';
 import 'package:freelance_app/presentation/user/edit_profile/personal_info.dart';
 import 'package:freelance_app/presentation/user/profile_info/profile_info.dart';
 import 'package:freelance_app/res/widgets/drawer_list.dart';
@@ -160,13 +162,13 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
                   },
                 ),
 
-                // ^Edit profile
+                // ^ Upload product
                 DrawerList(
                   onTap: () {
-                    navigateToPage(context, const PersonalInfo());
+                    navigateToPage(context, const UploadGuideline());
                   },
-                  icon: Icons.edit,
-                  title: 'Edit Profile',
+                  icon: Icons.upload_file,
+                  title: 'Upload Product',
                 ),
 
                 // ^Wishlist

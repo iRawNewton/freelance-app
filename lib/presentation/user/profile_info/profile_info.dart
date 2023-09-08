@@ -3,8 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:freelance_app/models/users.dart';
 import 'package:freelance_app/presentation/global/drawer/global_drawer.dart';
+import 'package:freelance_app/presentation/user/profile_info/views/education.dart';
 import 'package:freelance_app/res/constants/colors.dart';
+import 'package:freelance_app/res/widgets/footer.dart';
 import 'package:freelance_app/services/get_remote_services.dart';
+import 'package:intl/intl.dart';
 import 'package:neumorphic_ui/neumorphic_ui.dart';
 import '../../../models/education.dart';
 import '../../../res/widgets/appbar.dart';
@@ -30,8 +33,7 @@ class _UserProfileState extends State<UserProfile> {
   Future<List<Users>?> getInfo() async {
     if (userEmail.isNotEmpty) {
       users = await GetRemoteService().getProfileInfo(userEmail);
-      await getEducationInfo(userEmail);
-
+      await getEducationDetails(userEmail);
       return users;
     } else {
       return null;
@@ -39,7 +41,7 @@ class _UserProfileState extends State<UserProfile> {
   }
 
   // & get education info
-  Future<List<Education>?> getEducationInfo(email) async {
+  Future<List<Education>?> getEducationDetails(email) async {
     education = await GetRemoteService().getEducationInfo(email);
     return education;
   }
@@ -200,6 +202,7 @@ class _UserProfileState extends State<UserProfile> {
 
                                   const SizedBox(height: 20.0),
 
+                                  // ^ stats
                                   Container(
                                     color: CustomColors.accentColor,
                                     child: const Padding(
@@ -280,50 +283,59 @@ class _UserProfileState extends State<UserProfile> {
                                   const SizedBox(height: 20.0),
 
                                   // ^education
-                                  const CustomText(
-                                    title: 'Education',
-                                    size: 16.0,
-                                    color: Colors.black87,
-                                    weight: FontWeight.w600,
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 12.0),
+                                    child: CustomText(
+                                      title: 'Education',
+                                      size: 16.0,
+                                      color: Colors.black87,
+                                      weight: FontWeight.w600,
+                                    ),
                                   ),
                                   const SizedBox(height: 10.0),
 
-                                  // ! this has to be done
+                                  // ^ Education view
+                                  Container(
+                                    color: CustomColors.accentColor2,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12.0, vertical: 12.0),
+                                      child: ListView.separated(
+                                          separatorBuilder: (context, index) {
+                                            // ^ divider
+                                            return const Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 12.0,
+                                              ),
+                                              child: Divider(
+                                                  height: 1.0,
+                                                  color: Colors.grey),
+                                            );
+                                          },
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount: education!.length,
+                                          itemBuilder: (context, index) {
+                                            // ^ Education view
+                                            return EducationView(
+                                              institute: education![index]
+                                                  .institutionName,
+                                              degree: education![index]
+                                                  .degreeObtained,
+                                              duration:
+                                                  '${DateFormat('MMMM').format(education![index].startDate)} ${DateFormat('yyyy').format(education![index].startDate)} - ${DateFormat('yyyy').format(education![index].endDate)}',
+                                              grade:
+                                                  'Grade: ${education![index].gradeOrGpa}',
+                                              studyField: education![index]
+                                                  .fieldOfStudy,
+                                            );
+                                          }),
+                                    ),
+                                  ),
 
-                                  // ListView.builder(
-                                  //     itemCount: 2,
-                                  //     itemBuilder: (context, index) {}),
-                                  // ListView.builder(
-                                  //     itemCount: education!.length,
-                                  //     itemBuilder: (context, index) {
-                                  //       return Card(
-                                  //         color: Colors.amber.shade50,
-                                  //         child: Column(
-                                  //           children: [
-                                  //             CustomText(
-                                  //               title: education![index]
-                                  //                   .institutionName,
-                                  //               size: 14.0,
-                                  //               color: Colors.black87,
-                                  //             ),
-                                  //             CustomText(
-                                  //               title: education![index]
-                                  //                   .degreeObtained,
-                                  //               size: 14.0,
-                                  //               color: Colors.black87,
-                                  //             ),
-                                  //             CustomText(
-                                  //               title:
-                                  //                   '${DateFormat('MMMM').format(education![index].startDate)} ${DateFormat('yyyy').format(education![index].startDate)} - ${DateFormat('yyyy').format(education![index].endDate)}',
-                                  //               size: 14.0,
-                                  //               color: Colors.black87,
-                                  //             ),
-                                  //           ],
-                                  //         ),
-                                  //       );
-                                  //     }),
-
-                                  // education listview
+                                  // ! add more content like experience, skills etc
 
                                   // Experience
                                   // const SizedBox(height: 20.0),
@@ -338,16 +350,17 @@ class _UserProfileState extends State<UserProfile> {
 
                                   // skills
                                   const SizedBox(height: 20.0),
-                                  const CustomText(
-                                    title: 'Skills',
-                                    size: 16.0,
-                                    color: Colors.black87,
-                                    weight: FontWeight.w600,
-                                  ),
+                                  // const CustomText(
+                                  //   title: 'Skills',
+                                  //   size: 16.0,
+                                  //   color: Colors.black87,
+                                  //   weight: FontWeight.w600,
+                                  // ),
                                   const SizedBox(height: 10.0),
                                   // Skills listview
 
                                   //
+                                  const AppFooter(),
                                 ],
                               ),
                             ],

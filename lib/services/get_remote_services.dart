@@ -94,10 +94,7 @@ class GetRemoteService {
       };
 
       final http.Response response = await http
-          .get(
-            Uri.parse(apiUrl),
-            headers: headers,
-          )
+          .get(Uri.parse(apiUrl).replace(queryParameters: headers))
           .timeout(const Duration(seconds: 30)); // Set a timeout of 30 seconds.
 
       if (response.statusCode == 200) {

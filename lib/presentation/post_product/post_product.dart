@@ -2,13 +2,9 @@ import 'dart:io';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:country_state_city_picker/country_state_city_picker.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:freelance_app/models/service_category.dart';
 import 'package:freelance_app/models/service_subcategory.dart';
 import 'package:freelance_app/res/widgets/buttons.dart';
-import 'package:freelance_app/res/widgets/dropdown.dart';
-import 'package:freelance_app/res/widgets/phone_input.dart';
 import 'package:freelance_app/res/widgets/snackbar.dart';
 import 'package:freelance_app/services/get_remote_services.dart';
 import 'package:freelance_app/services/post_remote_services.dart';
@@ -19,7 +15,6 @@ import '../../res/widgets/appbar.dart';
 import '../../res/widgets/text_widget.dart';
 import '../../res/widgets/loading_indicator.dart';
 import '../../services/pick_image.dart';
-import '../../services/put_remote_services.dart';
 import '../global/checkout/widget/text_field.dart';
 
 class FreelancePost extends StatefulWidget {
@@ -35,30 +30,18 @@ class _FreelancePostState extends State<FreelancePost> {
   int currentStep = 0;
   bool isNetworkImage = true;
 
-  final _formKey = GlobalKey<FormState>();
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
   final _formKey3 = GlobalKey<FormState>();
   final _formKey4 = GlobalKey<FormState>();
 
   // controllers
-  File? profilePictureFile;
   File? galleryFile1;
   File? galleryFile2;
   File? galleryFile3;
   File? galleryFile4;
   File? galleryFile5;
 
-  final TextEditingController _profilePicture = TextEditingController();
-  final TextEditingController _fName = TextEditingController();
-  final TextEditingController _lName = TextEditingController();
-  final TextEditingController _username = TextEditingController();
-  final TextEditingController _phoneNumber = TextEditingController();
-  final TextEditingController _languageProficiency = TextEditingController();
-  final TextEditingController _countryValue = TextEditingController();
-  final TextEditingController _stateValue = TextEditingController();
-  final TextEditingController _cityValue = TextEditingController();
-  final TextEditingController _profileDesc = TextEditingController();
   final TextEditingController _category = TextEditingController();
   final TextEditingController _subCategory = TextEditingController();
   final TextEditingController _title = TextEditingController();
@@ -91,24 +74,6 @@ class _FreelancePostState extends State<FreelancePost> {
   List<ServiceSubcategory>? serviceSubCategory = [];
   List<Users>? userInfo = [];
 
-  // get user details
-  getUserInfo() async {
-    userInfo = await GetRemoteService().getUserInfo('gaurabroy16@gmail.com');
-    if (userInfo!.isNotEmpty) {
-      setState(() {
-        _fName.text = userInfo![0].firstName;
-        _lName.text = userInfo![0].lastName;
-        _username.text = userInfo![0].username;
-        _phoneNumber.text = userInfo![0].phone;
-        _languageProficiency.text = userInfo![0].languageProficiency;
-        _countryValue.text = userInfo![0].residenceCountry;
-        _stateValue.text = userInfo![0].residenceState;
-        _cityValue.text = userInfo![0].residenceCity;
-        _profileDesc.text = userInfo![0].userBio;
-      });
-    }
-  }
-
   // get category
   getCategory() async {
     List<ServiceCategory>? response =
@@ -135,46 +100,6 @@ class _FreelancePostState extends State<FreelancePost> {
   String? selectedCategory;
 
   // upload functions
-
-  Future<String> uploadBasicInfo(
-    String username,
-    String email,
-    String phone,
-    String passwordHash,
-    String firstName,
-    String lastName,
-    String languageProficiency,
-    String residenceCountry,
-    String residenceState,
-    String residenceCity,
-    String userBio,
-    String profilePictureUrl,
-  ) async {
-    // upload data
-    var response = await PutRemoteService().putUsers(
-      username,
-      email,
-      phone,
-      passwordHash,
-      firstName,
-      lastName,
-      languageProficiency,
-      residenceCountry,
-      residenceState,
-      residenceCity,
-      userBio,
-      profilePictureUrl,
-    );
-
-    if (response == 'Data updated successfully') {
-      // do something
-      setState(() {
-        isLoading = false;
-        currentStep += 1;
-      });
-    }
-    return response;
-  }
 
   Future<String> uploadImage(
       File profilePictureFile, String profilePictureUrl) async {
@@ -243,22 +168,12 @@ class _FreelancePostState extends State<FreelancePost> {
 
   @override
   void initState() {
-    getUserInfo();
     getCategory();
     super.initState();
   }
 
   @override
   void dispose() {
-    _fName.dispose();
-    _lName.dispose();
-    _username.dispose();
-    _phoneNumber.dispose();
-    _languageProficiency.dispose();
-    _countryValue.dispose();
-    _stateValue.dispose();
-    _cityValue.dispose();
-    _profileDesc.dispose();
     _category.dispose();
     _subCategory.dispose();
     _title.dispose();
@@ -274,17 +189,17 @@ class _FreelancePostState extends State<FreelancePost> {
     super.dispose();
   }
 
-  void selectPhotoFunc() async {
-    final result = await selectPhoto();
-    setState(() {
-      isNetworkImage = false;
-      _profilePicture.text = result.fileName;
-      profilePictureFile = File(result.filePath);
-      if (_profilePicture.text.isNotEmpty) {
-        uploadImage(profilePictureFile!, _profilePicture.text);
-      }
-    });
-  }
+  // void selectPhotoFunc() async {
+  //   final result = await selectPhoto();
+  //   setState(() {
+  //     isNetworkImage = false;
+  //     _profilePicture.text = result.fileName;
+  //     profilePictureFile = File(result.filePath);
+  //     if (_profilePicture.text.isNotEmpty) {
+  //       uploadImage(profilePictureFile!, _profilePicture.text);
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -310,7 +225,7 @@ class _FreelancePostState extends State<FreelancePost> {
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 12.0),
                         child: CustomText(
-                          title: 'User Information',
+                          title: 'Upload Product Details',
                           size: 18.0,
                           color: CustomColors.primaryTextColor,
                           weight: FontWeight.bold,
@@ -367,22 +282,12 @@ class _FreelancePostState extends State<FreelancePost> {
                               case 0:
                                 // do something for step 0 basic information
 
-                                if (_formKey.currentState!.validate()) {
-                                  isLoading = true;
-                                  uploadBasicInfo(
-                                    _username.text,
-                                    'gaurabroy.kyptronix@gmail.com',
-                                    _phoneNumber.text,
-                                    '_passwordHash',
-                                    _fName.text,
-                                    _lName.text,
-                                    _languageProficiency.text,
-                                    _countryValue.text,
-                                    _stateValue.text,
-                                    _cityValue.text,
-                                    _profileDesc.text,
-                                    _profilePicture.text,
-                                  );
+                                if (_formKey1.currentState!.validate()) {
+                                  // isLoading = true;
+                                  // ! step 1 fill up
+                                  setState(() {
+                                    currentStep = currentStep + 1;
+                                  });
                                 } else {
                                   customSnackBar(
                                     context,
@@ -479,194 +384,12 @@ class _FreelancePostState extends State<FreelancePost> {
 
   List<Step> getSteps() => [
         /* ------------------------------------------------ */
-        // Basic information
+        // ^ Product information
         /* ------------------------------------------------ */
+
         Step(
           state: currentStep > 0 ? StepState.complete : StepState.indexed,
           isActive: currentStep >= 0,
-          title: const CustomText(
-            title: 'Basic Information',
-            size: 18.0,
-            color: CustomColors.primaryTextColor,
-            weight: FontWeight.bold,
-          ),
-          content: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 40.0),
-
-                // display picture
-                Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CircleAvatar(
-                            maxRadius: 50.0,
-                            backgroundColor: Colors.grey,
-                            child: ClipOval(
-                              child: SizedBox(
-                                width: 140.0, // Set a fixed width and height
-                                height: 140.0,
-                                child: isNetworkImage
-                                    ? CachedNetworkImage(
-                                        imageUrl: 'https://shorturl.at/elV34',
-                                        placeholder: (context, url) =>
-                                            const CircularProgressIndicator(),
-                                        fit: BoxFit.cover,
-                                      )
-                                    : (_profilePicture.text != '')
-                                        ? Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Image.file(
-                                              File(profilePictureFile!.path),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          )
-                                        : const SizedBox(),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 20.0),
-                          CustomButton(
-                            color: CustomColors.info,
-                            title: 'Update Picture',
-                            textColor: Colors.white,
-                            onPressed: () {
-                              selectPhotoFunc();
-                            },
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 40.0),
-
-                // first name and last name
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CheckoutFormWidget(
-                      width: 0.36,
-                      controller: _fName,
-                      label: 'First Name',
-                      hintText: 'John',
-                      isImp: true,
-                      textInputType: TextInputType.name,
-                    ),
-                    CheckoutFormWidget(
-                      width: 0.36,
-                      controller: _lName,
-                      label: 'Last Name',
-                      hintText: 'Doe',
-                      isImp: true,
-                      textInputType: TextInputType.name,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 24.0),
-
-                // username
-                CheckoutFormWidget(
-                  width: 1.0,
-                  label: 'Display Name',
-                  controller: _username,
-                  hintText: '@johndoe',
-                  isImp: true,
-                  textInputType: TextInputType.name,
-                ),
-                const SizedBox(height: 24.0),
-
-                // contact number
-                PhoneInput(
-                  label: 'Phone',
-                  controller: _phoneNumber,
-                  isImp: true,
-                ),
-                const SizedBox(height: 24.0),
-
-                // language proficiency
-                const Row(
-                  children: [
-                    CustomText(
-                        title: 'Language Proficiency in English',
-                        size: 14.0,
-                        color: CustomColors.primaryTextColor),
-                    SizedBox(width: 5.0),
-                    CustomText(
-                      title: '*',
-                      size: 14.0,
-                      color: Colors.red,
-                    )
-                  ],
-                ),
-                const SizedBox(height: 5.0),
-                CustomDropDown(
-                  options: options,
-                  controller: _languageProficiency,
-                ),
-                const SizedBox(height: 24.0),
-
-                // country
-                const Row(
-                  children: [
-                    CustomText(
-                        title: 'Select your country',
-                        size: 14.0,
-                        color: CustomColors.primaryTextColor),
-                    SizedBox(width: 5.0),
-                    CustomText(
-                      title: '*',
-                      size: 14.0,
-                      color: Colors.red,
-                    )
-                  ],
-                ),
-                const SizedBox(height: 5.0),
-
-                SelectState(
-                  onCountryChanged: (value) {
-                    setState(() {
-                      _countryValue.text = value;
-                    });
-                  },
-                  onStateChanged: (value) {
-                    setState(() {
-                      _stateValue.text = value;
-                    });
-                  },
-                  onCityChanged: (value) {
-                    setState(() {
-                      _cityValue.text = value;
-                    });
-                  },
-                ),
-                // short description
-                CheckoutFormWidget(
-                  width: 1.0,
-                  label: 'Short Description',
-                  controller: _profileDesc,
-                  hintText: ' Briefly describe yourself and your expertise',
-                  isImp: true,
-                  textInputType: TextInputType.name,
-                  maxLines: 5,
-                ),
-              ],
-            ),
-          ),
-        ),
-
-        /* ------------------------------------------------ */
-        //  Product and Information
-        /* ------------------------------------------------ */
-        Step(
-          state: currentStep > 1 ? StepState.complete : StepState.indexed,
-          isActive: currentStep >= 1,
           title: const CustomText(
             title: 'Product Information',
             size: 18.0,
@@ -678,7 +401,7 @@ class _FreelancePostState extends State<FreelancePost> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // parent category
+                // ^ parent category
                 DropdownButtonFormField2<String>(
                   isExpanded: true,
                   decoration: InputDecoration(
@@ -733,10 +456,9 @@ class _FreelancePostState extends State<FreelancePost> {
                     padding: EdgeInsets.symmetric(horizontal: 16),
                   ),
                 ),
-
                 const SizedBox(height: 24.0),
 
-                // sub categories
+                // ^ sub categories
                 DropdownButtonFormField2<String>(
                   isExpanded: true,
                   decoration: InputDecoration(
@@ -790,7 +512,7 @@ class _FreelancePostState extends State<FreelancePost> {
                   ),
                 ),
 
-                // product title
+                // ^ product title
                 const SizedBox(height: 24.0),
                 CheckoutFormWidget(
                   width: 1.0,
@@ -800,9 +522,10 @@ class _FreelancePostState extends State<FreelancePost> {
                   isImp: true,
                   textInputType: TextInputType.name,
                   maxLines: 1,
+                  errorText: 'Please enter the title of the project',
                 ),
 
-                // project minimum delivery time
+                // ^ project minimum delivery time
                 const SizedBox(height: 24.0),
                 CheckoutFormWidget(
                   width: 1.0,
@@ -812,9 +535,10 @@ class _FreelancePostState extends State<FreelancePost> {
                   isImp: true,
                   textInputType: TextInputType.number,
                   maxLines: 1,
+                  errorText: 'Enter minimum delivery time in days',
                 ),
 
-                // project description
+                // ^ project description
                 const SizedBox(height: 24.0),
                 CheckoutFormWidget(
                   width: 1.0,
@@ -824,6 +548,7 @@ class _FreelancePostState extends State<FreelancePost> {
                   isImp: true,
                   textInputType: TextInputType.multiline,
                   maxLines: 5,
+                  errorText: 'Provide description for the product',
                 ),
               ],
             ),
@@ -831,11 +556,11 @@ class _FreelancePostState extends State<FreelancePost> {
         ),
 
         /* ------------------------------------------------ */
-        //  additional information
+        // ^ additional information
         /* ------------------------------------------------ */
         Step(
-          state: currentStep > 2 ? StepState.complete : StepState.indexed,
-          isActive: currentStep >= 2,
+          state: currentStep > 1 ? StepState.complete : StepState.indexed,
+          isActive: currentStep >= 1,
           title: const CustomText(
             title: 'Additional Information',
             size: 18.0,
@@ -881,11 +606,11 @@ class _FreelancePostState extends State<FreelancePost> {
         ),
 
         /* ------------------------------------------------ */
-        //  add images
+        // ^ add images
         /* ------------------------------------------------ */
         Step(
-          state: currentStep > 3 ? StepState.complete : StepState.indexed,
-          isActive: currentStep >= 3,
+          state: currentStep > 2 ? StepState.complete : StepState.indexed,
+          isActive: currentStep >= 2,
           title: const CustomText(
             title: 'Add Images',
             size: 18.0,
@@ -999,11 +724,11 @@ class _FreelancePostState extends State<FreelancePost> {
         ),
 
         /* ------------------------------------------------ */
-        //  add FAQ
+        // ^ add FAQ
         /* ------------------------------------------------ */
         Step(
-          state: currentStep > 4 ? StepState.complete : StepState.indexed,
-          isActive: currentStep >= 4,
+          state: currentStep > 3 ? StepState.complete : StepState.indexed,
+          isActive: currentStep >= 3,
           title: const CustomText(
             title: 'FAQs',
             size: 18.0,
