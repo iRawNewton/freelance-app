@@ -25,7 +25,8 @@ class _UploadGuidelineState extends State<UploadGuideline> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  navigateToPage(context, const FreelancePost());
+                  // TODO: make the user id dynamic
+                  navigateToPage(context, const FreelancePost(userId: '18'));
                 },
                 child: const CustomText(
                   title: 'Upload Product',

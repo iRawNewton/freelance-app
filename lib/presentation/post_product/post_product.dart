@@ -18,14 +18,15 @@ import '../../services/pick_image.dart';
 import '../global/checkout/widget/text_field.dart';
 
 class FreelancePost extends StatefulWidget {
-  const FreelancePost({super.key});
+  const FreelancePost({super.key, required this.userId});
+  final String userId;
 
   @override
   State<FreelancePost> createState() => _FreelancePostState();
 }
 
 class _FreelancePostState extends State<FreelancePost> {
-  // variables
+  // & variables
   bool isLoading = false;
   int currentStep = 0;
   bool isNetworkImage = true;
@@ -35,7 +36,7 @@ class _FreelancePostState extends State<FreelancePost> {
   final _formKey3 = GlobalKey<FormState>();
   final _formKey4 = GlobalKey<FormState>();
 
-  // controllers
+  // & controllers
   File? galleryFile1;
   File? galleryFile2;
   File? galleryFile3;
@@ -73,8 +74,9 @@ class _FreelancePostState extends State<FreelancePost> {
   List<ServiceCategory>? serviceCategory = [];
   List<ServiceSubcategory>? serviceSubCategory = [];
   List<Users>? userInfo = [];
+  List<String> questionsAndAnswers = [];
 
-  // get category
+  // & get category
   getCategory() async {
     List<ServiceCategory>? response =
         await GetRemoteService().getCategoriesInfo('', '', '', '', '');
@@ -87,7 +89,7 @@ class _FreelancePostState extends State<FreelancePost> {
     });
   }
 
-  // get Sub category
+  // & get Sub category
   getSubCategory(String parentId) async {
     List<ServiceSubcategory>? response =
         await GetRemoteService().getSubserviceInfo(parentCategoryId: parentId);
@@ -99,7 +101,7 @@ class _FreelancePostState extends State<FreelancePost> {
 
   String? selectedCategory;
 
-  // upload functions
+  // & upload functions
 
   Future<String> uploadImage(
       File profilePictureFile, String profilePictureUrl) async {
@@ -134,7 +136,8 @@ class _FreelancePostState extends State<FreelancePost> {
     }
   }
 
-  Future<String> uploadProduct(
+// ! Working on this as of now ***************************
+  Future<dynamic> uploadProduct(
     userId,
     projectCategory,
     projectSubcategory,
@@ -143,7 +146,7 @@ class _FreelancePostState extends State<FreelancePost> {
     projctDescription,
     servicesProvided,
     toolsTechUsed,
-    projectServiceId,
+    faqs,
   ) async {
     var response = await PostRemoteService().postProducts(
       userId,
@@ -154,10 +157,10 @@ class _FreelancePostState extends State<FreelancePost> {
       projctDescription,
       servicesProvided,
       toolsTechUsed,
-      projectServiceId,
+      faqs,
     );
     setState(() {
-      isLoading = false;
+      // isLoading = false;
     });
 
     if (response == 'Data updated successfully') {
@@ -165,6 +168,7 @@ class _FreelancePostState extends State<FreelancePost> {
     }
     return response;
   }
+  // ! Working on this as of now ***************************
 
   @override
   void initState() {
@@ -296,67 +300,89 @@ class _FreelancePostState extends State<FreelancePost> {
                                     Colors.white,
                                   );
                                 }
-
                                 break;
+
                               case 1:
-                                // do something for step 1 product information
+                                // do something for step 1 additional information
 
                                 if (_formKey2.currentState!.validate()) {
                                   setState(() {
                                     currentStep = currentStep + 1;
                                   });
                                 }
-
                                 break;
+
                               case 2:
-                                // do something for step 2 additional information
+                                // do something for step 2 add images
                                 if (_formKey3.currentState!.validate()) {
                                   setState(() {
                                     currentStep = currentStep + 1;
                                   });
                                 }
-
                                 break;
+
                               case 3:
-                                // do something for step 3 images
-                                setState(() {
-                                  currentStep = currentStep + 1;
-                                });
-                                break;
-                              case 4:
-                                // do something for step 4 faq
+                                // do something for step 3 faqs
                                 if (_formKey4.currentState!.validate()) {
-                                  setState(() {
-                                    isLoading = true;
-                                    uploadProduct(
-                                      '18',
-                                      _category.text,
-                                      _subCategory.text,
-                                      _title.text,
-                                      _deliveryTime.text,
-                                      _productDescrition.text,
-                                      _toolTechUsed.text,
-                                      _serviceProvided.text,
-                                      // ,projectServiceId,
-                                      '1',
-                                    );
-                                    // currentStep = currentStep + 1;
-                                    // save it
-                                  });
-                                } else {
-                                  customSnackBar(context, 'Fields missing',
-                                      CustomColors.danger, Colors.white);
+                                  // ! Work here too
+                                  uploadProduct(
+                                    widget.userId,
+                                    _category.text,
+                                    _subCategory.text,
+                                    _title.text,
+                                    _deliveryTime.text,
+                                    _productDescrition.text,
+                                    _serviceProvided.text,
+                                    _toolTechUsed.text,
+                                    [
+                                      _faq1.text,
+                                      _faq2.text,
+                                      _faq3.text,
+                                      _faq4.text,
+                                      _faq5.text,
+                                    ],
+                                  );
+                                  // setState(() {
+                                  //   print('done');
+                                  //   // currentStep = currentStep + 1;
+                                  // });
                                 }
-
                                 break;
+
+                              // case 4:
+                              //   // do something for step 4 faq
+                              //   if (_formKey4.currentState!.validate()) {
+                              //     setState(() {
+                              //       isLoading = true;
+                              //       uploadProduct(
+                              //         '18',
+                              //         _category.text,
+                              //         _subCategory.text,
+                              //         _title.text,
+                              //         _deliveryTime.text,
+                              //         _productDescrition.text,
+                              //         _toolTechUsed.text,
+                              //         _serviceProvided.text,
+                              //         // ,projectServiceId,
+                              //         '1',
+                              //       );
+                              //       // currentStep = currentStep + 1;
+                              //       // save it
+                              //     });
+                              //   } else {
+                              //     customSnackBar(context, 'Fields missing',
+                              //         CustomColors.danger, Colors.white);
+                              //   }
+
+                              //   break;
                               default:
                               // Handle cases not covered by the above steps
                             }
 
                             // -----------------------------------------------------------
                             if (isLastStep) {
-                              // submit form
-                              debugPrint('Completed');
+                              // *submit form
+                              // debugPrint('Completed');
                             }
                             //  else {
                             //   setState(() => currentStep += 1);
@@ -386,7 +412,6 @@ class _FreelancePostState extends State<FreelancePost> {
         /* ------------------------------------------------ */
         // ^ Product information
         /* ------------------------------------------------ */
-
         Step(
           state: currentStep > 0 ? StepState.complete : StepState.indexed,
           isActive: currentStep >= 0,
@@ -749,6 +774,7 @@ class _FreelancePostState extends State<FreelancePost> {
                   isImp: true,
                   textInputType: TextInputType.multiline,
                   maxLines: null,
+                  errorText: 'Field cannot be empty',
                 ),
 
                 // FAQ 2
@@ -761,6 +787,7 @@ class _FreelancePostState extends State<FreelancePost> {
                   isImp: true,
                   textInputType: TextInputType.multiline,
                   maxLines: null,
+                  errorText: 'Field cannot be empty',
                 ),
 
                 // FAQ 3
@@ -773,6 +800,7 @@ class _FreelancePostState extends State<FreelancePost> {
                   isImp: false,
                   textInputType: TextInputType.multiline,
                   maxLines: null,
+                  errorText: 'Field cannot be empty',
                 ),
 
                 // FAQ 4

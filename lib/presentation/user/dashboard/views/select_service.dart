@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_app/presentation/post_product/post_product.dart';
-
 import '../../../../../res/constants/colors.dart';
 import '../../../../res/widgets/text_widget.dart';
 
@@ -32,14 +30,14 @@ class _SelectServiceState extends State<SelectService> {
         const Divider(),
         SimpleDialogOption(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    // PostServiceFreelance()
-                    const FreelancePost(),
-              ),
-            ); // Return the chosen option
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) =>
+            //         // PostServiceFreelance()
+            //         const FreelancePost(),
+            //   ),
+            // ); // Return the chosen option
           },
           child: const CustomText(
             title: '1. Freelancing',

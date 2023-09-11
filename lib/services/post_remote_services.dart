@@ -12,7 +12,7 @@ String baseUrl = ConstStrings.baseUrl;
 String apiUrl = '$baseUrl/auth/admin_login.php';
 
 class PostRemoteService {
-  // auth
+  // & auth
   Future<String> signUp(
     String email,
     String password,
@@ -46,6 +46,7 @@ class PostRemoteService {
     }
   }
 
+  // & post products
   Future<String> postProducts(
     userId,
     projectCategory,
@@ -55,10 +56,22 @@ class PostRemoteService {
     projctDescription,
     servicesProvided,
     toolsTechUsed,
-    projectServiceId,
+    faqs,
   ) async {
     String baseUrl = ConstStrings.baseUrl;
     String apiUrl = '$baseUrl/product/products.php';
+
+    List que = [
+      'What services do you offer as a freelancer?',
+      'What is your typical turnaround time for projects',
+      'How do you handle revisions and feedback?',
+      'What sets you apart from other freelancers?',
+      'Can you share samples of your previous work?'
+    ];
+
+// Convert the lists to JSON arrays.
+    String faqsAns = jsonEncode(faqs);
+    String faqsQue = jsonEncode(que);
 
     var response = await http.post(
       Uri.parse(apiUrl),
@@ -71,16 +84,15 @@ class PostRemoteService {
         'project_description': projctDescription,
         'services_provided': servicesProvided,
         'tools_and_technologies': toolsTechUsed,
-        'project_service_id': projectServiceId,
-        // 'faqs': '',
-        // '': '',
+        'project_service_id': '1',
+        'faqsQ': faqsQue,
+        'faqsA': faqsAns,
       },
     );
 
     if (response.statusCode == 200) {
       // print(response.body);
     } else {
-      // print('error');
       // print(response.body);
     }
 
