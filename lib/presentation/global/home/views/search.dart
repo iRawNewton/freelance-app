@@ -28,11 +28,14 @@ class _HomeWidget1State extends State<HomeWidget1> {
         await GetRemoteService().getCategoriesInfo('', '', '', '', '');
 
     setState(() {
-      // _subCategory.clear();
-      // serviceSubCategory = [];
-
       serviceCategory = response;
     });
+  }
+
+  @override
+  void initState() {
+    getCategory();
+    super.initState();
   }
 
   @override
@@ -116,7 +119,6 @@ class _HomeWidget1State extends State<HomeWidget1> {
                           Padding(
                             padding: const EdgeInsets.only(left: 20.0),
                             child: DropdownButtonFormField2<String>(
-                              isExpanded: true,
                               hint: const Text(
                                 'Choose category',
                                 style: TextStyle(fontSize: 14.0),
@@ -144,8 +146,8 @@ class _HomeWidget1State extends State<HomeWidget1> {
                                 height: 50.0,
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: Colors.transparent,
                                     width: 0,
+                                    color: Colors.transparent,
                                   ),
                                 ),
                               ),
@@ -158,6 +160,7 @@ class _HomeWidget1State extends State<HomeWidget1> {
                               ),
                               dropdownStyleData: DropdownStyleData(
                                 decoration: BoxDecoration(
+                                  border: Border.all(),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
@@ -166,8 +169,12 @@ class _HomeWidget1State extends State<HomeWidget1> {
                               ),
                             ),
                           ),
+
+                          const SizedBox(height: 10.0),
+
+                          // ^ search button
                           Padding(
-                            padding: const EdgeInsets.only(left: 30.0),
+                            padding: const EdgeInsets.only(left: 20.0),
                             child: SizedBox(
                               width: MediaQuery.sizeOf(context).width,
                               height: 40.0,

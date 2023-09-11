@@ -44,8 +44,11 @@ class _HomePageState extends State<HomePage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  // ^ Search what you're looking for
                   const HomeWidget1(),
                   const SizedBox(height: 20.0),
+
+                  // ^ browse talent by category
                   SizedBox(
                     width: MediaQuery.sizeOf(context).width,
                     child: Padding(
