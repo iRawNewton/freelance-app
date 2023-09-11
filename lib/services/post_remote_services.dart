@@ -2,9 +2,11 @@
 // DateTime now = DateTime.now();
 // String formattedTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freelance_app/res/functions/convert.dart';
+import 'package:freelance_app/services/upload_image.dart';
 import 'package:http/http.dart' as http;
 import 'package:freelance_app/res/constants/strings.dart';
 
@@ -57,9 +59,14 @@ class PostRemoteService {
     servicesProvided,
     toolsTechUsed,
     faqs,
+    galleryImage,
+    galleryFile,
   ) async {
     String baseUrl = ConstStrings.baseUrl;
     String apiUrl = '$baseUrl/product/products.php';
+
+    // print(galleryImage); // null
+    // print(galleryFile); // names aaraha ha
 
     List que = [
       'What services do you offer as a freelancer?',
@@ -91,15 +98,27 @@ class PostRemoteService {
     );
 
     if (response.statusCode == 200) {
-      // print(response.body);
-    } else {
-      // print(response.body);
-    }
+      // ! **********************************
+      for (int i = 0; i < galleryImage.length; i++) {
+        String fileName = galleryImage[i];
+        File file = galleryFile[i];
 
-    return '';
+        if (fileName.isNotEmpty) {
+          var response = await ImageUpload().uploadProductImage(file, fileName);
+          print(response);
+        }
+      }
+
+      // ! **********************************
+
+      return 'Successfully uploaded';
+    } else {
+      return 'Failed to upload';
+    }
   }
 
 // --------------------------------------------------------
+
   // ********************
   Future postCategory(
     String categoryName,

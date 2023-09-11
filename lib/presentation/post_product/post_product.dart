@@ -76,6 +76,10 @@ class _FreelancePostState extends State<FreelancePost> {
   List<Users>? userInfo = [];
   List<String> questionsAndAnswers = [];
 
+  String? selectedCategory;
+
+  // & ******** functions ********
+
   // & get category
   getCategory() async {
     List<ServiceCategory>? response =
@@ -99,16 +103,13 @@ class _FreelancePostState extends State<FreelancePost> {
     });
   }
 
-  String? selectedCategory;
-
-  // & upload functions
-
+  // & upload images
   Future<String> uploadImage(
       File profilePictureFile, String profilePictureUrl) async {
     // upload image
 
-    var imgResponse =
-        await ImageUpload().uploadImage(profilePictureFile, profilePictureUrl);
+    var imgResponse = await ImageUpload()
+        .uploadLogoImage(profilePictureFile, profilePictureUrl);
 
     if (imgResponse.trim() == '"Image uploaded successfully"') {
       setState(() {
@@ -136,7 +137,7 @@ class _FreelancePostState extends State<FreelancePost> {
     }
   }
 
-// ! Working on this as of now ***************************
+  // & upload product
   Future<dynamic> uploadProduct(
     userId,
     projectCategory,
@@ -147,7 +148,10 @@ class _FreelancePostState extends State<FreelancePost> {
     servicesProvided,
     toolsTechUsed,
     faqs,
+    galleryImageName,
+    galleryFile,
   ) async {
+    print(galleryFile);
     var response = await PostRemoteService().postProducts(
       userId,
       projectCategory,
@@ -158,24 +162,35 @@ class _FreelancePostState extends State<FreelancePost> {
       servicesProvided,
       toolsTechUsed,
       faqs,
+      galleryImageName,
+      galleryFile,
     );
     setState(() {
-      // isLoading = false;
+      isLoading = false;
     });
 
-    if (response == 'Data updated successfully') {
-      debugPrint('uploaded');
+    if (response == 'Successfully uploaded') {
+      setState(() {
+        customSnackBar(context, 'Product Uploaded Successfully',
+            CustomColors.success, Colors.black);
+      });
+    } else {
+      setState(() {
+        customSnackBar(context, 'Something went wrong. Please try again!',
+            CustomColors.danger, Colors.white);
+      });
     }
     return response;
   }
-  // ! Working on this as of now ***************************
 
+  // & initstate
   @override
   void initState() {
     getCategory();
     super.initState();
   }
 
+  // & dispose
   @override
   void dispose() {
     _category.dispose();
@@ -185,6 +200,11 @@ class _FreelancePostState extends State<FreelancePost> {
     _productDescrition.dispose();
     _serviceProvided.dispose();
     _toolTechUsed.dispose();
+    _gallery1.dispose();
+    _gallery2.dispose();
+    _gallery3.dispose();
+    _gallery4.dispose();
+    _gallery5.dispose();
     _faq1.dispose();
     _faq2.dispose();
     _faq3.dispose();
@@ -192,18 +212,6 @@ class _FreelancePostState extends State<FreelancePost> {
     _faq5.dispose();
     super.dispose();
   }
-
-  // void selectPhotoFunc() async {
-  //   final result = await selectPhoto();
-  //   setState(() {
-  //     isNetworkImage = false;
-  //     _profilePicture.text = result.fileName;
-  //     profilePictureFile = File(result.filePath);
-  //     if (_profilePicture.text.isNotEmpty) {
-  //       uploadImage(profilePictureFile!, _profilePicture.text);
-  //     }
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -287,8 +295,6 @@ class _FreelancePostState extends State<FreelancePost> {
                                 // do something for step 0 basic information
 
                                 if (_formKey1.currentState!.validate()) {
-                                  // isLoading = true;
-                                  // ! step 1 fill up
                                   setState(() {
                                     currentStep = currentStep + 1;
                                   });
@@ -324,7 +330,10 @@ class _FreelancePostState extends State<FreelancePost> {
                               case 3:
                                 // do something for step 3 faqs
                                 if (_formKey4.currentState!.validate()) {
-                                  // ! Work here too
+                                  // setState(() {
+                                  //   isLoading = true;
+                                  // });
+
                                   uploadProduct(
                                     widget.userId,
                                     _category.text,
@@ -341,7 +350,22 @@ class _FreelancePostState extends State<FreelancePost> {
                                       _faq4.text,
                                       _faq5.text,
                                     ],
+                                    [
+                                      _gallery1.text,
+                                      _gallery2.text,
+                                      _gallery3.text,
+                                      _gallery4.text,
+                                      _gallery5.text,
+                                    ],
+                                    [
+                                      galleryFile1,
+                                      galleryFile2,
+                                      galleryFile3,
+                                      galleryFile4,
+                                      galleryFile5,
+                                    ],
                                   );
+
                                   // setState(() {
                                   //   print('done');
                                   //   // currentStep = currentStep + 1;
@@ -655,7 +679,11 @@ class _FreelancePostState extends State<FreelancePost> {
 
                 InkWell(
                   onTap: () async {
-                    selectGalleryFunc(_gallery1, galleryFile1);
+                    final result = await selectPhoto();
+                    setState(() {
+                      _gallery1.text = result.fileName;
+                      galleryFile1 = File(result.filePath);
+                    });
                   },
                   child: CheckoutFormWidget(
                     width: 1.0,
@@ -835,6 +863,7 @@ class _FreelancePostState extends State<FreelancePost> {
     final result = await selectPhoto();
     setState(() {
       fileName.text = result.fileName;
+
       file = File(result.filePath);
     });
   }
