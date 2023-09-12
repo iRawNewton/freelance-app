@@ -65,9 +65,6 @@ class PostRemoteService {
     String baseUrl = ConstStrings.baseUrl;
     String apiUrl = '$baseUrl/product/products.php';
 
-    // print(galleryImage); // null
-    // print(galleryFile); // names aaraha ha
-
     List que = [
       'What services do you offer as a freelancer?',
       'What is your typical turnaround time for projects',
@@ -79,6 +76,9 @@ class PostRemoteService {
 // Convert the lists to JSON arrays.
     String faqsAns = jsonEncode(faqs);
     String faqsQue = jsonEncode(que);
+    String imageText = jsonEncode(galleryImage);
+
+    var imageResult = '';
 
     var response = await http.post(
       Uri.parse(apiUrl),
@@ -94,24 +94,28 @@ class PostRemoteService {
         'project_service_id': '1',
         'faqsQ': faqsQue,
         'faqsA': faqsAns,
+        'imageText': imageText,
       },
     );
 
     if (response.statusCode == 200) {
-      // ! **********************************
       for (int i = 0; i < galleryImage.length; i++) {
         String fileName = galleryImage[i];
         File file = galleryFile[i];
 
         if (fileName.isNotEmpty) {
           var response = await ImageUpload().uploadProductImage(file, fileName);
-          print(response);
+          if (response == '"Image uploaded successfully"') {
+            imageResult = 'Product Upload Successful';
+          }
         }
       }
 
-      // ! **********************************
-
-      return 'Successfully uploaded';
+      if (imageResult == 'Product Upload Successful') {
+        return 'Successfully uploaded';
+      } else {
+        return 'Failed to upload';
+      }
     } else {
       return 'Failed to upload';
     }

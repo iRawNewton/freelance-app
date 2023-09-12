@@ -4,6 +4,8 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:freelance_app/models/service_category.dart';
 import 'package:freelance_app/models/service_subcategory.dart';
+import 'package:freelance_app/presentation/global/home/home.dart';
+import 'package:freelance_app/res/functions/navigate_page.dart';
 import 'package:freelance_app/res/widgets/buttons.dart';
 import 'package:freelance_app/res/widgets/snackbar.dart';
 import 'package:freelance_app/services/get_remote_services.dart';
@@ -151,7 +153,6 @@ class _FreelancePostState extends State<FreelancePost> {
     galleryImageName,
     galleryFile,
   ) async {
-    print(galleryFile);
     var response = await PostRemoteService().postProducts(
       userId,
       projectCategory,
@@ -172,7 +173,8 @@ class _FreelancePostState extends State<FreelancePost> {
     if (response == 'Successfully uploaded') {
       setState(() {
         customSnackBar(context, 'Product Uploaded Successfully',
-            CustomColors.success, Colors.black);
+            CustomColors.success, Colors.white);
+        navigateToPage(context, const HomePage());
       });
     } else {
       setState(() {
@@ -703,7 +705,11 @@ class _FreelancePostState extends State<FreelancePost> {
 
                 InkWell(
                   onTap: () async {
-                    selectGalleryFunc(_gallery2, galleryFile1);
+                    final result = await selectPhoto();
+                    setState(() {
+                      _gallery2.text = result.fileName;
+                      galleryFile2 = File(result.filePath);
+                    });
                   },
                   child: CheckoutFormWidget(
                     width: 1.0,
@@ -721,7 +727,11 @@ class _FreelancePostState extends State<FreelancePost> {
 
                 InkWell(
                   onTap: () async {
-                    selectGalleryFunc(_gallery3, galleryFile3);
+                    final result = await selectPhoto();
+                    setState(() {
+                      _gallery3.text = result.fileName;
+                      galleryFile3 = File(result.filePath);
+                    });
                   },
                   child: CheckoutFormWidget(
                     width: 1.0,
@@ -740,7 +750,11 @@ class _FreelancePostState extends State<FreelancePost> {
 
                 InkWell(
                   onTap: () async {
-                    selectGalleryFunc(_gallery4, galleryFile4);
+                    final result = await selectPhoto();
+                    setState(() {
+                      _gallery4.text = result.fileName;
+                      galleryFile4 = File(result.filePath);
+                    });
                   },
                   child: CheckoutFormWidget(
                     width: 1.0,
@@ -758,7 +772,11 @@ class _FreelancePostState extends State<FreelancePost> {
 
                 InkWell(
                   onTap: () async {
-                    selectGalleryFunc(_gallery5, galleryFile5);
+                    final result = await selectPhoto();
+                    setState(() {
+                      _gallery5.text = result.fileName;
+                      galleryFile5 = File(result.filePath);
+                    });
                   },
                   child: CheckoutFormWidget(
                     width: 1.0,
@@ -859,14 +877,14 @@ class _FreelancePostState extends State<FreelancePost> {
           ),
         ),
       ];
-  void selectGalleryFunc(TextEditingController fileName, File? file) async {
-    final result = await selectPhoto();
-    setState(() {
-      fileName.text = result.fileName;
+  // void selectGalleryFunc(TextEditingController fileName, File? file) async {
+  //   final result = await selectPhoto();
+  //   setState(() {
+  //     fileName.text = result.fileName;
 
-      file = File(result.filePath);
-    });
-  }
+  //     file = File(result.filePath);
+  //   });
+  // }
 }
 
 class DropdownItem {
