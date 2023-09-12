@@ -6,6 +6,7 @@ import 'package:freelance_app/models/service_category.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/education.dart';
+import '../models/home.dart';
 import '../models/service_subcategory.dart';
 import '../models/users.dart';
 import '../res/constants/strings.dart';
@@ -147,5 +148,23 @@ class GetRemoteService {
       debugPrint('An error occured: $e');
       return null;
     }
+  }
+
+  Future<HomeModel?> getHomeDetails() async {
+    String baseUrl = ConstStrings.baseUrl;
+    String apiUrl = '$baseUrl/home/home.php';
+
+    var uri = Uri.parse(apiUrl);
+
+    var response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      HomeModel homePageData = HomeModel.fromJson(jsonResponse);
+      // print(homePageData);
+      // print(homePageData.category[1].categoryId);
+      return homePageData;
+    }
+    return null;
   }
 }

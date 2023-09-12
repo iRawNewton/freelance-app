@@ -13,7 +13,10 @@ import 'package:freelance_app/presentation/global/home/views/stats.dart';
 import 'package:freelance_app/presentation/global/home/views/testimonial.dart';
 import 'package:freelance_app/presentation/global/home/views/trending_service.dart';
 import 'package:freelance_app/res/widgets/appbar.dart';
+import 'package:freelance_app/services/get_remote_services.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../models/home.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,6 +27,29 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  bool dataVisible = false;
+  late HomeModel homeData;
+
+  List<Category?> category = [];
+  List<Project?> projects = [];
+
+  Future<HomeModel?> getHomeInfo() async {
+    homeData = (await GetRemoteService().getHomeDetails())!;
+    setState(() {
+      category = homeData.category;
+      projects = homeData.projects;
+    });
+
+    // print(homeData.category[0].categoryName);
+    return homeData;
+  }
+
+  @override
+  void initState() {
+    getHomeInfo();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,94 +75,149 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 20.0),
 
                   // ^ browse talent by category
-                  SizedBox(
-                    width: MediaQuery.sizeOf(context).width,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Browse talent by category',
-                            style: GoogleFonts.roboto(
-                              fontSize: 23.0,
-                              fontWeight: FontWeight.bold,
+                  // SizedBox(
+                  //   width: 200.0,
+                  //   height: 100.0,
+                  //   child: Shimmer.fromColors(
+                  //     baseColor: Colors.grey,
+                  //     highlightColor: Colors.white,
+                  //     child: CategorySpace(
+                  //       iconAsset1: category[4]!.categoryImage,
+                  //       services1: '0 Services',
+                  //       title1: category[4]!.categoryName,
+                  //       // ----------
+                  //       iconAsset2: category[5]!.categoryImage,
+                  //       services2: '0 Services',
+                  //       title2: category[5]!.categoryName,
+                  //     ),
+                  //   ),
+                  // ),
+
+                  FutureBuilder(
+                      future: getHomeInfo(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return SizedBox(
+                            width: MediaQuery.sizeOf(context).width,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Browse talent by category',
+                                    style: GoogleFonts.roboto(
+                                      fontSize: 23.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10.0),
+                                  Text(
+                                    'Get some Inspirations from 1800+ skills',
+                                    style: GoogleFonts.roboto(
+                                      fontSize: 13.0,
+                                    ),
+                                  ),
+                                  Text(
+                                    'All Categories',
+                                    style: GoogleFonts.roboto(
+                                      fontSize: 13.0,
+                                    ),
+                                  ),
+                                  // first-category
+                                  const SizedBox(height: 24.0),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const CategoryPage(),
+                                        ),
+                                      );
+                                    },
+                                    child: CategorySpace(
+                                      iconAsset1: category[0]!.categoryImage,
+                                      services1: '8 Services',
+                                      title1: category[0]!.categoryName,
+                                      // ----------
+                                      iconAsset2: category[1]!.categoryImage,
+                                      services2: '1 Services',
+                                      title2: category[1]!.categoryName,
+                                    ),
+                                  ),
+                                  // second-category
+                                  const SizedBox(height: 24.0),
+                                  CategorySpace(
+                                    iconAsset1: category[2]!.categoryImage,
+                                    services1: '8 Services',
+                                    title1: category[2]!.categoryName,
+                                    // ----------
+                                    iconAsset2: category[3]!.categoryImage,
+                                    services2: '1 Services',
+                                    title2: category[3]!.categoryName,
+                                  ),
+                                  // third-category
+                                  const SizedBox(height: 24.0),
+                                  CategorySpace(
+                                    iconAsset1: category[4]!.categoryImage,
+                                    services1: '0 Services',
+                                    title1: category[4]!.categoryName,
+                                    // ----------
+                                    iconAsset2: category[5]!.categoryImage,
+                                    services2: '0 Services',
+                                    title2: category[5]!.categoryName,
+                                  ),
+                                  // fourth-category
+                                  const SizedBox(height: 24.0),
+                                  CategorySpace(
+                                    iconAsset1: category[6]!.categoryImage,
+                                    services1: '1 Services',
+                                    title1: category[6]!.categoryName,
+                                    // ----------
+                                    iconAsset2: category[7]!.categoryImage,
+                                    services2: '4 Services',
+                                    title2: category[7]!.categoryName,
+                                  ),
+                                  const SizedBox(height: 24.0),
+                                  const TrendingSection(),
+                                  const SizedBox(height: 24.0),
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 10.0),
-                          Text(
-                            'Get some Inspirations from 1800+ skills',
-                            style: GoogleFonts.roboto(
-                              fontSize: 13.0,
+                          );
+                        } else {
+                          return SizedBox(
+                            width: MediaQuery.sizeOf(context).width,
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // first-category
+                                  SizedBox(height: 24.0),
+                                  CategoryLoading(),
+                                  // second-category
+                                  SizedBox(height: 24.0),
+                                  CategoryLoading(),
+                                  // third-category
+                                  SizedBox(height: 24.0),
+                                  CategoryLoading(),
+                                  // fourth-category
+                                  SizedBox(height: 24.0),
+                                  CategoryLoading(),
+                                  SizedBox(height: 24.0),
+                                  TrendingSection(),
+                                  SizedBox(height: 24.0),
+                                ],
+                              ),
                             ),
-                          ),
-                          Text(
-                            'All Categories',
-                            style: GoogleFonts.roboto(
-                              fontSize: 13.0,
-                            ),
-                          ),
-                          // first-category
-                          const SizedBox(height: 24.0),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const CategoryPage(),
-                                ),
-                              );
-                            },
-                            child: const CategorySpace(
-                              iconAsset1: 'coding.svg',
-                              services1: '8 Services',
-                              title1: 'Development & IT',
-                              // ----------
-                              iconAsset2: 'graphic-design.svg',
-                              services2: '1 Services',
-                              title2: 'Design & Creative',
-                            ),
-                          ),
-                          // second-category
-                          const SizedBox(height: 24.0),
-                          const CategorySpace(
-                            iconAsset1: 'digital-marketing.svg',
-                            services1: '8 Services',
-                            title1: 'Digital Marketing',
-                            // ----------
-                            iconAsset2: 'translation.svg',
-                            services2: '1 Services',
-                            title2: 'Writing & Translation',
-                          ),
-                          // third-category
-                          const SizedBox(height: 24.0),
-                          const CategorySpace(
-                            iconAsset1: 'microphone.svg',
-                            services1: '0 Services',
-                            title1: 'Music & Audio',
-                            // ----------
-                            iconAsset2: 'video.svg',
-                            services2: '0 Services',
-                            title2: 'Video & Animation',
-                          ),
-                          // fourth-category
-                          const SizedBox(height: 24.0),
-                          const CategorySpace(
-                            iconAsset1: 'programming.svg',
-                            services1: '1 Services',
-                            title1: 'Programming & Tech',
-                            // ----------
-                            iconAsset2: 'graph.svg',
-                            services2: '4 Services',
-                            title2: 'Finance & Accounting',
-                          ),
-                          const SizedBox(height: 24.0),
-                          const TrendingSection(),
-                          const SizedBox(height: 24.0),
-                        ],
-                      ),
-                    ),
-                  ),
+                          );
+                        }
+                      }),
+
+                  // ^ trending service
                   const ServicesPage(),
                   const SizedBox(height: 24.0),
                   const StaticSectionOne(),
