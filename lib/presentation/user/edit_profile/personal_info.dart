@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 // import 'package:freelance_app/presentation/user/profile_info/bottom_sheetEXP.dart';
-import 'package:freelance_app/res/widgets/buttons.dart';
-import 'package:freelance_app/res/widgets/phone_input.dart';
-import 'package:freelance_app/res/widgets/tags_textfield.dart';
+import 'package:freelance_app/resources/widgets/buttons.dart';
+import 'package:freelance_app/resources/widgets/phone_input.dart';
+import 'package:freelance_app/resources/widgets/tags_textfield.dart';
 
-import '../../../../res/constants/colors.dart';
-import '../../../res/widgets/appbar.dart';
-import '../../../res/widgets/text_widget.dart';
+import '../../../resources/constants/colors.dart';
+import '../../../resources/widgets/appbar.dart';
+import '../../../resources/widgets/text_widget.dart';
 import '../../global/checkout/widget/text_field.dart';
 
 class PersonalInfo extends StatefulWidget {

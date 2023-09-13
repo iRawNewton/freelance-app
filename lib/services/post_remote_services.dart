@@ -5,10 +5,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:freelance_app/res/functions/convert.dart';
+import 'package:freelance_app/resources/functions/convert.dart';
 import 'package:freelance_app/services/upload_image.dart';
 import 'package:http/http.dart' as http;
-import 'package:freelance_app/res/constants/strings.dart';
+import 'package:freelance_app/resources/constants/strings.dart';
 
 String baseUrl = ConstStrings.baseUrl;
 String apiUrl = '$baseUrl/auth/admin_login.php';

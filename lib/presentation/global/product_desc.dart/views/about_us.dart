@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../res/constants/colors.dart';
+import '../../../../resources/constants/colors.dart';
 
 class AboutUsSection extends StatefulWidget {
   const AboutUsSection({super.key});

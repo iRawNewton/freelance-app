@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../res/widgets/text_widget.dart';
-import '../../res/constants/colors.dart';
+import '../../resources/widgets/text_widget.dart';
+import '../../resources/constants/colors.dart';
 
 class AuthWidget extends StatefulWidget {
   const AuthWidget({

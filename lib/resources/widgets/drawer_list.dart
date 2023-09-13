@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_app/res/widgets/text_widget.dart';
-import 'package:freelance_app/res/constants/colors.dart';
+import 'package:freelance_app/resources/widgets/text_widget.dart';
+import 'package:freelance_app/resources/constants/colors.dart';
 
 class DrawerList extends StatefulWidget {
   const DrawerList({

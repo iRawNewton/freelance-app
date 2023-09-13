@@ -7,12 +7,12 @@ import 'package:freelance_app/presentation/global/product_desc.dart/views/basic_
 import 'package:freelance_app/presentation/global/product_desc.dart/views/faqs.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/product_title.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/ratings.dart';
-import 'package:freelance_app/res/widgets/footer.dart';
-import 'package:freelance_app/res/constants/colors.dart';
-import 'package:freelance_app/res/constants/strings.dart';
+import 'package:freelance_app/resources/widgets/footer.dart';
+import 'package:freelance_app/resources/constants/colors.dart';
+import 'package:freelance_app/resources/constants/strings.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../res/widgets/carousel.dart';
+import '../../../resources/widgets/carousel.dart';
 
 class ProductDesc extends StatefulWidget {
   const ProductDesc({super.key});
@@ -67,14 +67,14 @@ class _ProductDescState extends State<ProductDesc> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             BasicStats(
-                              icon: 'lib/res/assets/icons/event.svg',
+                              icon: 'lib/resources/assets/icons/event.svg',
                               title: 'Delivery Time',
                               subtitle: '2 Days',
                               size: 30.0,
                             ),
                             SizedBox(width: 40.0),
                             BasicStats(
-                              icon: 'lib/res/assets/icons/graph.svg',
+                              icon: 'lib/resources/assets/icons/graph.svg',
                               title: 'English level',
                               subtitle: 'Conversational',
                               size: 25.0,
@@ -82,7 +82,7 @@ class _ProductDescState extends State<ProductDesc> {
                           ],
                         ),
                         BasicStats(
-                          icon: 'lib/res/assets/icons/tracking.svg',
+                          icon: 'lib/resources/assets/icons/tracking.svg',
                           title: 'Location',
                           subtitle: 'New York',
                           size: 27.0,

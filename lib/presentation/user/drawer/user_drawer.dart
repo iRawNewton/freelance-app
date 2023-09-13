@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:freelance_app/presentation/user/edit_profile/personal_info.dart';
-import 'package:freelance_app/res/widgets/drawer_list.dart';
-import 'package:freelance_app/res/widgets/text_widget.dart';
-import 'package:freelance_app/res/constants/colors.dart';
+import 'package:freelance_app/resources/widgets/drawer_list.dart';
+import 'package:freelance_app/resources/widgets/text_widget.dart';
+import 'package:freelance_app/resources/constants/colors.dart';
 
 class UserDrawer extends StatefulWidget {
   const UserDrawer({super.key});

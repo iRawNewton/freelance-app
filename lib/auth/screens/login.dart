@@ -2,13 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelance_app/auth/screens/signup.dart';
 import 'package:freelance_app/auth/screens/widgets.dart';
-import 'package:freelance_app/res/widgets/snackbar.dart';
-import 'package:freelance_app/res/widgets/text_widget.dart';
-import 'package:freelance_app/models/users.dart';
-import 'package:freelance_app/res/constants/colors.dart';
+import 'package:freelance_app/resources/widgets/snackbar.dart';
+import 'package:freelance_app/resources/widgets/text_widget.dart';
+import 'package:freelance_app/models/users_model.dart';
+import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:neumorphic_ui/neumorphic_ui.dart';
 import '../../presentation/global/home/home.dart';
-import '../../res/widgets/loading_indicator.dart';
+import '../../resources/widgets/loading_indicator.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -305,7 +305,7 @@ class _LoginPageState extends State<LoginPage> {
                                                         const EdgeInsets.all(
                                                             8.0),
                                                     child: Image.asset(
-                                                      'lib/res/assets/icons/facebook_logo.png',
+                                                      'lib/resources/assets/icons/facebook_logo.png',
                                                       height: 40.0,
                                                     ),
                                                   ),
@@ -323,7 +323,7 @@ class _LoginPageState extends State<LoginPage> {
                                                         const EdgeInsets.all(
                                                             8.0),
                                                     child: Image.asset(
-                                                      'lib/res/assets/icons/google_logo.png',
+                                                      'lib/resources/assets/icons/google_logo.png',
                                                       height: 40.0,
                                                     ),
                                                   ),
@@ -341,7 +341,7 @@ class _LoginPageState extends State<LoginPage> {
                                                         const EdgeInsets.all(
                                                             8.0),
                                                     child: Image.asset(
-                                                      'lib/res/assets/icons/apple_logo.png',
+                                                      'lib/resources/assets/icons/apple_logo.png',
                                                       height: 40.0,
                                                     ),
                                                   ),

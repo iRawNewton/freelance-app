@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart' as http;
 
-import '../../models/users.dart';
+import '../../models/users_model.dart';
 
 part 'profile_info_event.dart';
 part 'profile_info_state.dart';

@@ -5,11 +5,11 @@ import 'package:flutter/widgets.dart';
 import 'package:freelance_app/models/service_category.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/education.dart';
-import '../models/home.dart';
+import '../models/education_model.dart';
+import '../models/home_model.dart';
 import '../models/service_subcategory.dart';
-import '../models/users.dart';
-import '../res/constants/strings.dart';
+import '../models/users_model.dart';
+import '../resources/constants/strings.dart';
 
 class GetRemoteService {
   Future<List<ServiceCategory>?> getCategoriesInfo(
@@ -166,5 +166,38 @@ class GetRemoteService {
       return homePageData;
     }
     return null;
+  }
+
+  // & product list based on category
+  Future<List<Education>?> getCategoryProducts(String categoryId) async {
+    try {
+      const String baseUrl = ConstStrings.baseUrl;
+      const String apiUrl = '$baseUrl/category/product_list.php';
+
+      final Map<String, String> headers = {
+        'id': categoryId,
+      };
+
+      final http.Response response = await http
+          .get(Uri.parse(apiUrl).replace(queryParameters: headers))
+          .timeout(const Duration(seconds: 30));
+
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        return educationFromJson(response.body);
+      } else {
+        // handle non-200 code here
+        return null;
+      }
+    } on TimeoutException catch (e) {
+      // ? Handle timeout errors.
+      debugPrint('Request timed out: $e');
+      return null;
+    } catch (e) {
+      // ? Handle other unexpected errors.
+      debugPrint('An error occured: $e');
+      return null;
+    }
   }
 }

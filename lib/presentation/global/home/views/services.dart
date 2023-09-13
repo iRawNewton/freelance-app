@@ -4,9 +4,9 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../res/constants/colors.dart';
-import '../../../../../res/constants/dimens.dart';
-import '../../../../../res/constants/strings.dart';
+import '../../../../resources/constants/colors.dart';
+import '../../../../resources/constants/dimens.dart';
+import '../../../../resources/constants/strings.dart';
 
 class ServicesPage extends StatefulWidget {
   const ServicesPage({super.key});

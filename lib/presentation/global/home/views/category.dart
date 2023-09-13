@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelance_app/presentation/global/category_list/func/switch_category.dart';
-import 'package:freelance_app/res/constants/colors.dart';
-import 'package:freelance_app/res/constants/dimens.dart';
-import 'package:freelance_app/res/constants/strings.dart';
+import 'package:freelance_app/resources/constants/colors.dart';
+import 'package:freelance_app/resources/constants/dimens.dart';
+import 'package:freelance_app/resources/constants/strings.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -154,8 +154,8 @@ class _CategorySpaceState extends State<CategorySpace> {
                         ),
                         Align(
                           alignment: Alignment.topLeft,
-                          child: SvgPicture.asset(
-                            '$iconLocation/${widget.iconAsset2}',
+                          child: SvgPicture.network(
+                            '$categoryIcon/${widget.iconAsset2}',
                             colorFilter: const ColorFilter.mode(
                               CustomColors.primaryColor,
                               BlendMode.srcIn,

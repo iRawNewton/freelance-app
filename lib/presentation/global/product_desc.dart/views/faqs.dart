@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_app/res/constants/colors.dart';
+import 'package:freelance_app/resources/constants/colors.dart';
 
-import '../../../../res/widgets/text_widget.dart';
+import '../../../../resources/widgets/text_widget.dart';
 
 class ProductFaqs extends StatefulWidget {
   const ProductFaqs({

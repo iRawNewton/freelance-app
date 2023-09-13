@@ -24,7 +24,8 @@ class _TopAppBarState extends State<TopAppBar> {
         const SizedBox(width: 15.0),
         IconButton(
           onPressed: widget.onTap,
-          icon: SvgPicture.asset('lib/res/assets/icons/menu-strawberry.svg'),
+          icon: SvgPicture.asset(
+              'lib/resources/assets/icons/menu-strawberry.svg'),
         ),
         const SizedBox(width: 8.0),
       ],

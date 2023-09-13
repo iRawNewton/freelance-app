@@ -10,11 +10,11 @@ import 'package:freelance_app/presentation/global/home/views/static_section1.dar
 import 'package:freelance_app/presentation/global/home/views/stats.dart';
 import 'package:freelance_app/presentation/global/home/views/testimonial.dart';
 import 'package:freelance_app/presentation/global/home/views/trending_service.dart';
-import 'package:freelance_app/res/widgets/appbar.dart';
+import 'package:freelance_app/resources/widgets/appbar.dart';
 import 'package:freelance_app/services/get_remote_services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../models/home.dart';
+import '../../../models/home_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

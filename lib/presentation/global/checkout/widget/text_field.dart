@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../res/constants/colors.dart';
-import '../../../../res/widgets/text_widget.dart';
+import '../../../../resources/constants/colors.dart';
+import '../../../../resources/widgets/text_widget.dart';
 
 class CheckoutFormWidget extends StatefulWidget {
   const CheckoutFormWidget(

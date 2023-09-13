@@ -1,17 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:freelance_app/models/users.dart';
+import 'package:freelance_app/models/users_model.dart';
 import 'package:freelance_app/presentation/global/drawer/global_drawer.dart';
 import 'package:freelance_app/presentation/user/profile_info/views/education.dart';
-import 'package:freelance_app/res/constants/colors.dart';
-import 'package:freelance_app/res/widgets/footer.dart';
+import 'package:freelance_app/resources/constants/colors.dart';
+import 'package:freelance_app/resources/widgets/footer.dart';
 import 'package:freelance_app/services/get_remote_services.dart';
 import 'package:intl/intl.dart';
 import 'package:neumorphic_ui/neumorphic_ui.dart';
-import '../../../models/education.dart';
-import '../../../res/widgets/appbar.dart';
-import '../../../res/widgets/text_widget.dart';
+import '../../../models/education_model.dart';
+import '../../../resources/widgets/appbar.dart';
+import '../../../resources/widgets/text_widget.dart';
 import '../dashboard/views/profile_stats.dart';
 
 class UserProfile extends StatefulWidget {

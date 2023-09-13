@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_app/presentation/post_product/post_product.dart';
-import 'package:freelance_app/res/functions/navigate_page.dart';
-import 'package:freelance_app/res/widgets/text_widget.dart';
+import 'package:freelance_app/resources/functions/navigate_page.dart';
+import 'package:freelance_app/resources/widgets/text_widget.dart';
 
 class UploadGuideline extends StatefulWidget {
   const UploadGuideline({super.key});

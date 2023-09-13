@@ -2,10 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:freelance_app/presentation/global/category_list/views/products_list.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/product_desc.dart';
-import 'package:freelance_app/res/widgets/footer.dart';
+import 'package:freelance_app/resources/widgets/footer.dart';
+import 'package:freelance_app/services/get_remote_services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import '../../../res/widgets/appbar.dart';
+import '../../../resources/widgets/appbar.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key, required this.id});
@@ -31,6 +32,16 @@ class _CategoryPageState extends State<CategoryPage> {
     initialVideoId: 'J1gE9xvph-A',
   );
 
+  checkCategory() async {
+    var response = await GetRemoteService().getCategoryProducts('1');
+  }
+
+  @override
+  void initState() {
+    checkCategory();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,7 +49,9 @@ class _CategoryPageState extends State<CategoryPage> {
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
             TopAppBar(
-              onTap: () {},
+              onTap: () {
+                checkCategory();
+              },
             ),
           ],
           body: Container(

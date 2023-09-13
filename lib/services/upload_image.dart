@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
-import '../res/constants/strings.dart';
+import '../resources/constants/strings.dart';
 
 class ImageUpload {
   // & profile picture upload

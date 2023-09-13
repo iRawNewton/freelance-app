@@ -1,5 +1,5 @@
 class ConstStrings {
-  // static const String iconLocation = 'lib/res/assets/icons/';
+  // static const String iconLocation = 'lib/resources/assets/icons/';
   static const String logoUrl =
       'https://demoapus1.com/freeio/wp-content/themes/freeio/images/logo.svg';
   static const String appName = 'My App Name';
@@ -9,7 +9,7 @@ class ConstStrings {
   static const String baseUrl = 'https://freelancer-app.kyptronixllp.co.in';
 }
 
-const String iconLocation = 'lib/res/assets/icons';
+const String iconLocation = 'lib/resources/assets/icons';
 const String categoryIcon =
     'https://freelancer-app.kyptronixllp.co.in/assets/images/category/';
 

@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:freelance_app/res/constants/strings.dart';
+import 'package:freelance_app/resources/constants/strings.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../res/constants/dimens.dart';
-import '../../../../models/home.dart';
+import '../../../../resources/constants/dimens.dart';
+import '../../../../models/home_model.dart';
 
 class TrendingSection extends StatefulWidget {
   const TrendingSection({super.key, required this.projects});

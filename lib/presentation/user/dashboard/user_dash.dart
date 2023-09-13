@@ -3,9 +3,9 @@ import 'package:freelance_app/presentation/user/dashboard/views/profile_stats.da
 import 'package:freelance_app/presentation/user/dashboard/views/select_service.dart';
 import 'package:freelance_app/presentation/user/drawer/user_drawer.dart';
 import 'package:freelance_app/presentation/user/profile_info/profile_info.dart';
-import 'package:freelance_app/res/widgets/text_widget.dart';
-import 'package:freelance_app/res/constants/colors.dart';
-import '../../../res/widgets/appbar.dart';
+import 'package:freelance_app/resources/widgets/text_widget.dart';
+import 'package:freelance_app/resources/constants/colors.dart';
+import '../../../resources/widgets/appbar.dart';
 
 class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});

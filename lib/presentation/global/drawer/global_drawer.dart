@@ -5,11 +5,11 @@ import 'package:freelance_app/auth/screens/login.dart';
 import 'package:freelance_app/presentation/global/home/home.dart';
 import 'package:freelance_app/presentation/post_product/guideline.dart';
 import 'package:freelance_app/presentation/user/profile_info/profile_info.dart';
-import 'package:freelance_app/res/widgets/drawer_list.dart';
-import 'package:freelance_app/res/widgets/text_widget.dart';
-import 'package:freelance_app/res/constants/colors.dart';
+import 'package:freelance_app/resources/widgets/drawer_list.dart';
+import 'package:freelance_app/resources/widgets/text_widget.dart';
+import 'package:freelance_app/resources/constants/colors.dart';
 
-import '../../../res/functions/navigate_page.dart';
+import '../../../resources/functions/navigate_page.dart';
 
 class GlobalDrawer extends StatefulWidget {
   const GlobalDrawer({super.key});

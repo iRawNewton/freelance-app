@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import '../../../../../res/constants/colors.dart';
-import '../../../../res/widgets/text_widget.dart';
+import '../../../../resources/constants/colors.dart';
+import '../../../../resources/widgets/text_widget.dart';
 
 class RatingsSection extends StatefulWidget {
   const RatingsSection({super.key});

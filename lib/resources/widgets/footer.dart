@@ -65,28 +65,28 @@ class _AppFooterState extends State<AppFooter> {
                 ),
                 const SizedBox(width: 10.0),
                 SvgPicture.asset(
-                  'lib/res/assets/icons/facebook.svg',
+                  'lib/resources/assets/icons/facebook.svg',
                   height: 18.0,
                   colorFilter:
                       const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                 ),
                 const SizedBox(width: 10.0),
                 SvgPicture.asset(
-                  'lib/res/assets/icons/twitter.svg',
+                  'lib/resources/assets/icons/twitter.svg',
                   height: 18.0,
                   colorFilter:
                       const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                 ),
                 const SizedBox(width: 10.0),
                 SvgPicture.asset(
-                  'lib/res/assets/icons/instagram.svg',
+                  'lib/resources/assets/icons/instagram.svg',
                   height: 18.0,
                   colorFilter:
                       const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                 ),
                 const SizedBox(width: 10.0),
                 SvgPicture.asset(
-                  'lib/res/assets/icons/linkedin.svg',
+                  'lib/resources/assets/icons/linkedin.svg',
                   height: 18.0,
                   colorFilter:
                       const ColorFilter.mode(Colors.white, BlendMode.srcIn),
