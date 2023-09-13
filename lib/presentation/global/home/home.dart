@@ -1,7 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
-import 'package:freelance_app/presentation/global/category_list/category.dart';
 import 'package:freelance_app/presentation/global/drawer/global_drawer.dart';
 import 'package:freelance_app/presentation/global/home/views/blog.dart';
 import 'package:freelance_app/presentation/global/home/views/category.dart';
@@ -111,33 +109,26 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 // first-category
                                 const SizedBox(height: 24.0),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const CategoryPage(),
-                                      ),
-                                    );
-                                  },
-                                  child: CategorySpace(
-                                    iconAsset1: category[0]!.categoryImage,
-                                    services1: '8 Services',
-                                    title1: category[0]!.categoryName,
-                                    // ----------
-                                    iconAsset2: category[1]!.categoryImage,
-                                    services2: '1 Services',
-                                    title2: category[1]!.categoryName,
-                                  ),
+                                CategorySpace(
+                                  serviceid1: category[0]!.categoryId,
+                                  iconAsset1: category[0]!.categoryImage,
+                                  services1: '8 Services',
+                                  title1: category[0]!.categoryName,
+                                  // ----------
+                                  serviceid2: category[1]!.categoryId,
+                                  iconAsset2: category[1]!.categoryImage,
+                                  services2: '1 Services',
+                                  title2: category[1]!.categoryName,
                                 ),
                                 // second-category
                                 const SizedBox(height: 24.0),
                                 CategorySpace(
+                                  serviceid1: category[2]!.categoryId,
                                   iconAsset1: category[2]!.categoryImage,
                                   services1: '8 Services',
                                   title1: category[2]!.categoryName,
                                   // ----------
+                                  serviceid2: category[3]!.categoryId,
                                   iconAsset2: category[3]!.categoryImage,
                                   services2: '1 Services',
                                   title2: category[3]!.categoryName,
@@ -145,10 +136,12 @@ class _HomePageState extends State<HomePage> {
                                 // third-category
                                 const SizedBox(height: 24.0),
                                 CategorySpace(
+                                  serviceid1: category[4]!.categoryId,
                                   iconAsset1: category[4]!.categoryImage,
                                   services1: '0 Services',
                                   title1: category[4]!.categoryName,
                                   // ----------
+                                  serviceid2: category[5]!.categoryId,
                                   iconAsset2: category[5]!.categoryImage,
                                   services2: '0 Services',
                                   title2: category[5]!.categoryName,
@@ -156,10 +149,12 @@ class _HomePageState extends State<HomePage> {
                                 // fourth-category
                                 const SizedBox(height: 24.0),
                                 CategorySpace(
+                                  serviceid1: category[6]!.categoryId,
                                   iconAsset1: category[6]!.categoryImage,
                                   services1: '1 Services',
                                   title1: category[6]!.categoryName,
                                   // ----------
+                                  serviceid2: category[7]!.categoryId,
                                   iconAsset2: category[7]!.categoryImage,
                                   services2: '4 Services',
                                   title2: category[7]!.categoryName,

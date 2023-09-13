@@ -4,11 +4,12 @@ import 'package:freelance_app/presentation/global/category_list/views/products_l
 import 'package:freelance_app/presentation/global/product_desc.dart/product_desc.dart';
 import 'package:freelance_app/res/widgets/footer.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../res/widgets/appbar.dart';
 
 class CategoryPage extends StatefulWidget {
-  const CategoryPage({super.key});
+  const CategoryPage({super.key, required this.id});
+  final String id;
 
   @override
   State<CategoryPage> createState() => _CategoryPageState();
@@ -25,6 +26,11 @@ class _CategoryPageState extends State<CategoryPage> {
     'Oldest',
     'Random',
   ];
+
+  final YoutubePlayerController _controller = YoutubePlayerController(
+    initialVideoId: 'J1gE9xvph-A',
+  );
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -80,7 +86,24 @@ class _CategoryPageState extends State<CategoryPage> {
                               CircleAvatar(
                                 backgroundColor: Colors.white70,
                                 child: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return SizedBox(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.9,
+                                          child: Center(
+                                            child: YoutubePlayer(
+                                              controller: _controller,
+                                              showVideoProgressIndicator: true,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
                                   icon: const Icon(Icons.play_arrow),
                                 ),
                               ),
