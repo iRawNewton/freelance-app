@@ -30,6 +30,8 @@ class _HomePageState extends State<HomePage> {
 
   bool dataVisible = false;
   late HomeModel homeData;
+  final trendingServiceController =
+      PageController(initialPage: 0, viewportFraction: 1.0);
 
   List<Category?> category = [];
   List<Project?> projects = [];
@@ -41,7 +43,7 @@ class _HomePageState extends State<HomePage> {
       projects = homeData.projects;
     });
 
-    // print(homeData.category[0].categoryName);
+    // print(homeData.projects[0].images.gallery1);
     return homeData;
   }
 
@@ -75,149 +77,180 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 20.0),
 
                   // ^ browse talent by category
-                  // SizedBox(
-                  //   width: 200.0,
-                  //   height: 100.0,
-                  //   child: Shimmer.fromColors(
-                  //     baseColor: Colors.grey,
-                  //     highlightColor: Colors.white,
-                  //     child: CategorySpace(
-                  //       iconAsset1: category[4]!.categoryImage,
-                  //       services1: '0 Services',
-                  //       title1: category[4]!.categoryName,
-                  //       // ----------
-                  //       iconAsset2: category[5]!.categoryImage,
-                  //       services2: '0 Services',
-                  //       title2: category[5]!.categoryName,
-                  //     ),
-                  //   ),
-                  // ),
-
                   FutureBuilder(
-                      future: getHomeInfo(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return SizedBox(
-                            width: MediaQuery.sizeOf(context).width,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Browse talent by category',
-                                    style: GoogleFonts.roboto(
-                                      fontSize: 23.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                    future: getHomeInfo(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return SizedBox(
+                          width: MediaQuery.sizeOf(context).width,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 15.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Browse talent by category',
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 23.0,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  const SizedBox(height: 10.0),
-                                  Text(
-                                    'Get some Inspirations from 1800+ skills',
-                                    style: GoogleFonts.roboto(
-                                      fontSize: 13.0,
-                                    ),
+                                ),
+                                const SizedBox(height: 10.0),
+                                Text(
+                                  'Get some Inspirations from 1800+ skills',
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 13.0,
                                   ),
-                                  Text(
-                                    'All Categories',
-                                    style: GoogleFonts.roboto(
-                                      fontSize: 13.0,
-                                    ),
+                                ),
+                                Text(
+                                  'All Categories',
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 13.0,
                                   ),
-                                  // first-category
-                                  const SizedBox(height: 24.0),
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const CategoryPage(),
-                                        ),
-                                      );
-                                    },
-                                    child: CategorySpace(
-                                      iconAsset1: category[0]!.categoryImage,
-                                      services1: '8 Services',
-                                      title1: category[0]!.categoryName,
-                                      // ----------
-                                      iconAsset2: category[1]!.categoryImage,
-                                      services2: '1 Services',
-                                      title2: category[1]!.categoryName,
-                                    ),
-                                  ),
-                                  // second-category
-                                  const SizedBox(height: 24.0),
-                                  CategorySpace(
-                                    iconAsset1: category[2]!.categoryImage,
+                                ),
+                                // first-category
+                                const SizedBox(height: 24.0),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const CategoryPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: CategorySpace(
+                                    iconAsset1: category[0]!.categoryImage,
                                     services1: '8 Services',
-                                    title1: category[2]!.categoryName,
+                                    title1: category[0]!.categoryName,
                                     // ----------
-                                    iconAsset2: category[3]!.categoryImage,
+                                    iconAsset2: category[1]!.categoryImage,
                                     services2: '1 Services',
-                                    title2: category[3]!.categoryName,
+                                    title2: category[1]!.categoryName,
                                   ),
-                                  // third-category
-                                  const SizedBox(height: 24.0),
-                                  CategorySpace(
-                                    iconAsset1: category[4]!.categoryImage,
-                                    services1: '0 Services',
-                                    title1: category[4]!.categoryName,
-                                    // ----------
-                                    iconAsset2: category[5]!.categoryImage,
-                                    services2: '0 Services',
-                                    title2: category[5]!.categoryName,
-                                  ),
-                                  // fourth-category
-                                  const SizedBox(height: 24.0),
-                                  CategorySpace(
-                                    iconAsset1: category[6]!.categoryImage,
-                                    services1: '1 Services',
-                                    title1: category[6]!.categoryName,
-                                    // ----------
-                                    iconAsset2: category[7]!.categoryImage,
-                                    services2: '4 Services',
-                                    title2: category[7]!.categoryName,
-                                  ),
-                                  const SizedBox(height: 24.0),
-                                  const TrendingSection(),
-                                  const SizedBox(height: 24.0),
-                                ],
-                              ),
+                                ),
+                                // second-category
+                                const SizedBox(height: 24.0),
+                                CategorySpace(
+                                  iconAsset1: category[2]!.categoryImage,
+                                  services1: '8 Services',
+                                  title1: category[2]!.categoryName,
+                                  // ----------
+                                  iconAsset2: category[3]!.categoryImage,
+                                  services2: '1 Services',
+                                  title2: category[3]!.categoryName,
+                                ),
+                                // third-category
+                                const SizedBox(height: 24.0),
+                                CategorySpace(
+                                  iconAsset1: category[4]!.categoryImage,
+                                  services1: '0 Services',
+                                  title1: category[4]!.categoryName,
+                                  // ----------
+                                  iconAsset2: category[5]!.categoryImage,
+                                  services2: '0 Services',
+                                  title2: category[5]!.categoryName,
+                                ),
+                                // fourth-category
+                                const SizedBox(height: 24.0),
+                                CategorySpace(
+                                  iconAsset1: category[6]!.categoryImage,
+                                  services1: '1 Services',
+                                  title1: category[6]!.categoryName,
+                                  // ----------
+                                  iconAsset2: category[7]!.categoryImage,
+                                  services2: '4 Services',
+                                  title2: category[7]!.categoryName,
+                                ),
+                                const SizedBox(height: 24.0),
+                              ],
                             ),
-                          );
-                        } else {
-                          return SizedBox(
-                            width: MediaQuery.sizeOf(context).width,
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 15.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // first-category
-                                  SizedBox(height: 24.0),
-                                  CategoryLoading(),
-                                  // second-category
-                                  SizedBox(height: 24.0),
-                                  CategoryLoading(),
-                                  // third-category
-                                  SizedBox(height: 24.0),
-                                  CategoryLoading(),
-                                  // fourth-category
-                                  SizedBox(height: 24.0),
-                                  CategoryLoading(),
-                                  SizedBox(height: 24.0),
-                                  TrendingSection(),
-                                  SizedBox(height: 24.0),
-                                ],
-                              ),
+                          ),
+                        );
+                      } else {
+                        return SizedBox(
+                          width: MediaQuery.sizeOf(context).width,
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // first-category
+                                SizedBox(height: 24.0),
+                                CategoryLoading(),
+                                // second-category
+                                SizedBox(height: 24.0),
+                                CategoryLoading(),
+                                // third-category
+                                SizedBox(height: 24.0),
+                                CategoryLoading(),
+                                // fourth-category
+                                SizedBox(height: 24.0),
+                                CategoryLoading(),
+                                SizedBox(height: 24.0),
+                                // ! TrendingSection(),
+                                // ! SizedBox(height: 24.0),
+                              ],
                             ),
-                          );
-                        }
-                      }),
+                          ),
+                        );
+                      }
+                    },
+                  ),
 
                   // ^ trending service
+
+                  // ! ********************
+                  // SizedBox(
+                  //   height: 500,
+                  //   width: double.infinity,
+                  //   child: PageView(
+                  //     controller: trendingServiceController,
+                  //     children: [
+                  //       FutureBuilder(
+                  //         builder: (context, snapshot) {
+                  //           if (snapshot.hasData) {
+                  //             return ListView.builder(
+                  //                 shrinkWrap: true,
+                  //                 itemCount: projects.length,
+                  //                 itemBuilder: (context, index) {
+                  //                   return const TrendingSection();
+                  //                 });
+                  //           } else {
+                  //             return const Text('data');
+                  //           }
+                  //         },
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: 750.0,
+                  //   width: double.infinity,
+                  //   child: PageView(
+                  //     controller: trendingServiceController,
+                  //     children: [
+                  //       ListView.builder(
+                  //         // physics: const NeverScrollableScrollPhysics(),
+                  //         scrollDirection: Axis.horizontal,
+                  //         shrinkWrap: true,
+                  //         itemCount: projects.length,
+                  //         itemBuilder: (context, index) {
+                  //           return TrendingSection();
+                  //         },
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  TrendingSection(projects: projects),
+
+                  // ! ********************
+                  // const TrendingSection(),
+                  // const SizedBox(height: 24.0),
+
+                  // ^ need something done
                   const ServicesPage(),
                   const SizedBox(height: 24.0),
                   const StaticSectionOne(),

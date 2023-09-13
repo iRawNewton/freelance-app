@@ -1,17 +1,26 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:freelance_app/res/constants/strings.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../res/constants/dimens.dart';
+import '../../../../models/home.dart';
 
 class TrendingSection extends StatefulWidget {
-  const TrendingSection({super.key});
+  const TrendingSection({super.key, required this.projects});
+
+  final List<Project?> projects;
 
   @override
   State<TrendingSection> createState() => _TrendingSectionState();
 }
 
 class _TrendingSectionState extends State<TrendingSection> {
+  final trendingServiceController = PageController(
+    initialPage: 0,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -63,86 +72,110 @@ class _TrendingSectionState extends State<TrendingSection> {
               ],
             ),
             const SizedBox(height: 24.0),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CachedNetworkImage(
-                  imageUrl:
-                      'https://demoapus1.com/freeio/wp-content/uploads/2022/11/service12-495x370.jpg',
-                  fit: BoxFit.fitWidth,
-                ),
-                const SizedBox(height: 24.0),
-                Text(
-                  'Development & IT',
-                  style: GoogleFonts.roboto(
-                    fontSize: 14.0,
-                    color: Colors.black54,
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-                Text(
-                  'Web Development, with HTML, CSS, JavaScript and PHP',
-                  style: GoogleFonts.roboto(
-                    fontSize: 18.0,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.star_rounded,
-                      color: Colors.amber,
-                    ),
-                    Text(
-                      '4.0 ',
-                      style: GoogleFonts.roboto(
-                          color: Colors.black87, fontSize: 14.0),
-                    ),
-                    Text(
-                      '(3 Reviews)',
-                      style: GoogleFonts.roboto(
-                          color: Colors.black54, fontSize: 13.0),
-                    ),
-                  ],
-                ),
-                const Divider(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10.0,
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.account_circle_rounded,
-                      ),
-                      Text(
-                        ' Agent Pakulla',
-                        style: GoogleFonts.roboto(
-                          color: Colors.black54,
-                          fontSize: 14.0,
+            SizedBox(
+              height: 600.0,
+              width: double.infinity,
+              child: PageView(
+                controller: trendingServiceController,
+                children: [
+                  ListView.builder(
+                    // physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: widget.projects.length,
+
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: SizedBox(
+                          width: MediaQuery.sizeOf(context).width * 0.9,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CachedNetworkImage(
+                                imageUrl:
+                                    '$productImage/${widget.projects[index]!.images.gallery1}',
+                                fit: BoxFit.fitWidth,
+                              ),
+                              const SizedBox(height: 24.0),
+                              Text(
+                                widget.projects[index]!.categoryName,
+                                style: GoogleFonts.roboto(
+                                  fontSize: 14.0,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              const SizedBox(height: 16.0),
+                              Text(
+                                widget.projects[index]!.projectTitle,
+                                style: GoogleFonts.roboto(
+                                  fontSize: 18.0,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              const SizedBox(height: 16.0),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.star_rounded,
+                                    color: Colors.amber,
+                                  ),
+                                  Text(
+                                    '4.0 ',
+                                    style: GoogleFonts.roboto(
+                                        color: Colors.black87, fontSize: 14.0),
+                                  ),
+                                  Text(
+                                    '(3 Reviews)',
+                                    style: GoogleFonts.roboto(
+                                        color: Colors.black54, fontSize: 13.0),
+                                  ),
+                                ],
+                              ),
+                              const Divider(),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 10.0,
+                                ),
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.account_circle_rounded,
+                                    ),
+                                    Text(
+                                      '${widget.projects[index]!.firstName} ${widget.projects[index]!.lastName}',
+                                      style: GoogleFonts.roboto(
+                                        color: Colors.black54,
+                                        fontSize: 14.0,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      'Starting at: ',
+                                      style: GoogleFonts.roboto(
+                                        color: Colors.black54,
+                                        fontSize: 14.0,
+                                      ),
+                                    ),
+                                    Text(
+                                      '\$29',
+                                      style: GoogleFonts.roboto(
+                                        color: Colors.black54,
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      const Spacer(),
-                      Text(
-                        'Starting at: ',
-                        style: GoogleFonts.roboto(
-                          color: Colors.black54,
-                          fontSize: 14.0,
-                        ),
-                      ),
-                      Text(
-                        '\$29',
-                        style: GoogleFonts.roboto(
-                          color: Colors.black54,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
