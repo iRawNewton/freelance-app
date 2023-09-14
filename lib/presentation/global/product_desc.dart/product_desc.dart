@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:freelance_app/presentation/global/checkout/checkout.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/about_us.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/basic.dart';
@@ -9,7 +8,6 @@ import 'package:freelance_app/presentation/global/product_desc.dart/views/produc
 import 'package:freelance_app/presentation/global/product_desc.dart/views/ratings.dart';
 import 'package:freelance_app/resources/widgets/footer.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
-import 'package:freelance_app/resources/constants/strings.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../resources/widgets/appbar.dart';

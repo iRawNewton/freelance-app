@@ -26,6 +26,6 @@ void switchCategoryList(BuildContext context, String pageName) {
     // Add more cases for additional pages
     default:
       // Handle unknown page or error condition
-      print('Unknown page: $pageName');
+      debugPrint('Unknown page: $pageName');
   }
 }

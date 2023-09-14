@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:freelance_app/models/category_model.dart';
 import 'package:freelance_app/presentation/global/category_list/views/products_list.dart';
-import 'package:freelance_app/presentation/global/product_desc.dart/product_desc.dart';
 import 'package:freelance_app/resources/widgets/footer.dart';
 import 'package:freelance_app/services/get_remote_services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,8 +32,6 @@ class _CategoryPageState extends State<CategoryPage> {
   final YoutubePlayerController _controller = YoutubePlayerController(
     initialVideoId: 'J1gE9xvph-A',
   );
-
-// TODO: CURRENT WORK
 
   String totalProducts = '';
   List<Project> projectsList = [];
