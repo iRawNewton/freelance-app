@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import '../models/category_model.dart';
 import '../models/education_model.dart';
 import '../models/home_model.dart';
+import '../models/product_model.dart';
 import '../models/service_subcategory.dart';
 import '../models/users_model.dart';
 import '../resources/constants/strings.dart';
@@ -197,6 +198,35 @@ class GetRemoteService {
       // ? Handle other unexpected errors.
       debugPrint('An error occured: $e');
       return null;
+    }
+  }
+
+  Future<ProductModel?> getProductInfo() async {
+    try {
+      const String baseUrl = ConstStrings.baseUrl;
+      const String apiUrl = '$baseUrl/product/products.php';
+
+      final Map<String, String> headers = {
+        'id': '31',
+      };
+
+      final http.Response response = await http
+          .get(Uri.parse(apiUrl).replace(queryParameters: headers))
+          .timeout(const Duration(seconds: 30));
+
+      if (response.statusCode == 200) {
+        return productModelFromJson(response.body);
+      } else {
+        // handle non-200 code here
+        return productModelFromJson('');
+      }
+    } on TimeoutException catch (e) {
+      // ? Handle timeout errors.
+      debugPrint('Request timed out: $e');
+      return productModelFromJson('');
+    } catch (e) {
+      debugPrint('Error occured:  $e');
+      return productModelFromJson('');
     }
   }
 }

@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProductDescTitle extends StatefulWidget {
-  const ProductDescTitle({super.key});
+  const ProductDescTitle({
+    super.key,
+    required this.title,
+    required this.name,
+  });
+
+  final String title, name;
 
   @override
   State<ProductDescTitle> createState() => _ProductDescTitleState();
@@ -16,9 +22,10 @@ class _ProductDescTitleState extends State<ProductDescTitle> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 24.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Web Development with HTML, CSS, JavaScript and PHP',
+              widget.title,
               style: GoogleFonts.roboto(
                 fontSize: 24.0,
                 color: Colors.black87,
@@ -31,8 +38,9 @@ class _ProductDescTitleState extends State<ProductDescTitle> {
                   Icons.account_circle_rounded,
                   size: 35.0,
                 ),
+                const SizedBox(width: 10.0),
                 Text(
-                  ' Agent Pakulla',
+                  widget.name,
                   style: GoogleFonts.roboto(
                     color: Colors.black54,
                     fontSize: 14.0,

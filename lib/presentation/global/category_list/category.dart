@@ -148,7 +148,7 @@ class _CategoryPageState extends State<CategoryPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Showing all 8 results',
+                          'Showing all results',
                           style: GoogleFonts.roboto(),
                         ),
                         const SizedBox(height: 14.0),

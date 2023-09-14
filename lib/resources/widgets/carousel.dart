@@ -2,34 +2,43 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-class CustomCarousel extends StatefulWidget {
-  const CustomCarousel({super.key});
+import '../../models/product_model.dart';
+import '../constants/strings.dart';
 
-  @override
-  State<CustomCarousel> createState() => _CustomCarouselState();
-}
+class CustomCarousel extends StatelessWidget {
+  const CustomCarousel({super.key, required this.images});
+  final List<Project>? images;
 
-class _CustomCarouselState extends State<CustomCarousel> {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
       items: [
         CachedNetworkImage(
-          imageUrl:
-              'https://demoapus1.com/freeio/wp-content/uploads/2022/11/service12-495x370.jpg',
+          imageUrl: '$productImage/${images![0].images.gallery1}',
           fit: BoxFit.fitWidth,
         ),
+
         CachedNetworkImage(
-          imageUrl:
-              'https://demoapus1.com/freeio/wp-content/uploads/elementor/thumbs/service10-py2khwd9b307cpru7zo4vne3y7r9bf2fwt3v6dbncw.jpg',
+          imageUrl: '$productImage/${images![0].images.gallery2}',
           fit: BoxFit.fitWidth,
         ),
         //
         CachedNetworkImage(
-          imageUrl:
-              'https://demoapus1.com/freeio/wp-content/uploads/elementor/thumbs/service8-py2khwd9b307cpru7zo4vne3y7r9bf2fwt3v6dbncw.jpg',
+          imageUrl: '$productImage/${images![0].images.gallery3}',
           fit: BoxFit.fitWidth,
         ),
+        (images![0].images.gallery4.isNotEmpty)
+            ? CachedNetworkImage(
+                imageUrl: '$productImage/${images![0].images.gallery4}',
+                fit: BoxFit.fitWidth,
+              )
+            : const SizedBox(),
+        (images![0].images.gallery5.isNotEmpty)
+            ? CachedNetworkImage(
+                imageUrl: '$productImage/${images![0].images.gallery5}',
+                fit: BoxFit.fitWidth,
+              )
+            : const SizedBox(),
       ],
       options: CarouselOptions(
         aspectRatio: 16 / 9,

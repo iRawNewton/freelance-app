@@ -40,15 +40,7 @@ class _HomePageState extends State<HomePage> {
       category = homeData.category;
       projects = homeData.projects;
     });
-
-    // print(homeData.projects[0].images.gallery1);
     return homeData;
-  }
-
-  @override
-  void initState() {
-    getHomeInfo();
-    super.initState();
   }
 
   @override
@@ -197,53 +189,7 @@ class _HomePageState extends State<HomePage> {
 
                   // ^ trending service
 
-                  // ! ********************
-                  // SizedBox(
-                  //   height: 500,
-                  //   width: double.infinity,
-                  //   child: PageView(
-                  //     controller: trendingServiceController,
-                  //     children: [
-                  //       FutureBuilder(
-                  //         builder: (context, snapshot) {
-                  //           if (snapshot.hasData) {
-                  //             return ListView.builder(
-                  //                 shrinkWrap: true,
-                  //                 itemCount: projects.length,
-                  //                 itemBuilder: (context, index) {
-                  //                   return const TrendingSection();
-                  //                 });
-                  //           } else {
-                  //             return const Text('data');
-                  //           }
-                  //         },
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 750.0,
-                  //   width: double.infinity,
-                  //   child: PageView(
-                  //     controller: trendingServiceController,
-                  //     children: [
-                  //       ListView.builder(
-                  //         // physics: const NeverScrollableScrollPhysics(),
-                  //         scrollDirection: Axis.horizontal,
-                  //         shrinkWrap: true,
-                  //         itemCount: projects.length,
-                  //         itemBuilder: (context, index) {
-                  //           return TrendingSection();
-                  //         },
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
                   TrendingSection(projects: projects),
-
-                  // ! ********************
-                  // const TrendingSection(),
-                  // const SizedBox(height: 24.0),
 
                   // ^ need something done
                   const ServicesPage(),
