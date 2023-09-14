@@ -4,14 +4,33 @@
 
 import 'dart:convert';
 
-List<CategoryModel> categoryModelFromJson(String str) =>
-    List<CategoryModel>.from(
-        json.decode(str).map((x) => CategoryModel.fromJson(x)));
+CategoryModel categoryModelFromJson(String str) =>
+    CategoryModel.fromJson(json.decode(str));
 
-String categoryModelToJson(List<CategoryModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String categoryModelToJson(CategoryModel data) => json.encode(data.toJson());
 
 class CategoryModel {
+  String totalCount;
+  List<Project> projects;
+
+  CategoryModel({
+    required this.totalCount,
+    required this.projects,
+  });
+
+  factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
+        totalCount: json["total_count"],
+        projects: List<Project>.from(
+            json["projects"].map((x) => Project.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "total_count": totalCount,
+        "projects": List<dynamic>.from(projects.map((x) => x.toJson())),
+      };
+}
+
+class Project {
   String projectId;
   String userId;
   String firstName;
@@ -28,9 +47,9 @@ class CategoryModel {
   String projectServiceId;
   DateTime projectCreatedAt;
   DateTime projectUpdatedAt;
-  List<String> images;
+  Images images;
 
-  CategoryModel({
+  Project({
     required this.projectId,
     required this.userId,
     required this.firstName,
@@ -50,7 +69,7 @@ class CategoryModel {
     required this.images,
   });
 
-  factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
+  factory Project.fromJson(Map<String, dynamic> json) => Project(
         projectId: json["project_id"],
         userId: json["user_id"],
         firstName: json["first_name"],
@@ -67,7 +86,7 @@ class CategoryModel {
         projectServiceId: json["project_service_id"],
         projectCreatedAt: DateTime.parse(json["project_created_at"]),
         projectUpdatedAt: DateTime.parse(json["project_updated_at"]),
-        images: List<String>.from(json["images"].map((x) => x)),
+        images: Images.fromJson(json["images"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -87,6 +106,38 @@ class CategoryModel {
         "project_service_id": projectServiceId,
         "project_created_at": projectCreatedAt.toIso8601String(),
         "project_updated_at": projectUpdatedAt.toIso8601String(),
-        "images": List<dynamic>.from(images.map((x) => x)),
+        "images": images.toJson(),
+      };
+}
+
+class Images {
+  String gallery1;
+  String gallery2;
+  String gallery3;
+  String gallery4;
+  String gallery5;
+
+  Images({
+    required this.gallery1,
+    required this.gallery2,
+    required this.gallery3,
+    required this.gallery4,
+    required this.gallery5,
+  });
+
+  factory Images.fromJson(Map<String, dynamic> json) => Images(
+        gallery1: json["gallery_1"],
+        gallery2: json["gallery_2"],
+        gallery3: json["gallery_3"],
+        gallery4: json["gallery_4"],
+        gallery5: json["gallery_5"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "gallery_1": gallery1,
+        "gallery_2": gallery2,
+        "gallery_3": gallery3,
+        "gallery_4": gallery4,
+        "gallery_5": gallery5,
       };
 }

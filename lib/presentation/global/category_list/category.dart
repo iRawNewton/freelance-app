@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:freelance_app/models/category_model.dart';
 import 'package:freelance_app/presentation/global/category_list/views/products_list.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/product_desc.dart';
 import 'package:freelance_app/resources/widgets/footer.dart';
 import 'package:freelance_app/services/get_remote_services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import '../../../resources/constants/strings.dart';
 import '../../../resources/widgets/appbar.dart';
 
 class CategoryPage extends StatefulWidget {
@@ -32,14 +34,20 @@ class _CategoryPageState extends State<CategoryPage> {
     initialVideoId: 'J1gE9xvph-A',
   );
 
-  checkCategory() async {
-    var response = await GetRemoteService().getCategoryProducts('1');
-  }
+// TODO: CURRENT WORK
 
-  @override
-  void initState() {
-    checkCategory();
-    super.initState();
+  String totalProducts = '';
+  List<Project> projectsList = [];
+
+  Future<CategoryModel?> categoryProductList() async {
+    CategoryModel? response = await GetRemoteService().getCategoryProducts('1');
+
+    setState(() {
+      totalProducts = response!.totalCount;
+      projectsList = response.projects;
+    });
+
+    return response;
   }
 
   @override
@@ -49,9 +57,7 @@ class _CategoryPageState extends State<CategoryPage> {
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
             TopAppBar(
-              onTap: () {
-                checkCategory();
-              },
+              onTap: () {},
             ),
           ],
           body: Container(
@@ -62,6 +68,7 @@ class _CategoryPageState extends State<CategoryPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // ^ top card
                   Container(
                     width: double.infinity,
                     decoration: const BoxDecoration(
@@ -135,6 +142,8 @@ class _CategoryPageState extends State<CategoryPage> {
                       ),
                     ),
                   ),
+
+                  // ^ after card
                   const SizedBox(height: 36.0),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -146,6 +155,8 @@ class _CategoryPageState extends State<CategoryPage> {
                           style: GoogleFonts.roboto(),
                         ),
                         const SizedBox(height: 14.0),
+
+                        // ^ filter and sort button
                         Row(
                           children: [
                             SizedBox(
@@ -216,37 +227,45 @@ class _CategoryPageState extends State<CategoryPage> {
                           ],
                         ),
                         const SizedBox(height: 36.0),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const ProductDesc()));
+
+                        // ^ category product list
+
+                        FutureBuilder(
+                          future: categoryProductList(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: projectsList.length,
+                                  itemBuilder: (context, index) {
+                                    // return Text(projectsList[index].categoryName);
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 10.0,
+                                      ),
+                                      child: ProductList(
+                                        // $productImage/${projectsList[index].images}
+                                        productId:
+                                            projectsList[index].projectId,
+                                        imgUrl:
+                                            '$productImage/${projectsList[index].images.gallery1}',
+                                        category:
+                                            projectsList[index].categoryName,
+                                        title: projectsList[index].projectTitle,
+                                        user:
+                                            '${projectsList[index].firstName} ${projectsList[index].lastName}',
+                                        price: '29',
+                                      ),
+                                    );
+                                  });
+                            } else {
+                              return const CircularProgressIndicator();
+                            }
                           },
-                          child: const ProductList(
-                            imgUrl:
-                                'https://demoapus1.com/freeio/wp-content/uploads/2022/11/service12-495x370.jpg',
-                            category: 'Development & IT',
-                            title:
-                                'Web Development, with HTML, CSS, JavaScript and PHP',
-                            ratings: '4',
-                            reviews: '54',
-                            user: 'Agent Pakulla',
-                            price: '29',
-                          ),
                         ),
+
                         const SizedBox(height: 14.0),
-                        const ProductList(
-                          imgUrl:
-                              'https://demoapus1.com/freeio/wp-content/uploads/2022/11/service10-768x576.jpg',
-                          category: 'Development & IT',
-                          title:
-                              'Flexibility & Customization with CMS vs PHP framework',
-                          ratings: '5',
-                          reviews: '13',
-                          user: 'Thomas Powell',
-                          price: '99',
-                        ),
                       ],
                     ),
                   ),

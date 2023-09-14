@@ -12,10 +12,13 @@ import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:freelance_app/resources/constants/strings.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../resources/widgets/appbar.dart';
 import '../../../resources/widgets/carousel.dart';
 
 class ProductDesc extends StatefulWidget {
-  const ProductDesc({super.key});
+  const ProductDesc({super.key, required this.productId});
+
+  final String productId;
 
   @override
   State<ProductDesc> createState() => _ProductDescState();
@@ -29,25 +32,8 @@ class _ProductDescState extends State<ProductDesc> {
         child: Scaffold(
       body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                SliverAppBar(
-                  toolbarHeight: 70.0,
-                  leading: Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: SvgPicture.network(ConstStrings.logoUrl),
-                  ),
-                  leadingWidth: 120.0,
-                  actions: [
-                    Text(
-                      'Login',
-                      style: GoogleFonts.lato(
-                        fontSize: 14.0,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const SizedBox(width: 25.0),
-                    const Icon(Icons.menu),
-                    const SizedBox(width: 8.0),
-                  ],
+                TopAppBar(
+                  onTap: () {},
                 ),
               ],
           body: SizedBox(

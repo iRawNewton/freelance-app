@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:freelance_app/models/service_category.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/category_model.dart';
 import '../models/education_model.dart';
 import '../models/home_model.dart';
 import '../models/service_subcategory.dart';
@@ -169,7 +170,7 @@ class GetRemoteService {
   }
 
   // & product list based on category
-  Future<List<Education>?> getCategoryProducts(String categoryId) async {
+  Future<CategoryModel?> getCategoryProducts(String categoryId) async {
     try {
       const String baseUrl = ConstStrings.baseUrl;
       const String apiUrl = '$baseUrl/category/product_list.php';
@@ -182,10 +183,8 @@ class GetRemoteService {
           .get(Uri.parse(apiUrl).replace(queryParameters: headers))
           .timeout(const Duration(seconds: 30));
 
-      print(response.statusCode);
-      print(response.body);
       if (response.statusCode == 200) {
-        return educationFromJson(response.body);
+        return categoryModelFromJson(response.body);
       } else {
         // handle non-200 code here
         return null;
