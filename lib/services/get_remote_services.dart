@@ -215,6 +215,7 @@ class GetRemoteService {
           .timeout(const Duration(seconds: 30));
 
       if (response.statusCode == 200) {
+        // print('remote service ${response.body}');
         return productModelFromJson(response.body);
       } else {
         // handle non-200 code here

@@ -12,21 +12,26 @@ String productModelToJson(ProductModel data) => json.encode(data.toJson());
 class ProductModel {
   List<Project> projects;
   List<Faq> faq;
+  List<Package> packages;
 
   ProductModel({
     required this.projects,
     required this.faq,
+    required this.packages,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         projects: List<Project>.from(
             json["projects"].map((x) => Project.fromJson(x))),
         faq: List<Faq>.from(json["faq"].map((x) => Faq.fromJson(x))),
+        packages: List<Package>.from(
+            json["packages"].map((x) => Package.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "projects": List<dynamic>.from(projects.map((x) => x.toJson())),
         "faq": List<dynamic>.from(faq.map((x) => x.toJson())),
+        "packages": List<dynamic>.from(packages.map((x) => x.toJson())),
       };
 }
 
@@ -59,6 +64,46 @@ class Faq {
         "question_text": questionText,
         "answer_text": answerText,
         "created_at": createdAt.toIso8601String(),
+      };
+}
+
+class Package {
+  String packagesId;
+  String type;
+  String name;
+  String description;
+  String price;
+  String featureId;
+  String featureDescription;
+
+  Package({
+    required this.packagesId,
+    required this.type,
+    required this.name,
+    required this.description,
+    required this.price,
+    required this.featureId,
+    required this.featureDescription,
+  });
+
+  factory Package.fromJson(Map<String, dynamic> json) => Package(
+        packagesId: json["packages_id"],
+        type: json["type"],
+        name: json["name"],
+        description: json["description"],
+        price: json["price"],
+        featureId: json["feature_id"],
+        featureDescription: json["feature_description"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "packages_id": packagesId,
+        "type": type,
+        "name": name,
+        "description": description,
+        "price": price,
+        "feature_id": featureId,
+        "feature_description": featureDescription,
       };
 }
 

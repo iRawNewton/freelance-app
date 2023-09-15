@@ -8,6 +8,7 @@ import 'package:freelance_app/presentation/global/product_desc.dart/views/produc
 import 'package:freelance_app/presentation/global/product_desc.dart/views/ratings.dart';
 import 'package:freelance_app/resources/widgets/footer.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
+import 'package:freelance_app/resources/widgets/text_widget.dart';
 import 'package:freelance_app/services/get_remote_services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -30,21 +31,26 @@ class _ProductDescState extends State<ProductDesc> {
   // List<ProductModel>? productDetails = [];
   List<Project>? productDetails = [];
   List<Faq>? faq = [];
+  List<Package>? package = [];
+  bool isLoading = true;
 
-  ProductData? productData = ProductData(
-    productDetails: [], // Initialize productDetails with your data
-    faq: [], // Initialize faq with your data
-  );
+  bool starterV = true;
+  bool proV = false;
+  bool premiumV = false;
 
   // & get product info
   Future<ProductModel?> getProductDetails() async {
     ProductModel? response = await GetRemoteService().getProductInfo();
-    print(response);
+
     setState(() {
       productDetails = response!.projects;
       faq = response.faq;
+      package = response.packages;
+
+      if (productDetails!.isNotEmpty) {
+        isLoading = false;
+      }
     });
-    // ProductModel? response;
 
     return response;
   }
@@ -67,11 +73,11 @@ class _ProductDescState extends State<ProductDesc> {
             child: FutureBuilder(
                 future: getProductDetails(),
                 builder: (context, AsyncSnapshot<ProductModel?> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
+                  if (isLoading) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (snapshot.connectionState == ConnectionState.done) {
+                  } else {
                     return SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -236,6 +242,8 @@ class _ProductDescState extends State<ProductDesc> {
                                 ),
                                 const SizedBox(height: 10.0),
                                 const Divider(),
+
+                                // ^ FAQs
                                 const SizedBox(height: 20.0),
                                 Text(
                                   'FAQs',
@@ -263,8 +271,12 @@ class _ProductDescState extends State<ProductDesc> {
                               ],
                             ),
                           ),
+
+                          // ! work from here
                           Column(
                             children: [
+                              // ! -----------------------------------------
+
                               Container(
                                 height: 50.0,
                                 decoration: BoxDecoration(border: Border.all()),
@@ -272,61 +284,110 @@ class _ProductDescState extends State<ProductDesc> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    InkWell(
-                                      onTap: () {
-                                        controller.animateToPage(0,
-                                            duration: const Duration(
-                                                milliseconds: 300),
-                                            curve: Curves.easeInOut);
-                                      },
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text('Basic'),
+                                    // ^ starter
+                                    SizedBox(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          0.33,
+                                      height: 50.0,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(0.0),
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            starterV = true;
+                                            proV = false;
+                                            premiumV = false;
+                                          });
+                                        },
+                                        child: const CustomText(
+                                          title: 'Starter',
+                                          size: 14.0,
+                                          color: Colors.black,
+                                        ),
                                       ),
                                     ),
-                                    const SizedBox(
-                                        height: 50.0, child: VerticalDivider()),
-                                    InkWell(
-                                      onTap: () {
-                                        controller.animateToPage(1,
-                                            duration: const Duration(
-                                                milliseconds: 300),
-                                            curve: Curves.easeInOut);
-                                      },
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text('Standard'),
+
+                                    // ^ Pro
+                                    SizedBox(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          0.33,
+                                      height: 50.0,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(0.0),
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            starterV = false;
+                                            proV = true;
+                                            premiumV = false;
+                                          });
+                                        },
+                                        child: const CustomText(
+                                          title: 'Pro',
+                                          size: 14.0,
+                                          color: Colors.black,
+                                        ),
                                       ),
                                     ),
-                                    const SizedBox(
-                                        height: 50.0, child: VerticalDivider()),
-                                    InkWell(
-                                      onTap: () {
-                                        controller.animateToPage(2,
-                                            duration: const Duration(
-                                                milliseconds: 300),
-                                            curve: Curves.easeInOut);
-                                      },
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text('Premium'),
+
+                                    // ^ premium
+                                    SizedBox(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          0.33,
+                                      height: 50.0,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(0.0),
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            starterV = false;
+                                            proV = false;
+                                            premiumV = true;
+                                          });
+                                        },
+                                        child: const CustomText(
+                                          title: 'Premium',
+                                          size: 14.0,
+                                          color: Colors.black,
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              SizedBox(
-                                width: double.infinity,
-                                height: 250.0,
-                                child: PageView(
-                                  controller: controller,
-                                  children: const [
-                                    BasicPlan(),
-                                    StandardPlan(),
-                                    PremiumPlan(),
-                                  ],
-                                ),
-                              ),
+
+                              (starterV)
+                                  ? StarterPlan(package: package)
+                                  : const SizedBox(),
+                              (proV)
+                                  ? ProPlan(
+                                      package: package,
+                                    )
+                                  : const SizedBox(),
+                              (premiumV)
+                                  ? PremiumPlan(
+                                      package: package,
+                                    )
+                                  : const SizedBox(),
+
+                              // ! -----------------------------------------
+
+                              // ^ button
                               Directionality(
                                 textDirection: TextDirection.rtl,
                                 child: ElevatedButton.icon(
@@ -375,22 +436,9 @@ class _ProductDescState extends State<ProductDesc> {
                         ],
                       ),
                     );
-                  } else {
-                    // TODO: no data lottie
-                    return const SizedBox();
                   }
                 }),
           )),
     ));
   }
-}
-
-class ProductData {
-  List<Project>? productDetails;
-  List<Faq>? faq;
-
-  ProductData({
-    this.productDetails,
-    this.faq,
-  });
 }

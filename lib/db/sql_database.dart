@@ -134,17 +134,25 @@ CREATE TABLE FAQs (
 
 Pricings
 --------------------------------------------
-CREATE TABLE PricingDetails (
-    pricing_id INT AUTO_INCREMENT PRIMARY KEY,
+-- Create the packages table
+CREATE TABLE Packages (
+    packages_id INT AUTO_INCREMENT PRIMARY KEY,
     project_id INT,
-    pricing_type ENUM('basic', 'standard', 'premium') NOT NULL,
-    pricing_amount DECIMAL(10, 2) NOT NULL,
-    pricing_remarks TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    type ENUM('multiple', 'onetime'),
+    name ENUM('starter', 'pro', 'premium', 'onetime'),
+    description TEXT,
+    price DOUBLE,
     FOREIGN KEY (project_id) REFERENCES FreelanceProjects(project_id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
 );
+
+-- Create the package_features table
+CREATE TABLE package_features (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    package_id INT,
+    description TEXT,
+    FOREIGN KEY (package_id) REFERENCES packages(id)
+);
+
 
 
 

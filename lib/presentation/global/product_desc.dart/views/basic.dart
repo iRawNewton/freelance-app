@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class BasicPlan extends StatefulWidget {
-  const BasicPlan({super.key});
+import '../../../../models/product_model.dart';
 
-  @override
-  State<BasicPlan> createState() => _BasicPlanState();
-}
+class StarterPlan extends StatelessWidget {
+  const StarterPlan({super.key, required this.package});
 
-class _BasicPlanState extends State<BasicPlan> {
+  final List<Package>? package;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,16 +17,19 @@ class _BasicPlanState extends State<BasicPlan> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              // ^ title
               Text(
-                'Starter',
+                package![0].name.toUpperCase(),
                 style: GoogleFonts.roboto(
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
                 ),
               ),
+
+              // ^ price
               Text(
-                '\$4342',
+                '\$ ${package![0].price}',
                 style: GoogleFonts.roboto(
                   fontSize: 20.0,
                   color: Colors.black87,
@@ -35,9 +37,21 @@ class _BasicPlanState extends State<BasicPlan> {
               ),
             ],
           ),
+
+          // ^ short description
           const SizedBox(height: 20.0),
           Text(
-            'One screen UI or UX design for your mobile or web page | Eye Catchy & Modern.',
+            package![0].description,
+            style: GoogleFonts.roboto(
+              fontSize: 14.0,
+            ),
+            textAlign: TextAlign.justify,
+          ),
+          const SizedBox(height: 20.0),
+
+          // ^ features
+          Text(
+            package![0].featureDescription,
             style: GoogleFonts.roboto(
               fontSize: 14.0,
             ),
@@ -49,14 +63,12 @@ class _BasicPlanState extends State<BasicPlan> {
   }
 }
 
-class StandardPlan extends StatefulWidget {
-  const StandardPlan({super.key});
+// & pro plan
+class ProPlan extends StatelessWidget {
+  const ProPlan({super.key, required this.package});
 
-  @override
-  State<StandardPlan> createState() => _StandardPlanState();
-}
+  final List<Package>? package;
 
-class _StandardPlanState extends State<StandardPlan> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -66,16 +78,19 @@ class _StandardPlanState extends State<StandardPlan> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              // ^ title
               Text(
-                'Standard',
+                package![1].name.toUpperCase(),
                 style: GoogleFonts.roboto(
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
                 ),
               ),
+
+              // ^ price
               Text(
-                '\$4342',
+                '\$ ${package![1].price}',
                 style: GoogleFonts.roboto(
                   fontSize: 20.0,
                   color: Colors.black87,
@@ -84,8 +99,20 @@ class _StandardPlanState extends State<StandardPlan> {
             ],
           ),
           const SizedBox(height: 20.0),
+
+          // ^ short description
           Text(
-            'Three screen UI or UX design for your mobile or web page | Eye Catchy & Modern.',
+            package![1].description,
+            style: GoogleFonts.roboto(
+              fontSize: 14.0,
+            ),
+            textAlign: TextAlign.justify,
+          ),
+          const SizedBox(height: 20.0),
+
+          // ^ features
+          Text(
+            package![1].featureDescription,
             style: GoogleFonts.roboto(
               fontSize: 14.0,
             ),
@@ -97,14 +124,11 @@ class _StandardPlanState extends State<StandardPlan> {
   }
 }
 
-class PremiumPlan extends StatefulWidget {
-  const PremiumPlan({super.key});
+class PremiumPlan extends StatelessWidget {
+  const PremiumPlan({super.key, required this.package});
 
-  @override
-  State<PremiumPlan> createState() => _PremiumPlanState();
-}
+  final List<Package>? package;
 
-class _PremiumPlanState extends State<PremiumPlan> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -114,16 +138,19 @@ class _PremiumPlanState extends State<PremiumPlan> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              // ^ title
               Text(
-                'Premium',
+                package![2].name.toUpperCase(),
                 style: GoogleFonts.roboto(
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
                 ),
               ),
+
+              // ^ price
               Text(
-                '\$4342',
+                '\$ ${package![2].price}',
                 style: GoogleFonts.roboto(
                   fontSize: 20.0,
                   color: Colors.black87,
@@ -131,27 +158,26 @@ class _PremiumPlanState extends State<PremiumPlan> {
               ),
             ],
           ),
+
+          // ^ short description
           const SizedBox(height: 20.0),
           Text(
-            'Seven screen UI or UX design for your mobile or web page | Eye Catchy & Modern.',
+            package![2].description,
             style: GoogleFonts.roboto(
               fontSize: 14.0,
             ),
             textAlign: TextAlign.justify,
           ),
-          const Row(
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.schedule),
-                  Text('5 Days Estimated Delivery')
-                ],
-              ),
-              Row(
-                children: [Icon(Icons.sync), Text('5 Revision')],
-              ),
-            ],
-          )
+          const SizedBox(height: 20.0),
+
+          // ^ features
+          Text(
+            package![2].featureDescription,
+            style: GoogleFonts.roboto(
+              fontSize: 14.0,
+            ),
+            textAlign: TextAlign.justify,
+          ),
         ],
       ),
     );
