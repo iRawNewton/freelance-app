@@ -44,8 +44,8 @@ class _ProductDescState extends State<ProductDesc> {
   Color? premiumColor;
 
   // & get product info
-  Future<ProductModel?> getProductDetails() async {
-    ProductModel? response = await GetRemoteService().getProductInfo();
+  Future<ProductModel?> getProductDetails(String id) async {
+    ProductModel? response = await GetRemoteService().getProductInfo(id);
 
     setState(() {
       productDetails = response!.projects;
@@ -67,16 +67,14 @@ class _ProductDescState extends State<ProductDesc> {
       body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
                 TopAppBar(
-                  onTap: () {
-                    getProductDetails();
-                  },
+                  onTap: () {},
                 ),
               ],
           body: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: FutureBuilder(
-                future: getProductDetails(),
+                future: getProductDetails(widget.productId),
                 builder: (context, AsyncSnapshot<ProductModel?> snapshot) {
                   if (isLoading) {
                     return const Center(

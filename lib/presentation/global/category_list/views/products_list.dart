@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -35,7 +36,7 @@ class ProductList extends StatelessWidget {
         width: ScreenSize.width(context),
         decoration: BoxDecoration(
           // color: const Color(0xffF1FCFA),
-          color: Colors.white60,
+          color: CustomColors.accentColor,
           borderRadius: BorderRadiusDirectional.circular(10.0),
         ),
         child: Column(

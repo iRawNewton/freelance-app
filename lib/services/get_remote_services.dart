@@ -201,13 +201,13 @@ class GetRemoteService {
     }
   }
 
-  Future<ProductModel?> getProductInfo() async {
+  Future<ProductModel?> getProductInfo(String id) async {
     try {
       const String baseUrl = ConstStrings.baseUrl;
       const String apiUrl = '$baseUrl/product/products.php';
 
       final Map<String, String> headers = {
-        'id': '31',
+        'id': id,
       };
 
       final http.Response response = await http
