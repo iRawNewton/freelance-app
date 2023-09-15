@@ -6,6 +6,7 @@ import 'package:freelance_app/presentation/global/product_desc.dart/views/basic_
 import 'package:freelance_app/presentation/global/product_desc.dart/views/faqs.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/product_title.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/ratings.dart';
+import 'package:freelance_app/resources/functions/navigate_page.dart';
 import 'package:freelance_app/resources/widgets/footer.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
@@ -37,6 +38,10 @@ class _ProductDescState extends State<ProductDesc> {
   bool starterV = true;
   bool proV = false;
   bool premiumV = false;
+
+  Color? starterColor;
+  Color? proColor;
+  Color? premiumColor;
 
   // & get product info
   Future<ProductModel?> getProductDetails() async {
@@ -272,14 +277,13 @@ class _ProductDescState extends State<ProductDesc> {
                             ),
                           ),
 
-                          // ! work from here
+                          // ^ after package part
                           Column(
                             children: [
-                              // ! -----------------------------------------
-
-                              Container(
+                              // ^ package
+                              SizedBox(
                                 height: 50.0,
-                                decoration: BoxDecoration(border: Border.all()),
+                                // decoration: BoxDecoration(border: Border.all()),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
@@ -291,7 +295,7 @@ class _ProductDescState extends State<ProductDesc> {
                                       height: 50.0,
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.white,
+                                          backgroundColor: starterColor,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(0.0),
@@ -302,6 +306,9 @@ class _ProductDescState extends State<ProductDesc> {
                                             starterV = true;
                                             proV = false;
                                             premiumV = false;
+                                            starterColor = Colors.green.shade50;
+                                            proColor = Colors.white;
+                                            premiumColor = Colors.white;
                                           });
                                         },
                                         child: const CustomText(
@@ -319,7 +326,7 @@ class _ProductDescState extends State<ProductDesc> {
                                       height: 50.0,
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.white,
+                                          backgroundColor: proColor,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(0.0),
@@ -330,6 +337,9 @@ class _ProductDescState extends State<ProductDesc> {
                                             starterV = false;
                                             proV = true;
                                             premiumV = false;
+                                            starterColor = Colors.white;
+                                            proColor = Colors.green.shade50;
+                                            premiumColor = Colors.white;
                                           });
                                         },
                                         child: const CustomText(
@@ -347,7 +357,7 @@ class _ProductDescState extends State<ProductDesc> {
                                       height: 50.0,
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.white,
+                                          backgroundColor: premiumColor,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(0.0),
@@ -358,6 +368,9 @@ class _ProductDescState extends State<ProductDesc> {
                                             starterV = false;
                                             proV = false;
                                             premiumV = true;
+                                            starterColor = Colors.white;
+                                            proColor = Colors.white;
+                                            premiumColor = Colors.green.shade50;
                                           });
                                         },
                                         child: const CustomText(
@@ -385,8 +398,6 @@ class _ProductDescState extends State<ProductDesc> {
                                     )
                                   : const SizedBox(),
 
-                              // ! -----------------------------------------
-
                               // ^ button
                               Directionality(
                                 textDirection: TextDirection.rtl,
@@ -402,12 +413,7 @@ class _ProductDescState extends State<ProductDesc> {
                                     ),
                                   ),
                                   onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const Checkout(),
-                                      ),
-                                    );
+                                    navigateToPage(context, const Checkout());
                                   },
                                   icon: const Directionality(
                                     textDirection: TextDirection.ltr,

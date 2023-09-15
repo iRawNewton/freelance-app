@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../resources/constants/dimens.dart';
 import '../../product_desc.dart/product_desc.dart';
@@ -151,6 +152,104 @@ class ProductList extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ProductListLoading extends StatelessWidget {
+  const ProductListLoading({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: ScreenSize.width(context),
+      decoration: BoxDecoration(
+        // color: const Color(0xffF1FCFA),
+        color: Colors.white60,
+        borderRadius: BorderRadiusDirectional.circular(10.0),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.sizeOf(context).height * 0.4,
+                    width: double.infinity,
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey.shade300,
+                      highlightColor: Colors.grey.shade100,
+                      child: const Card(),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24.0),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12.0, 5.0, 12.0, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 20.0,
+                      width: 100.0,
+                      child: Shimmer.fromColors(
+                        baseColor: Colors.grey.shade300,
+                        highlightColor: Colors.grey.shade100,
+                        child: const Card(),
+                      ),
+                    ),
+                    const SizedBox(height: 16.0),
+                    SizedBox(
+                      height: 30.0,
+                      width: MediaQuery.sizeOf(context).width * 0.9,
+                      child: Shimmer.fromColors(
+                        baseColor: Colors.grey.shade300,
+                        highlightColor: Colors.grey.shade100,
+                        child: const Card(),
+                      ),
+                    ),
+                    const SizedBox(height: 16.0),
+                    SizedBox(
+                      height: 20.0,
+                      width: MediaQuery.sizeOf(context).width * 0.35,
+                      child: Shimmer.fromColors(
+                        baseColor: Colors.grey.shade300,
+                        highlightColor: Colors.grey.shade100,
+                        child: const Card(),
+                      ),
+                    ),
+                    const Divider(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 10.0,
+                      ),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            height: 20.0,
+                            width: MediaQuery.sizeOf(context).width * 0.35,
+                            child: Shimmer.fromColors(
+                              baseColor: Colors.grey.shade300,
+                              highlightColor: Colors.grey.shade100,
+                              child: const Card(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

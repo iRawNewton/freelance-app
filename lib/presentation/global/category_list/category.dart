@@ -257,7 +257,23 @@ class _CategoryPageState extends State<CategoryPage> {
                                     );
                                   });
                             } else {
-                              return const CircularProgressIndicator();
+                              return const ProductListLoading();
+                              // Padding(
+                              //   padding: const EdgeInsets.symmetric(
+                              //     vertical: 10.0,
+                              //   ),
+                              //   child: ProductList(
+                              //     // $productImage/${projectsList[index].images}
+                              //     productId: projectsList[index].projectId,
+                              //     imgUrl:
+                              //         '$productImage/${projectsList[index].images.gallery1}',
+                              //     category: projectsList[index].categoryName,
+                              //     title: projectsList[index].projectTitle,
+                              //     user:
+                              //         '${projectsList[index].firstName} ${projectsList[index].lastName}',
+                              //     price: '29',
+                              //   ),
+                              // );
                             }
                           },
                         ),
