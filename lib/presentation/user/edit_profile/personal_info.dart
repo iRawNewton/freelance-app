@@ -5,11 +5,12 @@ import 'package:freelance_app/resources/functions/data_func.dart';
 import 'package:freelance_app/resources/widgets/buttons.dart';
 import 'package:freelance_app/resources/widgets/phone_input.dart';
 import 'package:freelance_app/resources/widgets/snackbar.dart';
-import 'package:freelance_app/resources/widgets/tags_textfield.dart';
 
+import '../../../models/edit_user.dart';
 import '../../../resources/constants/colors.dart';
 import '../../../resources/widgets/appbar.dart';
 import '../../../resources/widgets/text_widget.dart';
+import '../../../services/get_remote_services.dart';
 import '../../global/checkout/widget/text_field.dart';
 import 'bottom_sheet_exp.dart';
 
@@ -49,6 +50,35 @@ class _PersonalInfoState extends State<PersonalInfo> {
   final TextEditingController _jobEnd = TextEditingController();
   final TextEditingController _isWorking = TextEditingController();
   final TextEditingController _jobDesc = TextEditingController();
+
+  List<EditUser>? userProfile = [];
+  // & get Profile Info
+  Future<List<EditUser>?> getInfo() async {
+    userProfile = await GetRemoteService().getEditUserDetails('');
+    var bI = userProfile![0]; // bI for basicInfo
+
+    setState(() {
+      _fName.text = bI.firstName;
+      _lName.text = bI.lastName;
+      _username.text = bI.username;
+      _phone.text = bI.phone;
+      _country.text = bI.residenceCountry;
+      _state.text = bI.residenceState;
+      _city.text = bI.residenceState;
+      _shortDesc.text = bI.userBio;
+
+      var edI = userProfile![0].educationQualification[0];
+      var exI = userProfile![0].experience[0];
+    });
+
+    return userProfile;
+  }
+
+  @override
+  void initState() {
+    getInfo();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -352,7 +382,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           state: currentStep > 1 ? StepState.complete : StepState.indexed,
           isActive: currentStep >= 1,
           title: const CustomText(
-            title: 'Education Information',
+            title: 'Education Qualification',
             size: 18.0,
             color: CustomColors.primaryTextColor,
             weight: FontWeight.bold,
@@ -467,7 +497,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           state: currentStep > 2 ? StepState.complete : StepState.indexed,
           isActive: currentStep >= 2,
           title: const CustomText(
-            title: 'Specialization',
+            title: 'Experience',
             size: 18.0,
             color: CustomColors.primaryTextColor,
             weight: FontWeight.bold,
@@ -505,28 +535,40 @@ class _PersonalInfoState extends State<PersonalInfo> {
 
                 // ^ start date
                 const SizedBox(height: 24.0),
-                CheckoutFormWidget(
-                  width: 1.0,
-                  label: 'Start Date',
-                  controller: _jobStart,
-                  hintText: 'Start date',
-                  isImp: true,
-                  textInputType: TextInputType.name,
-                  maxLines: 1,
-                  errorText: 'Field cannot be empty',
+                InkWell(
+                  onTap: () {
+                    showDatePickerFunction(context, _jobStart);
+                  },
+                  child: CheckoutFormWidget(
+                    width: 1.0,
+                    label: 'Start Date',
+                    controller: _jobStart,
+                    hintText: 'Start date',
+                    isImp: true,
+                    textInputType: TextInputType.none,
+                    maxLines: 1,
+                    errorText: 'Field cannot be empty',
+                    enabled: false,
+                  ),
                 ),
 
                 // ^ end date
                 const SizedBox(height: 24.0),
-                CheckoutFormWidget(
-                  width: 1.0,
-                  label: 'End Date',
-                  controller: _jobEnd,
-                  hintText: 'End date',
-                  isImp: true,
-                  textInputType: TextInputType.name,
-                  maxLines: 1,
-                  errorText: 'Field cannot be empty',
+                InkWell(
+                  onTap: () {
+                    showDatePickerFunction(context, _jobEnd);
+                  },
+                  child: CheckoutFormWidget(
+                    width: 1.0,
+                    label: 'End Date',
+                    controller: _jobEnd,
+                    hintText: 'End date',
+                    isImp: true,
+                    textInputType: TextInputType.none,
+                    maxLines: 1,
+                    errorText: 'Field cannot be empty',
+                    enabled: false,
+                  ),
                 ),
 
                 // ^ is current
@@ -542,6 +584,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     setState(() {
                       isChecked = newValue!;
                       _isWorking.text = isChecked.toString();
+                      if (isChecked) {
+                        _jobEnd.clear();
+                      }
                     });
                   },
                 ),

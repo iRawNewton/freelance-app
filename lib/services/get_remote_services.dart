@@ -10,6 +10,7 @@ import '../models/education_model.dart';
 import '../models/home_model.dart';
 import '../models/product_model.dart';
 import '../models/service_subcategory.dart';
+import '../models/edit_user.dart';
 import '../models/users_model.dart';
 import '../resources/constants/strings.dart';
 
@@ -228,6 +229,39 @@ class GetRemoteService {
     } catch (e) {
       debugPrint('Error occured:  $e');
       return productModelFromJson('');
+    }
+  }
+
+  Future<List<EditUser>?> getEditUserDetails(String id) async {
+    try {
+      const String baseUrl = ConstStrings.baseUrl;
+      const String apiUrl = '$baseUrl/users/user_details.php';
+
+      final Map<String, String> headers = {
+        'id': id,
+      };
+
+      final http.Response response = await http
+          .get(Uri.parse(apiUrl).replace(queryParameters: headers))
+          .timeout(const Duration(seconds: 30));
+
+      if (response.statusCode == 200) {
+        final editUser = editUserFromJson(response.body);
+        print('yaha tak ho raha ha');
+        return editUser;
+        // print('remote service ${response.body}');
+        // return null;
+      } else {
+        // handle non-200 code here
+        return null;
+      }
+    } on TimeoutException catch (e) {
+      // ? Handle timeout errors.
+      debugPrint('Request timed out: $e');
+      return null;
+    } catch (e) {
+      debugPrint('Error occured:  $e');
+      return null;
     }
   }
 }
