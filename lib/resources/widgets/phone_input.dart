@@ -47,10 +47,10 @@ class _PhoneInputState extends State<PhoneInput> {
           width: MediaQuery.sizeOf(context).width * 1,
           child: InternationalPhoneNumberInput(
             cursorColor: CustomColors.primaryTextColor,
-            initialValue: PhoneNumber(
-              dialCode: '+1',
-              isoCode: 'US',
-            ),
+            // initialValue: PhoneNumber(
+            //   dialCode: '+1',
+            //   isoCode: 'US',
+            // ),
             textFieldController: phoneController,
             formatInput: true,
             ignoreBlank: false,
@@ -78,7 +78,7 @@ class _PhoneInputState extends State<PhoneInput> {
 
             onInputChanged: (PhoneNumber number) {
               setState(() {
-                // widget.controller.text = number.phoneNumber!;
+                widget.controller.text = number.phoneNumber!;
               });
             },
             onInputValidated: (bool value) {

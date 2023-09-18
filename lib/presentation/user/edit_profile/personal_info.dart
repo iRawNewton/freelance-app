@@ -1,14 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:flutter/material.dart';
-// import 'package:freelance_app/presentation/user/profile_info/bottom_sheetEXP.dart';
+import 'package:freelance_app/resources/functions/data_func.dart';
 import 'package:freelance_app/resources/widgets/buttons.dart';
 import 'package:freelance_app/resources/widgets/phone_input.dart';
+import 'package:freelance_app/resources/widgets/snackbar.dart';
 import 'package:freelance_app/resources/widgets/tags_textfield.dart';
 
 import '../../../resources/constants/colors.dart';
 import '../../../resources/widgets/appbar.dart';
 import '../../../resources/widgets/text_widget.dart';
 import '../../global/checkout/widget/text_field.dart';
+import 'bottom_sheet_exp.dart';
 
 class PersonalInfo extends StatefulWidget {
   const PersonalInfo({super.key});
@@ -19,14 +22,33 @@ class PersonalInfo extends StatefulWidget {
 
 class _PersonalInfoState extends State<PersonalInfo> {
   int currentStep = 0;
-  final _formKey = GlobalKey<FormState>();
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
+  final _formKey3 = GlobalKey<FormState>();
+  bool isChecked = false;
   // controllers
   final TextEditingController _fName = TextEditingController();
   final TextEditingController _lName = TextEditingController();
-  final TextEditingController _company = TextEditingController();
+  final TextEditingController _username = TextEditingController();
+  final TextEditingController _phone = TextEditingController();
   final TextEditingController _country = TextEditingController();
+  final TextEditingController _state = TextEditingController();
+  final TextEditingController _city = TextEditingController();
+  final TextEditingController _shortDesc = TextEditingController();
+
+  final TextEditingController _institute = TextEditingController();
+  final TextEditingController _degree = TextEditingController();
+  final TextEditingController _fieldOfStudy = TextEditingController();
+  final TextEditingController _startDate = TextEditingController();
+  final TextEditingController _endDate = TextEditingController();
+  final TextEditingController _gradeGpa = TextEditingController();
+
+  final TextEditingController _coName = TextEditingController();
+  final TextEditingController _jobTitle = TextEditingController();
+  final TextEditingController _jobStart = TextEditingController();
+  final TextEditingController _jobEnd = TextEditingController();
+  final TextEditingController _isWorking = TextEditingController();
+  final TextEditingController _jobDesc = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +80,12 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   ),
                   Theme(
                     data: Theme.of(context).copyWith(
-                        colorScheme: const ColorScheme.light(
-                      primary: CustomColors.buttonColor,
-                    )),
+                      colorScheme: const ColorScheme.light(
+                        primary: CustomColors.buttonColor,
+                      ),
+                    ),
+
+                    // ^ stepper
                     child: Stepper(
                       controlsBuilder:
                           (BuildContext context, ControlsDetails details) {
@@ -98,11 +123,63 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       steps: getSteps(),
                       onStepContinue: () {
                         final isLastStep = currentStep == getSteps().length - 1;
+                        switch (currentStep) {
+                          // ^ basic information
+                          case 0:
+                            if (_formKey1.currentState!.validate()) {
+                              setState(() {
+                                currentStep = currentStep + 1;
+                              });
+                            } else {
+                              customSnackBar(
+                                context,
+                                'Fields missing or Invalid input',
+                                CustomColors.danger,
+                                Colors.white,
+                              );
+                            }
+                            break;
+
+                          // ^ education
+                          case 1:
+                            if (_formKey2.currentState!.validate()) {
+                              setState(() {
+                                currentStep = currentStep + 1;
+                              });
+                            } else {
+                              customSnackBar(
+                                context,
+                                'Fields missing or Invalid input',
+                                CustomColors.danger,
+                                Colors.white,
+                              );
+                            }
+                            break;
+
+                          // ^ experience
+                          case 2:
+                            if (_formKey3.currentState!.validate()) {
+                              // setState(() {
+                              //   currentStep = currentStep + 1;
+                              // });
+                              print('save karo avi');
+                            } else {
+                              customSnackBar(
+                                context,
+                                'Fields missing or Invalid input',
+                                CustomColors.danger,
+                                Colors.white,
+                              );
+                            }
+                            break;
+
+                          default:
+                            print(currentStep);
+                        }
+
                         if (isLastStep) {
-                          // submit form
-                          debugPrint('Completed');
-                        } else {
-                          setState(() => currentStep += 1);
+                          // *submit form
+                          // debugPrint('Completed');
                         }
                       },
                       onStepCancel: currentStep == 0
@@ -124,7 +201,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
 
   List<Step> getSteps() => [
         /* ------------------------------------------------ */
-        // Basic information
+        // ? Basic information
         /* ------------------------------------------------ */
         Step(
           state: currentStep > 0 ? StepState.complete : StepState.indexed,
@@ -136,13 +213,13 @@ class _PersonalInfoState extends State<PersonalInfo> {
             weight: FontWeight.bold,
           ),
           content: Form(
-            key: _formKey,
+            key: _formKey1,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 40.0),
 
-                // display picture
+                // ^ display picture
                 Column(
                   children: [
                     Align(
@@ -172,12 +249,12 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             title: 'Update Picture',
                             textColor: Colors.white,
                             onPressed: () {
-                              // showModalBottomSheet<void>(
-                              //   context: context,
-                              //   builder: (BuildContext context) {
-                              //     return const UpdateProfileBottomSheet();
-                              //   },
-                              // );
+                              showModalBottomSheet<void>(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const UpdateProfileBottomSheet();
+                                },
+                              );
                             },
                           )
                         ],
@@ -187,7 +264,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 ),
                 const SizedBox(height: 40.0),
 
-                // first name and last name
+                // ^ first name and last name
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -198,6 +275,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       hintText: 'John',
                       isImp: true,
                       textInputType: TextInputType.name,
+                      errorText: 'Field cannot be empty',
                     ),
                     CheckoutFormWidget(
                       width: 0.36,
@@ -206,39 +284,61 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       hintText: 'Doe',
                       isImp: true,
                       textInputType: TextInputType.name,
+                      errorText: 'Field cannot be empty',
                     ),
                   ],
                 ),
                 const SizedBox(height: 24.0),
 
-                // username
+                // ^ username
                 CheckoutFormWidget(
                   width: 1.0,
-                  label: 'Display Name',
-                  controller: _company,
+                  label: 'Username',
+                  controller: _username,
                   hintText: '@johndoe',
                   isImp: true,
                   textInputType: TextInputType.name,
+                  errorText: 'Field cannot be empty',
                 ),
                 const SizedBox(height: 24.0),
 
-                // contact number
+                // ^ contact number
                 PhoneInput(
                   label: 'Phone',
-                  controller: _country,
+                  controller: _phone,
                   isImp: true,
                 ),
                 const SizedBox(height: 24.0),
 
-                // short description
+                // ^ country state city
+                SelectState(
+                  onCountryChanged: (value) {
+                    setState(() {
+                      _country.text = value;
+                    });
+                  },
+                  onStateChanged: (value) {
+                    setState(() {
+                      _state.text = value;
+                    });
+                  },
+                  onCityChanged: (value) {
+                    setState(() {
+                      _city.text = value;
+                    });
+                  },
+                ),
+
+                // ^ short description
                 CheckoutFormWidget(
                   width: 1.0,
                   label: 'Short Description',
-                  controller: _country,
+                  controller: _shortDesc,
                   hintText: ' Briefly describe yourself and your expertise',
                   isImp: true,
                   textInputType: TextInputType.name,
                   maxLines: 5,
+                  errorText: 'Field cannot be empty',
                 ),
               ],
             ),
@@ -246,69 +346,13 @@ class _PersonalInfoState extends State<PersonalInfo> {
         ),
 
         /* ------------------------------------------------ */
-        //  Skills and Experience
+        //  ? Education
         /* ------------------------------------------------ */
         Step(
           state: currentStep > 1 ? StepState.complete : StepState.indexed,
           isActive: currentStep >= 1,
           title: const CustomText(
-            title: 'Contact Information',
-            size: 18.0,
-            color: CustomColors.primaryTextColor,
-            weight: FontWeight.bold,
-          ),
-          content: Form(
-            key: _formKey1,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Skills
-                const SizedBox(height: 24.0),
-                const TagsTextField(label: 'Skills', isImp: true),
-
-                // years of experience
-                const SizedBox(height: 24.0),
-                CheckoutFormWidget(
-                  width: 1.0,
-                  label: 'Experience',
-                  controller: _country,
-                  hintText: 'Years (in numbers)',
-                  isImp: true,
-                  textInputType: TextInputType.number,
-                  maxLines: 1,
-                ),
-
-                // Relevant projects or experience
-                const SizedBox(height: 24.0),
-                CheckoutFormWidget(
-                  width: 1.0,
-                  label: 'Relevant projects or experience',
-                  controller: _country,
-                  hintText: 'Share any relevant projects or experiences',
-                  isImp: false,
-                  textInputType: TextInputType.number,
-                  maxLines: null,
-                ),
-
-                // portfolio images
-                // portfolio description
-              ],
-            ),
-          ),
-        ),
-        // step 3
-        /* 
-         Services Offered: A detailed list of the specific services the freelancer offers 
-         (e.g., logo design, content writing, social media management).
-          Project Types: Examples of the types of projects the freelancer excels at 
-          (e.g., e-commerce websites, mobile app development).
-        
-         */
-        Step(
-          state: currentStep > 1 ? StepState.complete : StepState.indexed,
-          isActive: currentStep >= 1,
-          title: const CustomText(
-            title: 'Specialization',
+            title: 'Education Information',
             size: 18.0,
             color: CustomColors.primaryTextColor,
             weight: FontWeight.bold,
@@ -318,20 +362,201 @@ class _PersonalInfoState extends State<PersonalInfo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 24.0),
-                const TagsTextField(
-                  label: 'Services Offered',
-                  isImp: true,
-                ),
+                // Skills
+                // const SizedBox(height: 24.0),
+                // const TagsTextField(label: 'Skills', isImp: true),
+
+                // ^ Institute Name
                 const SizedBox(height: 24.0),
                 CheckoutFormWidget(
                   width: 1.0,
-                  label: 'Project Types',
-                  controller: _country,
-                  hintText: 'e-commerce, crm...',
+                  label: 'Institute Name',
+                  controller: _institute,
+                  hintText: 'University/School name',
                   isImp: true,
                   textInputType: TextInputType.name,
                   maxLines: 1,
+                  errorText: 'Field cannot be empty',
+                ),
+
+                // ^ Degree Obtained
+                const SizedBox(height: 24.0),
+                CheckoutFormWidget(
+                  width: 1.0,
+                  label: 'Degree Obtained',
+                  controller: _degree,
+                  hintText: 'Degree name',
+                  isImp: true,
+                  textInputType: TextInputType.name,
+                  maxLines: 1,
+                  errorText: 'Field cannot be empty',
+                ),
+
+                // ^ Field of study
+                const SizedBox(height: 24.0),
+                CheckoutFormWidget(
+                  width: 1.0,
+                  label: 'Field of Study',
+                  controller: _fieldOfStudy,
+                  hintText: 'Specialization',
+                  isImp: true,
+                  textInputType: TextInputType.name,
+                  maxLines: 1,
+                  errorText: 'Field cannot be empty',
+                ),
+
+                // ^ start date
+                const SizedBox(height: 24.0),
+                InkWell(
+                  onTap: () {
+                    showDatePickerFunction(context, _startDate);
+                  },
+                  child: CheckoutFormWidget(
+                    width: 1.0,
+                    label: 'Start Date',
+                    controller: _startDate,
+                    hintText: 'Start date',
+                    isImp: true,
+                    textInputType: TextInputType.none,
+                    maxLines: 1,
+                    errorText: 'Field cannot be empty',
+                    enabled: false,
+                  ),
+                ),
+
+                // ^ end date
+                const SizedBox(height: 24.0),
+                InkWell(
+                  onTap: () {
+                    showDatePickerFunction(context, _endDate);
+                  },
+                  child: CheckoutFormWidget(
+                    width: 1.0,
+                    label: 'End Date',
+                    controller: _endDate,
+                    hintText: 'End date',
+                    isImp: true,
+                    textInputType: TextInputType.none,
+                    maxLines: 1,
+                    errorText: 'Field cannot be empty',
+                    enabled: false,
+                  ),
+                ),
+
+                // ^ grade or gpa
+                const SizedBox(height: 24.0),
+                CheckoutFormWidget(
+                  width: 1.0,
+                  label: 'Grade / GPA',
+                  controller: _gradeGpa,
+                  hintText: 'Grade or gpa',
+                  isImp: true,
+                  textInputType: TextInputType.number,
+                  maxLines: 1,
+                  errorText: 'Field cannot be empty',
+                ),
+                // portfolio images
+                // portfolio description
+              ],
+            ),
+          ),
+        ),
+        // step 3
+
+        Step(
+          state: currentStep > 2 ? StepState.complete : StepState.indexed,
+          isActive: currentStep >= 2,
+          title: const CustomText(
+            title: 'Specialization',
+            size: 18.0,
+            color: CustomColors.primaryTextColor,
+            weight: FontWeight.bold,
+          ),
+          content: Form(
+            key: _formKey3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ^ Company Name
+                const SizedBox(height: 24.0),
+                CheckoutFormWidget(
+                  width: 1.0,
+                  label: 'Company Name',
+                  controller: _coName,
+                  hintText: 'Name of company',
+                  isImp: true,
+                  textInputType: TextInputType.name,
+                  maxLines: 1,
+                  errorText: 'Field cannot be empty',
+                ),
+
+                // ^ Job title
+                const SizedBox(height: 24.0),
+                CheckoutFormWidget(
+                  width: 1.0,
+                  label: 'Job Title',
+                  controller: _jobTitle,
+                  hintText: 'Frontend Developer',
+                  isImp: true,
+                  textInputType: TextInputType.name,
+                  maxLines: 1,
+                  errorText: 'Field cannot be empty',
+                ),
+
+                // ^ start date
+                const SizedBox(height: 24.0),
+                CheckoutFormWidget(
+                  width: 1.0,
+                  label: 'Start Date',
+                  controller: _jobStart,
+                  hintText: 'Start date',
+                  isImp: true,
+                  textInputType: TextInputType.name,
+                  maxLines: 1,
+                  errorText: 'Field cannot be empty',
+                ),
+
+                // ^ end date
+                const SizedBox(height: 24.0),
+                CheckoutFormWidget(
+                  width: 1.0,
+                  label: 'End Date',
+                  controller: _jobEnd,
+                  hintText: 'End date',
+                  isImp: true,
+                  textInputType: TextInputType.name,
+                  maxLines: 1,
+                  errorText: 'Field cannot be empty',
+                ),
+
+                // ^ is current
+                // const SizedBox(height: 24.0),
+                CheckboxListTile(
+                  title: const CustomText(
+                    title: 'Currently Working',
+                    size: 14.0,
+                    color: Colors.black87,
+                  ),
+                  value: isChecked,
+                  onChanged: (bool? newValue) {
+                    setState(() {
+                      isChecked = newValue!;
+                      _isWorking.text = isChecked.toString();
+                    });
+                  },
+                ),
+
+                // ^ description
+                const SizedBox(height: 24.0),
+                CheckoutFormWidget(
+                  width: 1.0,
+                  label: 'Job Description',
+                  controller: _jobDesc,
+                  hintText: 'Your job description',
+                  isImp: true,
+                  textInputType: TextInputType.name,
+                  maxLines: null,
+                  errorText: 'Field cannot be empty',
                 ),
               ],
             ),

@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:freelance_app/presentation/global/product_desc.dart/product_desc.dart';
 import 'package:freelance_app/resources/constants/strings.dart';
+import 'package:freelance_app/resources/functions/navigate_page.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
@@ -92,46 +94,65 @@ class _TrendingSectionState extends State<TrendingSection> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CachedNetworkImage(
-                                imageUrl:
-                                    '$productImage/${widget.projects[index]!.images.gallery1}',
-                                fit: BoxFit.fitWidth,
-                              ),
-                              const SizedBox(height: 24.0),
-                              Text(
-                                widget.projects[index]!.categoryName,
-                                style: GoogleFonts.roboto(
-                                  fontSize: 14.0,
-                                  color: Colors.black54,
+                              // ^ image, title, review
+                              InkWell(
+                                onTap: () {
+                                  navigateToPage(
+                                    context,
+                                    ProductDesc(
+                                        productId:
+                                            widget.projects[index]!.projectId),
+                                  );
+                                },
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CachedNetworkImage(
+                                      imageUrl:
+                                          '$productImage/${widget.projects[index]!.images.gallery1}',
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                    const SizedBox(height: 24.0),
+                                    Text(
+                                      widget.projects[index]!.categoryName,
+                                      style: GoogleFonts.roboto(
+                                        fontSize: 14.0,
+                                        color: Colors.black54,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16.0),
+                                    Text(
+                                      widget.projects[index]!.projectTitle,
+                                      style: GoogleFonts.roboto(
+                                        fontSize: 18.0,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16.0),
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.star_rounded,
+                                          color: Colors.amber,
+                                        ),
+                                        Text(
+                                          '4.0 ',
+                                          style: GoogleFonts.roboto(
+                                              color: Colors.black87,
+                                              fontSize: 14.0),
+                                        ),
+                                        Text(
+                                          '(3 Reviews)',
+                                          style: GoogleFonts.roboto(
+                                              color: Colors.black54,
+                                              fontSize: 13.0),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
-                              const SizedBox(height: 16.0),
-                              Text(
-                                widget.projects[index]!.projectTitle,
-                                style: GoogleFonts.roboto(
-                                  fontSize: 18.0,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                              const SizedBox(height: 16.0),
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.star_rounded,
-                                    color: Colors.amber,
-                                  ),
-                                  Text(
-                                    '4.0 ',
-                                    style: GoogleFonts.roboto(
-                                        color: Colors.black87, fontSize: 14.0),
-                                  ),
-                                  Text(
-                                    '(3 Reviews)',
-                                    style: GoogleFonts.roboto(
-                                        color: Colors.black54, fontSize: 13.0),
-                                  ),
-                                ],
-                              ),
+
                               const Divider(),
                               Padding(
                                 padding: const EdgeInsets.symmetric(

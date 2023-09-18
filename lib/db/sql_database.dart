@@ -173,6 +173,24 @@ CREATE TABLE Education (
         ON DELETE CASCADE
 );
 
+Experience
+--------------------------------------------
+CREATE TABLE Experience (
+    experience_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    company_name VARCHAR(255) NOT NULL,
+    job_title VARCHAR(255),
+    start_date DATE,
+    end_date DATE,
+    is_current BOOLEAN, -- New column to indicate current employment
+    description TEXT,
+    FOREIGN KEY (user_id)
+        REFERENCES Users(user_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+
 
 
 
