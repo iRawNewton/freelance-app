@@ -107,10 +107,18 @@ class _TrendingSectionState extends State<TrendingSection> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    CachedNetworkImage(
-                                      imageUrl:
-                                          '$productImage/${widget.projects[index]!.images.gallery1}',
-                                      fit: BoxFit.fitWidth,
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              0.4,
+                                      child: Card(
+                                        elevation: 0,
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              '$productImage/${widget.projects[index]!.images.gallery1}',
+                                          fit: BoxFit.fitWidth,
+                                        ),
+                                      ),
                                     ),
                                     const SizedBox(height: 24.0),
                                     Text(
@@ -121,11 +129,14 @@ class _TrendingSectionState extends State<TrendingSection> {
                                       ),
                                     ),
                                     const SizedBox(height: 16.0),
-                                    Text(
-                                      widget.projects[index]!.projectTitle,
-                                      style: GoogleFonts.roboto(
-                                        fontSize: 18.0,
-                                        color: Colors.black87,
+                                    SizedBox(
+                                      height: 70.0,
+                                      child: Text(
+                                        widget.projects[index]!.projectTitle,
+                                        style: GoogleFonts.roboto(
+                                          fontSize: 16.0,
+                                          color: Colors.black87,
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(height: 16.0),

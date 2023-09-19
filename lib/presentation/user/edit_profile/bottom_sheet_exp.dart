@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../resources/constants/colors.dart';
 import '../../../resources/widgets/text_widget.dart';
-import '../../../services/pick_image.dart';
+// import '../../../services/pick_image.dart';
 
 class UpdateProfileBottomSheet extends StatefulWidget {
   const UpdateProfileBottomSheet({super.key});
@@ -14,7 +14,7 @@ class UpdateProfileBottomSheet extends StatefulWidget {
 
 class _UpdateProfileBottomSheetState extends State<UpdateProfileBottomSheet> {
   void selectPhotoFunc() async {
-    final result = await selectPhoto();
+    // final result = await selectPhoto();
     setState(() {
       // catgPhoto.text = result.fileName;
       // categoryImage = File(result.filePath);
