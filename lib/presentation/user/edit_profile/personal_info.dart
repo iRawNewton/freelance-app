@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:freelance_app/presentation/user/edit_profile/views/education_view.dart';
+import 'package:freelance_app/presentation/user/edit_profile/views/experience_view.dart';
 import 'package:freelance_app/resources/functions/data_func.dart';
 import 'package:freelance_app/resources/widgets/buttons.dart';
 import 'package:freelance_app/resources/widgets/phone_input.dart';
@@ -51,7 +53,10 @@ class _PersonalInfoState extends State<PersonalInfo> {
   final TextEditingController _isWorking = TextEditingController();
   final TextEditingController _jobDesc = TextEditingController();
 
+  int educationLength = 0;
+  int expLength = 0;
   List<EditUser>? userProfile = [];
+
   // & get Profile Info
   Future<List<EditUser>?> getInfo() async {
     userProfile = await GetRemoteService().getEditUserDetails('');
@@ -67,8 +72,11 @@ class _PersonalInfoState extends State<PersonalInfo> {
       _city.text = bI.residenceState;
       _shortDesc.text = bI.userBio;
 
-      var edI = userProfile![0].educationQualification[0];
-      var exI = userProfile![0].experience[0];
+      educationLength = userProfile![0].educationQualification.length;
+      expLength = userProfile![0].experience.length;
+
+      // print(userProfile![0].educationQualification[0].runtimeType);
+      // exI = userProfile![0].experience[0];
     });
 
     return userProfile;
@@ -189,10 +197,10 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           // ^ experience
                           case 2:
                             if (_formKey3.currentState!.validate()) {
+                              //  ! final step
                               // setState(() {
                               //   currentStep = currentStep + 1;
                               // });
-                              print('save karo avi');
                             } else {
                               customSnackBar(
                                 context,
@@ -204,7 +212,12 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             break;
 
                           default:
-                            print(currentStep);
+                            customSnackBar(
+                              context,
+                              'Oops something went wrong.',
+                              CustomColors.danger,
+                              Colors.white,
+                            );
                         }
 
                         if (isLastStep) {
@@ -333,33 +346,88 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 const SizedBox(height: 24.0),
 
                 // ^ contact number
-                PhoneInput(
-                  label: 'Phone',
-                  controller: _phone,
-                  isImp: true,
-                ),
+                (_phone.text.isNotEmpty)
+                    ? Row(
+                        children: [
+                          CustomText(
+                            title: 'Phone: ${_phone.text}',
+                            size: 16.0,
+                            color: Colors.black87,
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _phone.text = '';
+                              });
+                            },
+                            icon: const Icon(Icons.edit),
+                          ),
+                        ],
+                      )
+                    : PhoneInput(
+                        label: 'Phone',
+                        controller: _phone,
+                        isImp: true,
+                      ),
                 const SizedBox(height: 24.0),
 
                 // ^ country state city
-                SelectState(
-                  onCountryChanged: (value) {
-                    setState(() {
-                      _country.text = value;
-                    });
-                  },
-                  onStateChanged: (value) {
-                    setState(() {
-                      _state.text = value;
-                    });
-                  },
-                  onCityChanged: (value) {
-                    setState(() {
-                      _city.text = value;
-                    });
-                  },
-                ),
+                (_country.text.isNotEmpty)
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                CustomText(
+                                  title: 'Country: ${_country.text}',
+                                  size: 16.0,
+                                  color: Colors.black87,
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _country.text = '';
+                                    });
+                                  },
+                                  icon: const Icon(Icons.edit),
+                                ),
+                              ],
+                            ),
+                          ),
+                          CustomText(
+                            title: 'State: ${_state.text}',
+                            size: 16.0,
+                            color: Colors.black87,
+                          ),
+                          CustomText(
+                            title: 'City: ${_city.text}',
+                            size: 16.0,
+                            color: Colors.black87,
+                          ),
+                        ],
+                      )
+                    : SelectState(
+                        onCountryChanged: (value) {
+                          setState(() {
+                            _country.text = value;
+                          });
+                        },
+                        onStateChanged: (value) {
+                          setState(() {
+                            _state.text = value;
+                          });
+                        },
+                        onCityChanged: (value) {
+                          setState(() {
+                            _city.text = value;
+                          });
+                        },
+                      ),
 
                 // ^ short description
+                const SizedBox(height: 24.0),
                 CheckoutFormWidget(
                   width: 1.0,
                   label: 'Short Description',
@@ -369,6 +437,17 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   textInputType: TextInputType.name,
                   maxLines: 5,
                   errorText: 'Field cannot be empty',
+                ),
+
+                // ^ button
+                const SizedBox(height: 24.0),
+                SizedBox(
+                  width: double.infinity,
+                  child: CustomButton(
+                      color: CustomColors.buttonColor,
+                      title: 'Save',
+                      textColor: Colors.white,
+                      onPressed: () {}),
                 ),
               ],
             ),
@@ -393,6 +472,40 @@ class _PersonalInfoState extends State<PersonalInfo> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Skills
+                // ^ listview
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: educationLength,
+                  itemBuilder: (context, index) {
+                    if (userProfile![0].educationQualification.isNotEmpty) {
+                      return Column(
+                        children: [
+                          Column(
+                            children: [
+                              EducationDetailsView(
+                                title: userProfile![0]
+                                    .educationQualification[index]
+                                    .institutionName,
+                                degree: userProfile![0]
+                                    .educationQualification[index]
+                                    .degreeObtained,
+                                field: userProfile![0]
+                                    .educationQualification[index]
+                                    .fieldOfStudy,
+                                grade: userProfile![0]
+                                    .educationQualification[index]
+                                    .gradeOrGpa,
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
+                ),
                 // const SizedBox(height: 24.0),
                 // const TagsTextField(label: 'Skills', isImp: true),
 
@@ -485,6 +598,17 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   maxLines: 1,
                   errorText: 'Field cannot be empty',
                 ),
+
+                // ^ button
+                const SizedBox(height: 24.0),
+                SizedBox(
+                  width: double.infinity,
+                  child: CustomButton(
+                      color: CustomColors.buttonColor,
+                      title: 'Save',
+                      textColor: Colors.white,
+                      onPressed: () {}),
+                ),
                 // portfolio images
                 // portfolio description
               ],
@@ -507,6 +631,36 @@ class _PersonalInfoState extends State<PersonalInfo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // ^ listview
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: expLength,
+                  itemBuilder: (context, index) {
+                    if (userProfile![0].educationQualification.isNotEmpty) {
+                      return Column(
+                        children: [
+                          Column(
+                            children: [
+                              ExpDetailsView(
+                                companyName: userProfile![0]
+                                    .experience[index]
+                                    .companyName,
+                                jobTitle:
+                                    userProfile![0].experience[index].jobTitle,
+                                description: userProfile![0]
+                                    .experience[index]
+                                    .description,
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
+                ),
                 // ^ Company Name
                 const SizedBox(height: 24.0),
                 CheckoutFormWidget(
@@ -603,6 +757,17 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   maxLines: null,
                   errorText: 'Field cannot be empty',
                 ),
+
+                // ^ button
+                const SizedBox(height: 24.0),
+                SizedBox(
+                  width: double.infinity,
+                  child: CustomButton(
+                      color: CustomColors.buttonColor,
+                      title: 'Save',
+                      textColor: Colors.white,
+                      onPressed: () {}),
+                )
               ],
             ),
           ),
