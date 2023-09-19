@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
+
 import 'package:flutter/material.dart';
 import 'package:freelance_app/models/service_category.dart';
 import 'package:freelance_app/models/service_subcategory.dart';
@@ -32,11 +33,17 @@ class _FreelancePostState extends State<FreelancePost> {
   bool isLoading = false;
   int currentStep = 0;
   bool isNetworkImage = true;
+  bool _isMultiple = false;
+  Color singleText = Colors.black;
+  Color singleTextBg = Colors.blue.shade50;
+  Color multipleText = Colors.white;
+  Color multipleTextBg = Colors.blue.shade50;
 
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
   final _formKey3 = GlobalKey<FormState>();
   final _formKey4 = GlobalKey<FormState>();
+  final _formKey5 = GlobalKey<FormState>();
 
   // & controllers
   File? galleryFile1;
@@ -332,75 +339,62 @@ class _FreelancePostState extends State<FreelancePost> {
                               case 3:
                                 // do something for step 3 faqs
                                 if (_formKey4.currentState!.validate()) {
+                                  setState(() {
+                                    currentStep = currentStep + 1;
+                                  });
                                   // setState(() {
                                   //   isLoading = true;
                                   // });
 
-                                  uploadProduct(
-                                    widget.userId,
-                                    _category.text,
-                                    _subCategory.text,
-                                    _title.text,
-                                    _deliveryTime.text,
-                                    _productDescrition.text,
-                                    _serviceProvided.text,
-                                    _toolTechUsed.text,
-                                    [
-                                      _faq1.text,
-                                      _faq2.text,
-                                      _faq3.text,
-                                      _faq4.text,
-                                      _faq5.text,
-                                    ],
-                                    [
-                                      _gallery1.text,
-                                      _gallery2.text,
-                                      _gallery3.text,
-                                      _gallery4.text,
-                                      _gallery5.text,
-                                    ],
-                                    [
-                                      galleryFile1,
-                                      galleryFile2,
-                                      galleryFile3,
-                                      galleryFile4,
-                                      galleryFile5,
-                                    ],
-                                  );
-
-                                  // setState(() {
-                                  //   print('done');
-                                  //   // currentStep = currentStep + 1;
-                                  // });
+                                  // uploadProduct(
+                                  //   widget.userId,
+                                  //   _category.text,
+                                  //   _subCategory.text,
+                                  //   _title.text,
+                                  //   _deliveryTime.text,
+                                  //   _productDescrition.text,
+                                  //   _serviceProvided.text,
+                                  //   _toolTechUsed.text,
+                                  //   [
+                                  //     _faq1.text,
+                                  //     _faq2.text,
+                                  //     _faq3.text,
+                                  //     _faq4.text,
+                                  //     _faq5.text,
+                                  //   ],
+                                  //   [
+                                  //     _gallery1.text,
+                                  //     _gallery2.text,
+                                  //     _gallery3.text,
+                                  //     _gallery4.text,
+                                  //     _gallery5.text,
+                                  //   ],
+                                  //   [
+                                  //     galleryFile1,
+                                  //     galleryFile2,
+                                  //     galleryFile3,
+                                  //     galleryFile4,
+                                  //     galleryFile5,
+                                  //   ],
+                                  // );
                                 }
                                 break;
 
-                              // case 4:
-                              //   // do something for step 4 faq
-                              //   if (_formKey4.currentState!.validate()) {
-                              //     setState(() {
-                              //       isLoading = true;
-                              //       uploadProduct(
-                              //         '18',
-                              //         _category.text,
-                              //         _subCategory.text,
-                              //         _title.text,
-                              //         _deliveryTime.text,
-                              //         _productDescrition.text,
-                              //         _toolTechUsed.text,
-                              //         _serviceProvided.text,
-                              //         // ,projectServiceId,
-                              //         '1',
-                              //       );
-                              //       // currentStep = currentStep + 1;
-                              //       // save it
-                              //     });
-                              //   } else {
-                              //     customSnackBar(context, 'Fields missing',
-                              //         CustomColors.danger, Colors.white);
-                              //   }
+                              case 4:
+                                // do something for step 4 faq
+                                if (_formKey4.currentState!.validate()) {
+                                  setState(() {
+                                    // isLoading = true;
 
-                              //   break;
+                                    // currentStep = currentStep + 1;
+                                    // save it
+                                  });
+                                } else {
+                                  customSnackBar(context, 'Fields missing',
+                                      CustomColors.danger, Colors.white);
+                                }
+
+                                break;
                               default:
                               // Handle cases not covered by the above steps
                             }
@@ -846,7 +840,6 @@ class _FreelancePostState extends State<FreelancePost> {
                   isImp: false,
                   textInputType: TextInputType.multiline,
                   maxLines: null,
-                  errorText: 'Field cannot be empty',
                 ),
 
                 // FAQ 4
@@ -876,15 +869,197 @@ class _FreelancePostState extends State<FreelancePost> {
             ),
           ),
         ),
-      ];
-  // void selectGalleryFunc(TextEditingController fileName, File? file) async {
-  //   final result = await selectPhoto();
-  //   setState(() {
-  //     fileName.text = result.fileName;
 
-  //     file = File(result.filePath);
-  //   });
-  // }
+        /* ------------------------------------------------ */
+        // ^ add pricings
+        /* ------------------------------------------------ */
+        Step(
+          state: currentStep > 4 ? StepState.complete : StepState.indexed,
+          isActive: currentStep >= 4,
+          title: const CustomText(
+            title: 'Pricings',
+            size: 18.0,
+            color: CustomColors.primaryTextColor,
+            weight: FontWeight.bold,
+          ),
+          content: Form(
+            key: _formKey5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ^ switch
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      _isMultiple = !_isMultiple;
+                      if (_isMultiple == true) {
+                        singleText = Colors.black;
+                        singleTextBg = Colors.blue.shade50;
+                        multipleText = Colors.white;
+                        multipleTextBg = Colors.green;
+                      } else {
+                        singleText = Colors.white;
+                        singleTextBg = Colors.green;
+                        multipleText = Colors.black;
+                        multipleTextBg = Colors.blue.shade50;
+                      }
+                    });
+                  },
+                  child: Container(
+                    width: MediaQuery.sizeOf(context).width,
+                    height: 40.0,
+                    decoration: BoxDecoration(
+                      color: Colors.blue.shade50,
+                      borderRadius: BorderRadius.circular(
+                        18.0,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          width: MediaQuery.sizeOf(context).width * 0.39,
+                          height: 40.0,
+                          decoration: BoxDecoration(
+                            color: singleTextBg,
+                            borderRadius: BorderRadius.circular(
+                              18.0,
+                            ),
+                          ),
+                          child: Center(
+                            child: CustomText(
+                              title: 'Single',
+                              size: 18.0,
+                              color: singleText,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.sizeOf(context).width * 0.39,
+                          height: 40.0,
+                          decoration: BoxDecoration(
+                            color: multipleTextBg,
+                            borderRadius: BorderRadius.circular(
+                              18.0,
+                            ),
+                          ),
+                          child: Center(
+                            child: CustomText(
+                              title: 'Multiple',
+                              size: 18.0,
+                              color: multipleText,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+// type name desc price
+                // ^ single price
+                (!_isMultiple)
+                    ? Column(
+                        children: [
+                          const SizedBox(height: 20.0),
+                          const Center(
+                            child: CustomText(
+                              title: 'Type: Single Pricing',
+                              size: 18.0,
+                              color: Colors.black,
+                              weight: FontWeight.bold,
+                            ),
+                          ),
+                          CheckoutFormWidget(
+                            width: 1.0,
+                            label: 'Description',
+                            controller: _category,
+                            hintText: 'Description of the pricing type',
+                            isImp: true,
+                            textInputType: TextInputType.multiline,
+                            maxLines: 2,
+                            errorText: 'Field cannot be empty',
+                          ),
+                          const SizedBox(height: 10.0),
+                          CheckoutFormWidget(
+                            width: 1.0,
+                            label: 'Price',
+                            controller: _category,
+                            hintText: '899.00',
+                            isImp: true,
+                            textInputType: TextInputType.number,
+                            maxLines: 1,
+                            errorText: 'Field cannot be empty',
+                          ),
+                        ],
+                      )
+                    : const SizedBox(),
+
+                // ^ Multiple price
+                const SizedBox(height: 24.0),
+                (_isMultiple)
+                    ? SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          // starter pro premium
+                          children: [
+                            Container(
+                              width: MediaQuery.sizeOf(context).width * 0.3,
+                              height: 100.0,
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: const Center(
+                                child: CustomText(
+                                  title: 'Starter',
+                                  size: 20.0,
+                                  color: Colors.white,
+                                  // weight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 10.0),
+                            Container(
+                              width: MediaQuery.sizeOf(context).width * 0.3,
+                              height: 100.0,
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: const Center(
+                                child: CustomText(
+                                  title: 'Pro',
+                                  size: 20.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 10.0),
+                            Container(
+                              width: MediaQuery.sizeOf(context).width * 0.3,
+                              height: 100.0,
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: const Center(
+                                child: CustomText(
+                                  title: 'Premium',
+                                  size: 20.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : const SizedBox(),
+                //
+              ],
+            ),
+          ),
+        ),
+      ];
 }
 
 class DropdownItem {
