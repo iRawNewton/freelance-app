@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:freelance_app/models/service_category.dart';
 import 'package:freelance_app/models/service_subcategory.dart';
 import 'package:freelance_app/presentation/global/home/home.dart';
+import 'package:freelance_app/presentation/post_product/views/multiple_pricing.dart';
+import 'package:freelance_app/presentation/post_product/views/single_pricing.dart';
 import 'package:freelance_app/resources/functions/navigate_page.dart';
 import 'package:freelance_app/resources/widgets/buttons.dart';
 import 'package:freelance_app/resources/widgets/snackbar.dart';
@@ -34,10 +36,17 @@ class _FreelancePostState extends State<FreelancePost> {
   int currentStep = 0;
   bool isNetworkImage = true;
   bool _isMultiple = false;
-  Color singleText = Colors.black;
-  Color singleTextBg = Colors.blue.shade50;
-  Color multipleText = Colors.white;
+  Color singleText = Colors.white;
+  Color singleTextBg = Colors.green;
+  Color multipleText = Colors.black;
   Color multipleTextBg = Colors.blue.shade50;
+
+  Color starterColorText = Colors.black;
+  Color proColorText = Colors.black;
+  Color premiumColorText = Colors.black;
+  Color starterColorTextBg = Colors.blue.shade50;
+  Color proColorTextBg = Colors.blue.shade50;
+  Color premiumColorTextBg = Colors.blue.shade50;
 
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
@@ -72,6 +81,20 @@ class _FreelancePostState extends State<FreelancePost> {
   final TextEditingController _faq3 = TextEditingController();
   final TextEditingController _faq4 = TextEditingController();
   final TextEditingController _faq5 = TextEditingController();
+
+  final TextEditingController _pricingType = TextEditingController();
+  final TextEditingController _singleDesc = TextEditingController();
+  final TextEditingController _singlePrice = TextEditingController();
+  final TextEditingController _singleFeature = TextEditingController();
+  final TextEditingController _starterDesc = TextEditingController();
+  final TextEditingController _starterPrice = TextEditingController();
+  final TextEditingController _starterFeatures = TextEditingController();
+  final TextEditingController _proDesc = TextEditingController();
+  final TextEditingController _proPrice = TextEditingController();
+  final TextEditingController _proFeatures = TextEditingController();
+  final TextEditingController _premiumDesc = TextEditingController();
+  final TextEditingController _premiumPrice = TextEditingController();
+  final TextEditingController _premiumFeatures = TextEditingController();
 
   final List<String> options = [
     'Beginner',
@@ -159,6 +182,19 @@ class _FreelancePostState extends State<FreelancePost> {
     faqs,
     galleryImageName,
     galleryFile,
+    planType,
+    singlePriceDesc,
+    singlePrice,
+    singleFeatures,
+    starterPriceDesc,
+    starterPrice,
+    starterFeatures,
+    proPriceDesc,
+    proPrice,
+    proFeatures,
+    premiumPriceDesc,
+    premiumPrice,
+    premiumFeatures,
   ) async {
     var response = await PostRemoteService().postProducts(
       userId,
@@ -172,6 +208,19 @@ class _FreelancePostState extends State<FreelancePost> {
       faqs,
       galleryImageName,
       galleryFile,
+      planType,
+      singlePriceDesc,
+      singlePrice,
+      singleFeatures,
+      starterPriceDesc,
+      starterPrice,
+      starterFeatures,
+      proPriceDesc,
+      proPrice,
+      proFeatures,
+      premiumPriceDesc,
+      premiumPrice,
+      premiumFeatures,
     );
     setState(() {
       isLoading = false;
@@ -219,6 +268,12 @@ class _FreelancePostState extends State<FreelancePost> {
     _faq3.dispose();
     _faq4.dispose();
     _faq5.dispose();
+    _starterDesc.dispose();
+    _starterPrice.dispose();
+    _proDesc.dispose();
+    _proPrice.dispose();
+    _premiumDesc.dispose();
+    _premiumPrice.dispose();
     super.dispose();
   }
 
@@ -342,41 +397,6 @@ class _FreelancePostState extends State<FreelancePost> {
                                   setState(() {
                                     currentStep = currentStep + 1;
                                   });
-                                  // setState(() {
-                                  //   isLoading = true;
-                                  // });
-
-                                  // uploadProduct(
-                                  //   widget.userId,
-                                  //   _category.text,
-                                  //   _subCategory.text,
-                                  //   _title.text,
-                                  //   _deliveryTime.text,
-                                  //   _productDescrition.text,
-                                  //   _serviceProvided.text,
-                                  //   _toolTechUsed.text,
-                                  //   [
-                                  //     _faq1.text,
-                                  //     _faq2.text,
-                                  //     _faq3.text,
-                                  //     _faq4.text,
-                                  //     _faq5.text,
-                                  //   ],
-                                  //   [
-                                  //     _gallery1.text,
-                                  //     _gallery2.text,
-                                  //     _gallery3.text,
-                                  //     _gallery4.text,
-                                  //     _gallery5.text,
-                                  //   ],
-                                  //   [
-                                  //     galleryFile1,
-                                  //     galleryFile2,
-                                  //     galleryFile3,
-                                  //     galleryFile4,
-                                  //     galleryFile5,
-                                  //   ],
-                                  // );
                                 }
                                 break;
 
@@ -384,11 +404,56 @@ class _FreelancePostState extends State<FreelancePost> {
                                 // do something for step 4 faq
                                 if (_formKey4.currentState!.validate()) {
                                   setState(() {
-                                    // isLoading = true;
-
-                                    // currentStep = currentStep + 1;
-                                    // save it
+                                    isLoading = true;
                                   });
+
+                                  // if (_isMultiple) ? :;
+                                  uploadProduct(
+                                    widget.userId,
+                                    _category.text,
+                                    _subCategory.text,
+                                    _title.text,
+                                    _deliveryTime.text,
+                                    _productDescrition.text,
+                                    _serviceProvided.text,
+                                    _toolTechUsed.text,
+                                    [
+                                      _faq1.text,
+                                      _faq2.text,
+                                      _faq3.text,
+                                      _faq4.text,
+                                      _faq5.text,
+                                    ],
+                                    [
+                                      _gallery1.text,
+                                      _gallery2.text,
+                                      _gallery3.text,
+                                      _gallery4.text,
+                                      _gallery5.text,
+                                    ],
+                                    [
+                                      galleryFile1,
+                                      galleryFile2,
+                                      galleryFile3,
+                                      galleryFile4,
+                                      galleryFile5,
+                                    ],
+                                    // TODO fix pricing type
+                                    // _pricingType.text,
+                                    'single',
+                                    _singleDesc.text,
+                                    _singlePrice.text,
+                                    _singleFeature.text,
+                                    _starterDesc.text,
+                                    _starterPrice.text,
+                                    _starterFeatures.text,
+                                    _proDesc.text,
+                                    _proPrice.text,
+                                    _proFeatures.text,
+                                    _premiumDesc.text,
+                                    _premiumPrice.text,
+                                    _premiumFeatures.text,
+                                  );
                                 } else {
                                   customSnackBar(context, 'Fields missing',
                                       CustomColors.danger, Colors.white);
@@ -955,106 +1020,26 @@ class _FreelancePostState extends State<FreelancePost> {
                     ),
                   ),
                 ),
-// type name desc price
+                // type name desc price
+
                 // ^ single price
                 (!_isMultiple)
-                    ? Column(
-                        children: [
-                          const SizedBox(height: 20.0),
-                          const Center(
-                            child: CustomText(
-                              title: 'Type: Single Pricing',
-                              size: 18.0,
-                              color: Colors.black,
-                              weight: FontWeight.bold,
-                            ),
-                          ),
-                          CheckoutFormWidget(
-                            width: 1.0,
-                            label: 'Description',
-                            controller: _category,
-                            hintText: 'Description of the pricing type',
-                            isImp: true,
-                            textInputType: TextInputType.multiline,
-                            maxLines: 2,
-                            errorText: 'Field cannot be empty',
-                          ),
-                          const SizedBox(height: 10.0),
-                          CheckoutFormWidget(
-                            width: 1.0,
-                            label: 'Price',
-                            controller: _category,
-                            hintText: '899.00',
-                            isImp: true,
-                            textInputType: TextInputType.number,
-                            maxLines: 1,
-                            errorText: 'Field cannot be empty',
-                          ),
-                        ],
+                    ? SinglePricing(
+                        controller1: _singleDesc,
+                        controller2: _singlePrice,
+                        controller3: _singleFeature,
                       )
-                    : const SizedBox(),
-
-                // ^ Multiple price
-                const SizedBox(height: 24.0),
-                (_isMultiple)
-                    ? SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          // starter pro premium
-                          children: [
-                            Container(
-                              width: MediaQuery.sizeOf(context).width * 0.3,
-                              height: 100.0,
-                              decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: const Center(
-                                child: CustomText(
-                                  title: 'Starter',
-                                  size: 20.0,
-                                  color: Colors.white,
-                                  // weight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 10.0),
-                            Container(
-                              width: MediaQuery.sizeOf(context).width * 0.3,
-                              height: 100.0,
-                              decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: const Center(
-                                child: CustomText(
-                                  title: 'Pro',
-                                  size: 20.0,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 10.0),
-                            Container(
-                              width: MediaQuery.sizeOf(context).width * 0.3,
-                              height: 100.0,
-                              decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: const Center(
-                                child: CustomText(
-                                  title: 'Premium',
-                                  size: 20.0,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                    : MultiplePricing(
+                        controller1: _starterDesc,
+                        controller2: _starterPrice,
+                        controller3: _starterFeatures,
+                        controller4: _proDesc,
+                        controller5: _proPrice,
+                        controller6: _proFeatures,
+                        controller7: _premiumDesc,
+                        controller8: _premiumPrice,
+                        controller9: _premiumFeatures,
                       )
-                    : const SizedBox(),
-                //
               ],
             ),
           ),

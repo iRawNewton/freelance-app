@@ -61,6 +61,19 @@ class PostRemoteService {
     faqs,
     galleryImage,
     galleryFile,
+    planType,
+    singlePriceDesc,
+    singlePrice,
+    singleFeatures,
+    starterPriceDesc,
+    starterPrice,
+    starterFeatures,
+    proPriceDesc,
+    proPrice,
+    proFeatures,
+    premiumPriceDesc,
+    premiumPrice,
+    premiumFeatures,
   ) async {
     String baseUrl = ConstStrings.baseUrl;
     String apiUrl = '$baseUrl/product/products.php';
@@ -95,8 +108,23 @@ class PostRemoteService {
         'faqsQ': faqsQue,
         'faqsA': faqsAns,
         'imageText': imageText,
+        'planType': planType,
+        'singlePriceDesc': singlePriceDesc,
+        'singlePrice': singlePrice,
+        'singleFeatures': singleFeatures,
+        'starterPriceDesc': starterPriceDesc,
+        'starterPrice': starterPrice,
+        'starterFeatures': starterFeatures,
+        'proPriceDesc': proPriceDesc,
+        'proPrice': proPrice,
+        'proFeatures': proFeatures,
+        'premiumPriceDesc': premiumPriceDesc,
+        'premiumPrice': premiumPrice,
+        'premiumFeatures': premiumFeatures,
       },
     );
+
+    print('This is real data : ${response.body}');
 
     if (response.statusCode == 200) {
       for (int i = 0; i < galleryImage.length; i++) {
