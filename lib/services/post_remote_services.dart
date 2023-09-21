@@ -124,10 +124,11 @@ class PostRemoteService {
       },
     );
 
-    print('This is real data : ${response.body}');
+    int imageCount =
+        galleryImage.where((element) => element.toString().isNotEmpty).length;
 
     if (response.statusCode == 200) {
-      for (int i = 0; i < galleryImage.length; i++) {
+      for (int i = 0; i < imageCount; i++) {
         String fileName = galleryImage[i];
         File file = galleryFile[i];
 

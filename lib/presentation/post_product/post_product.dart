@@ -407,7 +407,16 @@ class _FreelancePostState extends State<FreelancePost> {
                                     isLoading = true;
                                   });
 
-                                  // if (_isMultiple) ? :;
+                                  if (_isMultiple) {
+                                    setState(() {
+                                      _pricingType.text = 'multiple';
+                                    });
+                                  } else {
+                                    setState(() {
+                                      _pricingType.text = 'single';
+                                    });
+                                  }
+
                                   uploadProduct(
                                     widget.userId,
                                     _category.text,
@@ -438,9 +447,7 @@ class _FreelancePostState extends State<FreelancePost> {
                                       galleryFile4,
                                       galleryFile5,
                                     ],
-                                    // TODO fix pricing type
-                                    // _pricingType.text,
-                                    'single',
+                                    _pricingType.text,
                                     _singleDesc.text,
                                     _singlePrice.text,
                                     _singleFeature.text,
@@ -953,6 +960,7 @@ class _FreelancePostState extends State<FreelancePost> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // ^ switch
+
                 InkWell(
                   onTap: () {
                     setState(() {
@@ -962,11 +970,23 @@ class _FreelancePostState extends State<FreelancePost> {
                         singleTextBg = Colors.blue.shade50;
                         multipleText = Colors.white;
                         multipleTextBg = Colors.green;
+                        _singleDesc.clear();
+                        _singlePrice.clear();
+                        _singleFeature.clear();
                       } else {
                         singleText = Colors.white;
                         singleTextBg = Colors.green;
                         multipleText = Colors.black;
                         multipleTextBg = Colors.blue.shade50;
+                        _starterDesc.clear();
+                        _starterPrice.clear();
+                        _starterFeatures.clear();
+                        _proDesc.clear();
+                        _proPrice.clear();
+                        _proFeatures.clear();
+                        _premiumDesc.clear();
+                        _premiumPrice.clear();
+                        _premiumFeatures.clear();
                       }
                     });
                   },

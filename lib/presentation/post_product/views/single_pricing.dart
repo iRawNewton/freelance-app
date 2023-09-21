@@ -59,7 +59,7 @@ class _SinglePricingState extends State<SinglePricing> {
           controller: widget.controller3,
           hintText: 'List all features for the package',
           isImp: true,
-          textInputType: TextInputType.number,
+          textInputType: TextInputType.multiline,
           maxLines: null,
           errorText: 'Field cannot be empty',
         ),
