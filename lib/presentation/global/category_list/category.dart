@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../resources/constants/strings.dart';
 import '../../../resources/widgets/appbar.dart';
+import '../drawer/global_drawer.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key, required this.id});
@@ -18,6 +19,7 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   // Initial Selected Value
   String dropdownvalue = 'Sort by (Default)';
 
@@ -51,10 +53,12 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        key: _scaffoldKey,
+        drawer: const GlobalDrawer(),
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
             TopAppBar(
-              onTap: () {},
+              onTap: () => _scaffoldKey.currentState?.openDrawer(),
             ),
           ],
           body: Container(
