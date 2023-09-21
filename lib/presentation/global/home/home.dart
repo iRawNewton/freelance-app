@@ -4,6 +4,7 @@ import 'package:freelance_app/presentation/global/drawer/global_drawer.dart';
 import 'package:freelance_app/presentation/global/home/views/blog.dart';
 import 'package:freelance_app/presentation/global/home/views/category.dart';
 import 'package:freelance_app/presentation/global/home/views/search.dart';
+import 'package:freelance_app/presentation/global/home/views/service_circle.dart';
 import 'package:freelance_app/presentation/global/home/views/services.dart';
 import 'package:freelance_app/presentation/global/home/views/static_section.dart';
 import 'package:freelance_app/presentation/global/home/views/static_section1.dart';
@@ -65,6 +66,8 @@ class _HomePageState extends State<HomePage> {
                   // ^ Search what you're looking for
                   const HomeWidget1(),
                   const SizedBox(height: 20.0),
+                  // ^ services
+                  const ServiceCircle(),
 
                   // ^ browse talent by category
                   FutureBuilder(
@@ -187,9 +190,10 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
 
-                  // ^ trending service
-
+                  // ^ trending freelancers
                   TrendingSection(projects: projects),
+
+                  // ^ services
 
                   // ^ need something done
                   const ServicesPage(),

@@ -69,7 +69,7 @@ class _ServicesPageState extends State<ServicesPage> {
                             Align(
                               alignment: Alignment.topLeft,
                               child: SvgPicture.asset(
-                                '$iconLocation/cv.svg',
+                                '$iconLocation/maid_service.svg',
                                 colorFilter: const ColorFilter.mode(
                                   CustomColors.primaryColor,
                                   BlendMode.srcIn,
@@ -83,7 +83,7 @@ class _ServicesPageState extends State<ServicesPage> {
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        'Post a job',
+                        'Maid Service',
                         style: GoogleFonts.roboto(
                           fontSize: 18.0,
                           fontWeight: FontWeight.w400,
@@ -92,12 +92,13 @@ class _ServicesPageState extends State<ServicesPage> {
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        'It\'s free and esy to post a job. Simply fill in a title, description.',
+                        'Professional cleaning services for homes, including tasks like cleaning, dusting, vacuuming, and organizing.',
                         style: GoogleFonts.roboto(
                           fontSize: 14.0,
                           fontWeight: FontWeight.w500,
                           color: Colors.black54,
                         ),
+                        textAlign: TextAlign.left,
                       ),
                     ],
                   ),
@@ -134,7 +135,7 @@ class _ServicesPageState extends State<ServicesPage> {
                             Align(
                               alignment: Alignment.topLeft,
                               child: SvgPicture.asset(
-                                '$iconLocation/coding.svg',
+                                '$iconLocation/laundry_service.svg',
                                 colorFilter: const ColorFilter.mode(
                                   CustomColors.primaryColor,
                                   BlendMode.srcIn,
@@ -148,7 +149,7 @@ class _ServicesPageState extends State<ServicesPage> {
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        'Choose freelancers',
+                        'Laundry Service',
                         style: GoogleFonts.roboto(
                           fontSize: 18.0,
                           fontWeight: FontWeight.w400,
@@ -157,7 +158,7 @@ class _ServicesPageState extends State<ServicesPage> {
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        'It\'s free and esy to post a job. Simply fill in a title, description.',
+                        'Service that offers washing, drying, and folding of clothes, often with pickup and delivery options.',
                         style: GoogleFonts.roboto(
                           fontSize: 14.0,
                           fontWeight: FontWeight.w500,
@@ -203,7 +204,7 @@ class _ServicesPageState extends State<ServicesPage> {
                             Align(
                               alignment: Alignment.topLeft,
                               child: SvgPicture.asset(
-                                '$iconLocation/security.svg',
+                                '$iconLocation/Interior_Design_Consultation.svg',
                                 colorFilter: const ColorFilter.mode(
                                   CustomColors.primaryColor,
                                   BlendMode.srcIn,
@@ -217,7 +218,7 @@ class _ServicesPageState extends State<ServicesPage> {
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        'Pay safely',
+                        'Interior Design Consultation ',
                         style: GoogleFonts.roboto(
                           fontSize: 18.0,
                           fontWeight: FontWeight.w400,
@@ -226,7 +227,7 @@ class _ServicesPageState extends State<ServicesPage> {
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        'It\'s free and esy to post a job. Simply fill in a title, description.',
+                        'Consultation and design services to help clients plan and decorate their living spaces.',
                         style: GoogleFonts.roboto(
                           fontSize: 14.0,
                           fontWeight: FontWeight.w500,
@@ -268,7 +269,7 @@ class _ServicesPageState extends State<ServicesPage> {
                             Align(
                               alignment: Alignment.topLeft,
                               child: SvgPicture.asset(
-                                '$iconLocation/headphones.svg',
+                                '$iconLocation/ac_services.svg',
                                 colorFilter: const ColorFilter.mode(
                                   CustomColors.primaryColor,
                                   BlendMode.srcIn,
@@ -282,7 +283,7 @@ class _ServicesPageState extends State<ServicesPage> {
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        'We\'re here to help',
+                        'AC Cleaning and Maintenance',
                         style: GoogleFonts.roboto(
                           fontSize: 18.0,
                           fontWeight: FontWeight.w400,
@@ -291,7 +292,7 @@ class _ServicesPageState extends State<ServicesPage> {
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        'It\'s free and easy to post a job. Simply fill in a title, description.',
+                        'Maintenance and cleaning of air conditioning systems to improve their efficiency and air quality.',
                         style: GoogleFonts.roboto(
                           fontSize: 14.0,
                           fontWeight: FontWeight.w500,

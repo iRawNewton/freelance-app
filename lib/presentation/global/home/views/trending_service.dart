@@ -41,7 +41,7 @@ class _TrendingSectionState extends State<TrendingSection> {
           children: [
             const SizedBox(height: 24.0),
             Text(
-              'Trending Services',
+              'Trending Freelancers',
               style: GoogleFonts.roboto(
                 fontSize: 23.0,
                 fontWeight: FontWeight.bold,
@@ -50,7 +50,7 @@ class _TrendingSectionState extends State<TrendingSection> {
             ),
             const SizedBox(height: 16.0),
             Text(
-              'Most viewed and all-time top-selling services',
+              'Most viewed and all-time top freelancers',
               style: GoogleFonts.roboto(
                 fontSize: 15.0,
                 color: Colors.black54,
@@ -75,7 +75,7 @@ class _TrendingSectionState extends State<TrendingSection> {
             ),
             const SizedBox(height: 24.0),
             SizedBox(
-              height: 600.0,
+              height: 550.0,
               width: double.infinity,
               child: PageView(
                 controller: trendingServiceController,
@@ -110,13 +110,15 @@ class _TrendingSectionState extends State<TrendingSection> {
                                     SizedBox(
                                       height:
                                           MediaQuery.sizeOf(context).height *
-                                              0.4,
+                                              0.35,
+                                      width: double.infinity,
                                       child: Card(
+                                        color: const Color(0xffF1FCFA),
                                         elevation: 0,
                                         child: CachedNetworkImage(
                                           imageUrl:
                                               '$productImage/${widget.projects[index]!.images.gallery1}',
-                                          fit: BoxFit.fitWidth,
+                                          fit: BoxFit.contain,
                                         ),
                                       ),
                                     ),
