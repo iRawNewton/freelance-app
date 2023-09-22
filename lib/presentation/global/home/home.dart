@@ -12,6 +12,7 @@ import 'package:freelance_app/presentation/global/home/views/stats.dart';
 import 'package:freelance_app/presentation/global/home/views/testimonial.dart';
 import 'package:freelance_app/presentation/global/home/views/trending_service.dart';
 import 'package:freelance_app/resources/widgets/appbar.dart';
+import 'package:freelance_app/resources/widgets/text_widget.dart';
 import 'package:freelance_app/services/get_remote_services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -66,7 +67,21 @@ class _HomePageState extends State<HomePage> {
                   // ^ Search what you're looking for
                   const HomeWidget1(),
                   const SizedBox(height: 20.0),
+
                   // ^ services
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Row(
+                      children: [
+                        CustomText(
+                          title: 'Trending Services',
+                          size: 16.0,
+                          color: Colors.black87,
+                        ),
+                        Icon(Icons.arrow_right_alt_outlined)
+                      ],
+                    ),
+                  ),
                   const ServiceCircle(),
 
                   // ^ browse talent by category

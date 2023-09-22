@@ -16,7 +16,7 @@ class _ServiceCircleState extends State<ServiceCircle> {
   Widget build(BuildContext context) {
     var x = MediaQuery.of(context).size.width;
     // var y = MediaQuery.of(context).size.height;
-    return Container(
+    return SizedBox(
         width: x,
         height: 120.0,
         // color: Colors.grey.shade100,

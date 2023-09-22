@@ -1,17 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:freelance_app/models/experience_model.dart';
 import 'package:freelance_app/models/users_model.dart';
 import 'package:freelance_app/presentation/global/drawer/global_drawer.dart';
-import 'package:freelance_app/presentation/user/profile_info/views/education.dart';
+
 import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:freelance_app/resources/widgets/footer.dart';
+import 'package:freelance_app/resources/widgets/timeline/experience/exp_timeline_tile.dart';
 import 'package:freelance_app/services/get_remote_services.dart';
 import 'package:intl/intl.dart';
+
 import 'package:neumorphic_ui/neumorphic_ui.dart';
 import '../../../models/education_model.dart';
 import '../../../resources/widgets/appbar.dart';
 import '../../../resources/widgets/text_widget.dart';
+import '../../../resources/widgets/timeline/education/timeline_tile.dart';
 import '../dashboard/views/profile_stats.dart';
 
 class UserProfile extends StatefulWidget {
@@ -25,6 +29,7 @@ class _UserProfileState extends State<UserProfile> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List<Users>? users;
   List<Education>? education;
+  List<Exp>? exp;
   String userEmail = FirebaseAuth.instance.currentUser!.email ?? '';
 
   // & functions ---------------------------------------------------------
@@ -34,6 +39,7 @@ class _UserProfileState extends State<UserProfile> {
     if (userEmail.isNotEmpty) {
       users = await GetRemoteService().getProfileInfo(userEmail);
       await getEducationDetails(userEmail);
+      await getExpDetails(userEmail);
       return users;
     } else {
       return null;
@@ -44,6 +50,11 @@ class _UserProfileState extends State<UserProfile> {
   Future<List<Education>?> getEducationDetails(email) async {
     education = await GetRemoteService().getEducationInfo(email);
     return education;
+  }
+
+  Future<List<Exp>?> getExpDetails(email) async {
+    exp = await GetRemoteService().getExperienceInfo(email);
+    return exp;
   }
 
   @override
@@ -299,32 +310,31 @@ class _UserProfileState extends State<UserProfile> {
                                   Container(
                                     color: CustomColors.accentColor2,
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 12.0, vertical: 12.0),
-                                      child: ListView.separated(
-                                          separatorBuilder: (context, index) {
-                                            // ^ divider
-                                            return const Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                vertical: 12.0,
-                                              ),
-                                              child: Divider(
-                                                  height: 1.0,
-                                                  color: Colors.grey),
-                                            );
-                                          },
+                                      padding: const EdgeInsets.fromLTRB(
+                                          12.0, 28.0, 12.0, 16.0),
+                                      child: ListView.builder(
                                           shrinkWrap: true,
                                           physics:
                                               const NeverScrollableScrollPhysics(),
                                           itemCount: education!.length,
                                           itemBuilder: (context, index) {
                                             // ^ Education view
-                                            return EducationView(
-                                              institute: education![index]
+
+                                            return CustomTimelineTile(
+                                              iconData: Icons.school,
+                                              // isFirst: true,
+                                              isFirst:
+                                                  (index == 1) ? true : false,
+                                              isLast: (index ==
+                                                      (education!.length) - 1)
+                                                  ? true
+                                                  : false,
+                                              isPast: true,
+                                              instituteName: education![index]
                                                   .institutionName,
                                               degree: education![index]
                                                   .degreeObtained,
-                                              duration:
+                                              year:
                                                   '${DateFormat('MMMM').format(education![index].startDate)} ${DateFormat('yyyy').format(education![index].startDate)} - ${DateFormat('yyyy').format(education![index].endDate)}',
                                               grade:
                                                   'Grade: ${education![index].gradeOrGpa}',
@@ -334,19 +344,60 @@ class _UserProfileState extends State<UserProfile> {
                                           }),
                                     ),
                                   ),
+                                  const SizedBox(height: 20.0),
 
-                                  // ! add more content like experience, skills etc
+                                  // ^ exp
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 12.0),
+                                    child: CustomText(
+                                      title: 'Experience',
+                                      size: 16.0,
+                                      color: Colors.black87,
+                                      weight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10.0),
 
-                                  // Experience
-                                  // const SizedBox(height: 20.0),
-                                  // const CustomText(
-                                  //   title: 'Experience',
-                                  //   size: 16.0,
-                                  //   color: Colors.black87,
-                                  //   weight: FontWeight.w600,
-                                  // ),
-                                  // const SizedBox(height: 10.0),
-                                  // experience listview
+                                  // ^ experience view
+                                  Container(
+                                    color: CustomColors.accentColor2,
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          12.0, 28.0, 12.0, 16.0),
+                                      child: ListView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount: exp!.length,
+                                          itemBuilder: (context, index) {
+                                            // ^ Experience view
+
+                                            return CustomTimelineTileExp(
+                                              iconData: Icons.apartment,
+                                              // isFirst: true,
+                                              isFirst:
+                                                  (index == 1) ? true : false,
+                                              isLast:
+                                                  (index == (exp!.length) - 1)
+                                                      ? true
+                                                      : false,
+                                              isPast: true,
+                                              companyName:
+                                                  exp![index].companyName,
+                                              jobTitle: exp![index].jobTitle,
+                                              description:
+                                                  exp![index].description,
+                                              startDate:
+                                                  '${DateFormat('MMMM').format(education![index].startDate)} ${DateFormat('yyyy').format(education![index].startDate)}',
+                                              endDate: (exp![index].isCurrent ==
+                                                      '1')
+                                                  ? 'Currently Working'
+                                                  : '${DateFormat('MMMM').format(education![index].startDate)} ${DateFormat('yyyy').format(education![index].startDate)}',
+                                            );
+                                          }),
+                                    ),
+                                  ),
 
                                   // skills
                                   const SizedBox(height: 20.0),

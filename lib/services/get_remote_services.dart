@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 import '../models/category_model.dart';
 import '../models/education_model.dart';
+import '../models/experience_model.dart';
 import '../models/home_model.dart';
 import '../models/product_model.dart';
 import '../models/service_subcategory.dart';
@@ -138,6 +139,40 @@ class GetRemoteService {
 
       if (response.statusCode == 200) {
         return educationFromJson(response.body);
+      } else {
+        // handle non-200 code here
+        return null;
+      }
+    } on TimeoutException catch (e) {
+      // ? Handle timeout errors.
+      debugPrint('Request timed out: $e');
+      return null;
+    } catch (e) {
+      // ? Handle other unexpected errors.
+      debugPrint('An error occured: $e');
+      return null;
+    }
+  }
+
+  // & experience
+
+  Future<List<Exp>?> getExperienceInfo(String email) async {
+    try {
+      const String baseUrl = ConstStrings.baseUrl;
+      const String apiUrl = '$baseUrl/users/experience.php';
+
+      final Map<String, String> headers = {
+        'email': email,
+      };
+      final http.Response response = await http
+          .get(
+            Uri.parse(apiUrl),
+            headers: headers,
+          )
+          .timeout(const Duration(seconds: 30));
+
+      if (response.statusCode == 200) {
+        return expFromJson(response.body);
       } else {
         // handle non-200 code here
         return null;
