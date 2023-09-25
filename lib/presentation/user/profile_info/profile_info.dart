@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:freelance_app/models/experience_model.dart';
 import 'package:freelance_app/models/users_model.dart';
 import 'package:freelance_app/presentation/global/drawer/global_drawer.dart';
+import 'package:freelance_app/presentation/post_service/post_service.dart';
 
 import 'package:freelance_app/resources/constants/colors.dart';
+import 'package:freelance_app/resources/functions/navigate_page.dart';
 import 'package:freelance_app/resources/widgets/footer.dart';
 import 'package:freelance_app/resources/widgets/timeline/experience/exp_timeline_tile.dart';
 import 'package:freelance_app/services/get_remote_services.dart';
@@ -198,6 +200,14 @@ class _UserProfileState extends State<UserProfile> {
                                     ),
                                   ),
                                   const SizedBox(height: 20.0),
+
+                                  // ! test button
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        navigateToPage(context,
+                                            const ServicePost(userId: '18'));
+                                      },
+                                      child: Text('data')),
 
                                   // ^ statistics
                                   const Padding(
