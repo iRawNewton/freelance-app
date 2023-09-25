@@ -122,6 +122,8 @@ class _TrendingSectionState extends State<TrendingSection> {
                                         ),
                                       ),
                                     ),
+                                    Text(widget
+                                        .projects[index]!.images.gallery1),
                                     const SizedBox(height: 24.0),
                                     Text(
                                       widget.projects[index]!.categoryName,

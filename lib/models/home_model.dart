@@ -10,22 +10,28 @@ String homeModelToJson(HomeModel data) => json.encode(data.toJson());
 
 class HomeModel {
   List<Category> category;
+  List<Category> serviceCategory;
   List<Project> projects;
 
   HomeModel({
     required this.category,
+    required this.serviceCategory,
     required this.projects,
   });
 
   factory HomeModel.fromJson(Map<String, dynamic> json) => HomeModel(
         category: List<Category>.from(
             json["category"].map((x) => Category.fromJson(x))),
+        serviceCategory: List<Category>.from(
+            json["serviceCategory"].map((x) => Category.fromJson(x))),
         projects: List<Project>.from(
             json["projects"].map((x) => Project.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "category": List<dynamic>.from(category.map((x) => x.toJson())),
+        "serviceCategory":
+            List<dynamic>.from(serviceCategory.map((x) => x.toJson())),
         "projects": List<dynamic>.from(projects.map((x) => x.toJson())),
       };
 }
@@ -146,15 +152,15 @@ class Images {
   String gallery1;
   String gallery2;
   String gallery3;
-  String? gallery4;
-  String? gallery5;
+  String gallery4;
+  String gallery5;
 
   Images({
     required this.gallery1,
     required this.gallery2,
     required this.gallery3,
-    this.gallery4,
-    this.gallery5,
+    required this.gallery4,
+    required this.gallery5,
   });
 
   factory Images.fromJson(Map<String, dynamic> json) => Images(

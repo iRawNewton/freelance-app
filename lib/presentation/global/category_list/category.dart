@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:freelance_app/models/category_model.dart';
 import 'package:freelance_app/presentation/global/category_list/views/products_list.dart';
 import 'package:freelance_app/resources/widgets/footer.dart';
+import 'package:freelance_app/resources/widgets/text_widget.dart';
 import 'package:freelance_app/services/get_remote_services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:lottie/lottie.dart';
 import '../../../resources/constants/strings.dart';
 import '../../../resources/widgets/appbar.dart';
 import '../drawer/global_drawer.dart';
@@ -37,13 +39,16 @@ class _CategoryPageState extends State<CategoryPage> {
 
   String totalProducts = '';
   List<Project> projectsList = [];
+  bool isVisible = true;
 
   Future<CategoryModel?> categoryProductList() async {
-    CategoryModel? response = await GetRemoteService().getCategoryProducts('1');
+    CategoryModel? response =
+        await GetRemoteService().getCategoryProducts(widget.id);
 
     setState(() {
       totalProducts = response!.totalCount;
       projectsList = response.projects;
+      (response.totalCount == '0') ? isVisible = false : isVisible = true;
     });
 
     return response;
@@ -231,55 +236,62 @@ class _CategoryPageState extends State<CategoryPage> {
 
                         // ^ category product list
 
-                        FutureBuilder(
-                          future: categoryProductList(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: projectsList.length,
-                                  itemBuilder: (context, index) {
-                                    // return Text(projectsList[index].categoryName);
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 10.0,
-                                      ),
-                                      child: ProductList(
-                                        // $productImage/${projectsList[index].images}
-                                        productId:
-                                            projectsList[index].projectId,
-                                        imgUrl:
-                                            '$productImage/${projectsList[index].images.gallery1}',
-                                        category:
-                                            projectsList[index].categoryName,
-                                        title: projectsList[index].projectTitle,
-                                        user:
-                                            '${projectsList[index].firstName} ${projectsList[index].lastName}',
-                                        price: '29',
-                                      ),
-                                    );
-                                  });
-                            } else {
-                              return const ProductListLoading();
-                              // Padding(
-                              //   padding: const EdgeInsets.symmetric(
-                              //     vertical: 10.0,
-                              //   ),
-                              //   child: ProductList(
-                              //     // $productImage/${projectsList[index].images}
-                              //     productId: projectsList[index].projectId,
-                              //     imgUrl:
-                              //         '$productImage/${projectsList[index].images.gallery1}',
-                              //     category: projectsList[index].categoryName,
-                              //     title: projectsList[index].projectTitle,
-                              //     user:
-                              //         '${projectsList[index].firstName} ${projectsList[index].lastName}',
-                              //     price: '29',
-                              //   ),
-                              // );
-                            }
-                          },
+                        Visibility(
+                          visible: isVisible,
+                          replacement: Center(
+                            child: Column(
+                              children: [
+                                LottieBuilder.asset(
+                                    'lib/resources/assets/animations/nothing_found.json'),
+                                const CustomText(
+                                  title: 'No Data Found...',
+                                  size: 16.0,
+                                  color: Colors.black87,
+                                ),
+                              ],
+                            ),
+                          ),
+                          child: FutureBuilder(
+                            future: categoryProductList(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return ListView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: projectsList.length,
+                                    itemBuilder: (context, index) {
+                                      // return Text(projectsList[index].categoryName);
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 10.0,
+                                        ),
+                                        child: ProductList(
+                                          // $productImage/${projectsList[index].images}
+                                          productId:
+                                              projectsList[index].projectId,
+                                          imgUrl:
+                                              '$productImage/${projectsList[index].images.gallery1}',
+                                          category:
+                                              projectsList[index].categoryName,
+                                          title:
+                                              projectsList[index].projectTitle,
+                                          user:
+                                              '${projectsList[index].firstName} ${projectsList[index].lastName}',
+                                          price: '29',
+                                        ),
+                                      );
+                                    });
+                              }
+
+                              // else if(projectsList.length ) {
+
+                              // }
+                              else {
+                                return const ProductListLoading();
+                              }
+                            },
+                          ),
                         ),
 
                         const SizedBox(height: 14.0),

@@ -10,6 +10,7 @@ class ConstStrings {
 }
 
 const String iconLocation = 'lib/resources/assets/icons';
+const String animationLocation = 'lib/resources/assets/animations';
 const String categoryIcon =
     'https://freelancer-app.kyptronixllp.co.in/assets/images/category/';
 

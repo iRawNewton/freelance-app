@@ -34,13 +34,16 @@ class _HomePageState extends State<HomePage> {
       PageController(initialPage: 0, viewportFraction: 1.0);
 
   List<Category?> category = [];
+  List<Category?> serviceCategory = [];
   List<Project?> projects = [];
 
   Future<HomeModel?> getHomeInfo() async {
     homeData = (await GetRemoteService().getHomeDetails())!;
+
     setState(() {
       category = homeData.category;
       projects = homeData.projects;
+      serviceCategory = homeData.serviceCategory;
     });
     return homeData;
   }
@@ -82,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
-                  const ServiceCircle(),
+                  ServiceCircle(serviceCategory: serviceCategory),
 
                   // ^ browse talent by category
                   FutureBuilder(

@@ -209,31 +209,34 @@ class GetRemoteService {
   // & product list based on category
   Future<CategoryModel?> getCategoryProducts(String categoryId) async {
     try {
+      // Define constants for URL and headers
       const String baseUrl = ConstStrings.baseUrl;
       const String apiUrl = '$baseUrl/category/product_list.php';
+      final Map<String, String> headers = {'id': categoryId};
 
-      final Map<String, String> headers = {
-        'id': categoryId,
-      };
+      // Create and reuse an HTTP client
+      final http.Client client = http.Client();
 
-      final http.Response response = await http
+      final http.Response response = await client
           .get(Uri.parse(apiUrl).replace(queryParameters: headers))
           .timeout(const Duration(seconds: 30));
 
       if (response.statusCode == 200) {
+        // Parse and return the response data
         return categoryModelFromJson(response.body);
       } else {
-        // handle non-200 code here
-        return null;
+        // Handle non-200 status codes by throwing an exception
+        throw Exception(
+            'HTTP ${response.statusCode}: ${response.reasonPhrase}');
       }
     } on TimeoutException catch (e) {
-      // ? Handle timeout errors.
+      // Handle timeout errors.
       debugPrint('Request timed out: $e');
-      return null;
+      throw TimeoutException('Request timed out');
     } catch (e) {
-      // ? Handle other unexpected errors.
-      debugPrint('An error occured: $e');
-      return null;
+      // Handle other unexpected errors.
+      debugPrint('An error occurred: $e');
+      throw Exception('An error occurred');
     }
   }
 
