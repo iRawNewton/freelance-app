@@ -162,24 +162,24 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
                 ),
 
                 // ^ Edit Profile
-                FirebaseAuth.instance.currentUser != null
-                    ? DrawerList(
-                        icon: Icons.edit,
-                        title: 'Edit Profile',
-                        onTap: () {
-                          navigateToPage(context, const PersonalInfo());
-                        },
-                      )
-                    : const SizedBox(),
+                // FirebaseAuth.instance.currentUser != null
+                //     ? DrawerList(
+                //         icon: Icons.edit,
+                //         title: 'Edit Profile',
+                //         onTap: () {
+                //           navigateToPage(context, const PersonalInfo());
+                //         },
+                //       )
+                //     : const SizedBox(),
 
                 // ^ Upload product
-                DrawerList(
-                  onTap: () {
-                    navigateToPage(context, const UploadGuideline());
-                  },
-                  icon: Icons.upload_file,
-                  title: 'Upload Product',
-                ),
+                // DrawerList(
+                //   onTap: () {
+                //     navigateToPage(context, const UploadGuideline());
+                //   },
+                //   icon: Icons.upload_file,
+                //   title: 'Upload Product',
+                // ),
 
                 // ^Wishlist
                 const DrawerList(

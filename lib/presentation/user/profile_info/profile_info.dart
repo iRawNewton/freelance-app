@@ -5,6 +5,7 @@ import 'package:freelance_app/models/experience_model.dart';
 import 'package:freelance_app/models/users_model.dart';
 import 'package:freelance_app/presentation/global/drawer/global_drawer.dart';
 import 'package:freelance_app/presentation/post_service/post_service.dart';
+import 'package:freelance_app/presentation/user/drawer/user_drawer.dart';
 
 import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:freelance_app/resources/functions/navigate_page.dart';
@@ -64,7 +65,7 @@ class _UserProfileState extends State<UserProfile> {
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey,
-        drawer: const GlobalDrawer(),
+        drawer: const UserDrawer(),
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
             // ^App Bar

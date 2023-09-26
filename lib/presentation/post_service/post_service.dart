@@ -96,13 +96,6 @@ class _ServicePostState extends State<ServicePost> {
   final TextEditingController _premiumPrice = TextEditingController();
   final TextEditingController _premiumFeatures = TextEditingController();
 
-  final List<String> options = [
-    'Beginner',
-    'Intermediate',
-    'Advanced',
-    'Fluent',
-  ];
-
   List<ServiceCategory>? serviceCategory = [];
   List<ServiceSubcategory>? serviceSubCategory = [];
   List<Users>? userInfo = [];
@@ -196,7 +189,7 @@ class _ServicePostState extends State<ServicePost> {
     premiumPrice,
     premiumFeatures,
   ) async {
-    var response = await PostRemoteService().postProducts(
+    var response = await PostRemoteService().postServices(
       userId,
       projectCategory,
       projectSubcategory,
@@ -881,7 +874,7 @@ class _ServicePostState extends State<ServicePost> {
                 const SizedBox(height: 24.0),
                 CheckoutFormWidget(
                   width: 1.0,
-                  label: 'What services do you offer as a freelancer?',
+                  label: 'How long have you been providing this service?',
                   controller: _faq1,
                   hintText: '',
                   isImp: true,
@@ -894,7 +887,7 @@ class _ServicePostState extends State<ServicePost> {
                 const SizedBox(height: 24.0),
                 CheckoutFormWidget(
                   width: 1.0,
-                  label: 'What is your typical turnaround time for projects?',
+                  label: 'What sets your service apart from competitiors?',
                   controller: _faq2,
                   hintText: '',
                   isImp: true,
@@ -907,7 +900,7 @@ class _ServicePostState extends State<ServicePost> {
                 const SizedBox(height: 24.0),
                 CheckoutFormWidget(
                   width: 1.0,
-                  label: 'How do you handle revisions and feedback?',
+                  label: 'How far in advance should I book your service?',
                   controller: _faq3,
                   hintText: '',
                   isImp: false,
@@ -919,7 +912,7 @@ class _ServicePostState extends State<ServicePost> {
                 const SizedBox(height: 24.0),
                 CheckoutFormWidget(
                   width: 1.0,
-                  label: 'What sets you apart from other freelancers?',
+                  label: 'What safety measures or protocols do you follow?',
                   controller: _faq4,
                   hintText: '',
                   isImp: false,
@@ -931,7 +924,7 @@ class _ServicePostState extends State<ServicePost> {
                 const SizedBox(height: 24.0),
                 CheckoutFormWidget(
                   width: 1.0,
-                  label: 'Can you share samples of your previous work?',
+                  label: 'Can you provide reference or examples of your work?',
                   controller: _faq5,
                   hintText: '',
                   isImp: false,

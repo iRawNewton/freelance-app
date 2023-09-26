@@ -150,6 +150,108 @@ class PostRemoteService {
     }
   }
 
+  // & post Services
+  Future<String> postServices(
+    userId,
+    projectCategory,
+    projectSubcategory,
+    projectTitle,
+    projectMinDelivery,
+    projctDescription,
+    servicesProvided,
+    toolsTechUsed,
+    faqs,
+    galleryImage,
+    galleryFile,
+    planType,
+    singlePriceDesc,
+    singlePrice,
+    singleFeatures,
+    starterPriceDesc,
+    starterPrice,
+    starterFeatures,
+    proPriceDesc,
+    proPrice,
+    proFeatures,
+    premiumPriceDesc,
+    premiumPrice,
+    premiumFeatures,
+  ) async {
+    String baseUrl = ConstStrings.baseUrl;
+    String apiUrl = '$baseUrl/product/products.php';
+
+    List que = [
+      'How long have you been providing this service?',
+      'What sets your service apart from competitiors?',
+      'How far in advance should I book your service?',
+      'What safety measures or protocols do you follow?',
+      'Can you provide references or examples of your work?'
+    ];
+
+// Convert the lists to JSON arrays.
+    String faqsAns = jsonEncode(faqs);
+    String faqsQue = jsonEncode(que);
+    String imageText = jsonEncode(galleryImage);
+
+    var imageResult = '';
+
+    var response = await http.post(
+      Uri.parse(apiUrl),
+      body: {
+        'user_id': userId,
+        'project_category': projectCategory,
+        'project_subcategory': projectSubcategory,
+        'project_title': projectTitle,
+        'project_min_delivery_time': projectMinDelivery,
+        'project_description': projctDescription,
+        'services_provided': servicesProvided,
+        'tools_and_technologies': toolsTechUsed,
+        'project_service_id': '2',
+        'faqsQ': faqsQue,
+        'faqsA': faqsAns,
+        'imageText': imageText,
+        'planType': planType,
+        'singlePriceDesc': singlePriceDesc,
+        'singlePrice': singlePrice,
+        'singleFeatures': singleFeatures,
+        'starterPriceDesc': starterPriceDesc,
+        'starterPrice': starterPrice,
+        'starterFeatures': starterFeatures,
+        'proPriceDesc': proPriceDesc,
+        'proPrice': proPrice,
+        'proFeatures': proFeatures,
+        'premiumPriceDesc': premiumPriceDesc,
+        'premiumPrice': premiumPrice,
+        'premiumFeatures': premiumFeatures,
+      },
+    );
+
+    int imageCount =
+        galleryImage.where((element) => element.toString().isNotEmpty).length;
+
+    if (response.statusCode == 200) {
+      for (int i = 0; i < imageCount; i++) {
+        String fileName = galleryImage[i];
+        File file = galleryFile[i];
+
+        if (fileName.isNotEmpty) {
+          var response = await ImageUpload().uploadProductImage(file, fileName);
+          if (response == '"Image uploaded successfully"') {
+            imageResult = 'Product Upload Successful';
+          }
+        }
+      }
+
+      if (imageResult == 'Product Upload Successful') {
+        return 'Successfully uploaded';
+      } else {
+        return 'Failed to upload';
+      }
+    } else {
+      return 'Failed to upload';
+    }
+  }
+
 // --------------------------------------------------------
 
   // ********************

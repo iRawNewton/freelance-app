@@ -271,7 +271,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                           productId:
                                               projectsList[index].projectId,
                                           imgUrl:
-                                              '$productImage/${projectsList[index].images.gallery1}',
+                                              '$productImage${projectsList[index].images.gallery1}',
                                           category:
                                               projectsList[index].categoryName,
                                           title:
