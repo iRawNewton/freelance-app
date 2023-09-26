@@ -108,7 +108,7 @@ class _ServicePostState extends State<ServicePost> {
   // & get category
   getCategory() async {
     List<ServiceCategory>? response =
-        await GetRemoteService().getCategoriesInfo('', '', '', '', '');
+        await GetRemoteService().getCategoriesInfo('', '', '', '2', '');
 
     setState(() {
       _subCategory.clear();

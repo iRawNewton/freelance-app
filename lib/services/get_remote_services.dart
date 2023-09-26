@@ -23,14 +23,17 @@ class GetRemoteService {
 
     // Create query parameters
     Map<String, String> headers = {
-      'id': id,
-      'category_name': categoryName,
-      'category_image': categoryImage,
+      // 'id': id,
+      // 'category_name': categoryName,
+      // 'category_image': categoryImage,
       'service_id': serviceId,
-      'orderby': orderBy,
+      // 'orderby': orderBy,
     };
 
-    var response = await http.get(Uri.parse(apiUrl), headers: headers);
+    final http.Response response = await http
+        .get(Uri.parse(apiUrl).replace(queryParameters: headers))
+        .timeout(const Duration(seconds: 30));
+
     if (response.statusCode == 200) {
       List<dynamic> jsonResponse = jsonDecode(response.body);
       List<ServiceCategory> serviceCategories =

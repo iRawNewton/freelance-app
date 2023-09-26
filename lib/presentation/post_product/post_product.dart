@@ -115,7 +115,7 @@ class _FreelancePostState extends State<FreelancePost> {
   // & get category
   getCategory() async {
     List<ServiceCategory>? response =
-        await GetRemoteService().getCategoriesInfo('', '', '', '', '');
+        await GetRemoteService().getCategoriesInfo('', '', '', '1', '');
 
     setState(() {
       _subCategory.clear();
