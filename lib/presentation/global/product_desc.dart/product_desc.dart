@@ -35,6 +35,7 @@ class _ProductDescState extends State<ProductDesc> {
   List<Package>? package = [];
   bool isLoading = true;
 
+  bool isMultiple = false;
   bool starterV = true;
   bool proV = false;
   bool premiumV = false;
@@ -51,6 +52,8 @@ class _ProductDescState extends State<ProductDesc> {
       productDetails = response!.projects;
       faq = response.faq;
       package = response.packages;
+
+      (package![0].type == 'multiple') ? isMultiple = true : isMultiple = false;
 
       if (productDetails!.isNotEmpty) {
         isLoading = false;
@@ -276,167 +279,275 @@ class _ProductDescState extends State<ProductDesc> {
                           ),
 
                           // ^ after package part
-                          Column(
-                            children: [
-                              // ^ package
-                              SizedBox(
-                                height: 50.0,
-                                // decoration: BoxDecoration(border: Border.all()),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                          (isMultiple)
+                              ? Column(
                                   children: [
-                                    // ^ starter
+                                    // ^ package
                                     SizedBox(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          0.33,
                                       height: 50.0,
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: starterColor,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(0.0),
+                                      // decoration: BoxDecoration(border: Border.all()),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          // ^ starter
+                                          SizedBox(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.33,
+                                            height: 50.0,
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: starterColor,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          0.0),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  starterV = true;
+                                                  proV = false;
+                                                  premiumV = false;
+                                                  starterColor =
+                                                      Colors.green.shade50;
+                                                  proColor = Colors.white;
+                                                  premiumColor = Colors.white;
+                                                });
+                                              },
+                                              child: const CustomText(
+                                                title: 'Starter',
+                                                size: 14.0,
+                                                color: Colors.black,
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                        onPressed: () {
-                                          setState(() {
-                                            starterV = true;
-                                            proV = false;
-                                            premiumV = false;
-                                            starterColor = Colors.green.shade50;
-                                            proColor = Colors.white;
-                                            premiumColor = Colors.white;
-                                          });
-                                        },
-                                        child: const CustomText(
-                                          title: 'Starter',
-                                          size: 14.0,
-                                          color: Colors.black,
-                                        ),
+
+                                          // ^ Pro
+                                          SizedBox(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.33,
+                                            height: 50.0,
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: proColor,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          0.0),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  starterV = false;
+                                                  proV = true;
+                                                  premiumV = false;
+                                                  starterColor = Colors.white;
+                                                  proColor =
+                                                      Colors.green.shade50;
+                                                  premiumColor = Colors.white;
+                                                });
+                                              },
+                                              child: const CustomText(
+                                                title: 'Pro',
+                                                size: 14.0,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+
+                                          // ^ premium
+                                          SizedBox(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.33,
+                                            height: 50.0,
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: premiumColor,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          0.0),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  starterV = false;
+                                                  proV = false;
+                                                  premiumV = true;
+                                                  starterColor = Colors.white;
+                                                  proColor = Colors.white;
+                                                  premiumColor =
+                                                      Colors.green.shade50;
+                                                });
+                                              },
+                                              child: const CustomText(
+                                                title: 'Premium',
+                                                size: 14.0,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
 
-                                    // ^ Pro
-                                    SizedBox(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          0.33,
-                                      height: 50.0,
-                                      child: ElevatedButton(
+                                    (starterV)
+                                        ? StarterPlan(package: package)
+                                        : const SizedBox(),
+                                    (proV)
+                                        ? ProPlan(
+                                            package: package,
+                                          )
+                                        : const SizedBox(),
+                                    (premiumV)
+                                        ? PremiumPlan(
+                                            package: package,
+                                          )
+                                        : const SizedBox(),
+
+                                    // ^ button
+                                    Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: ElevatedButton.icon(
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: proColor,
+                                          backgroundColor:
+                                              CustomColors.buttonColor,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
-                                                BorderRadius.circular(0.0),
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          minimumSize: Size(
+                                            MediaQuery.sizeOf(context).width *
+                                                0.9,
+                                            50.0,
                                           ),
                                         ),
                                         onPressed: () {
-                                          setState(() {
-                                            starterV = false;
-                                            proV = true;
-                                            premiumV = false;
-                                            starterColor = Colors.white;
-                                            proColor = Colors.green.shade50;
-                                            premiumColor = Colors.white;
-                                          });
+                                          navigateToPage(
+                                              context, const Checkout());
                                         },
-                                        child: const CustomText(
-                                          title: 'Pro',
-                                          size: 14.0,
-                                          color: Colors.black,
+                                        icon: const Directionality(
+                                          textDirection: TextDirection.ltr,
+                                          child: Icon(
+                                            Icons.trending_flat,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        label: Text(
+                                          'Continue',
+                                          style: GoogleFonts.roboto(
+                                            color: Colors.white,
+                                            fontSize: 15.0,
+                                          ),
                                         ),
                                       ),
                                     ),
-
-                                    // ^ premium
+                                  ],
+                                )
+                              : Column(
+                                  children: [
+                                    // ^ package
                                     SizedBox(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          0.33,
                                       height: 50.0,
-                                      child: ElevatedButton(
+                                      // decoration: BoxDecoration(border: Border.all()),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          // ^ Onetime
+                                          SizedBox(
+                                            width: MediaQuery.sizeOf(context)
+                                                .width,
+                                            height: 50.0,
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: proColor,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          0.0),
+                                                ),
+                                              ),
+                                              onPressed: () {},
+                                              child: const CustomText(
+                                                title: 'Standard Pay',
+                                                size: 16.0,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20.0),
+
+                                    (starterV)
+                                        ? StarterPlan(package: package)
+                                        : const SizedBox(),
+                                    (proV)
+                                        ? ProPlan(
+                                            package: package,
+                                          )
+                                        : const SizedBox(),
+                                    (premiumV)
+                                        ? PremiumPlan(
+                                            package: package,
+                                          )
+                                        : const SizedBox(),
+
+                                    // ^ button
+                                    const SizedBox(height: 30.0),
+                                    Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: ElevatedButton.icon(
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: premiumColor,
+                                          backgroundColor:
+                                              CustomColors.buttonColor,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
-                                                BorderRadius.circular(0.0),
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          minimumSize: Size(
+                                            MediaQuery.sizeOf(context).width *
+                                                0.9,
+                                            50.0,
                                           ),
                                         ),
                                         onPressed: () {
-                                          setState(() {
-                                            starterV = false;
-                                            proV = false;
-                                            premiumV = true;
-                                            starterColor = Colors.white;
-                                            proColor = Colors.white;
-                                            premiumColor = Colors.green.shade50;
-                                          });
+                                          navigateToPage(
+                                              context, const Checkout());
                                         },
-                                        child: const CustomText(
-                                          title: 'Premium',
-                                          size: 14.0,
-                                          color: Colors.black,
+                                        icon: const Directionality(
+                                          textDirection: TextDirection.ltr,
+                                          child: Icon(
+                                            Icons.trending_flat,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        label: Text(
+                                          'Continue',
+                                          style: GoogleFonts.roboto(
+                                            color: Colors.white,
+                                            fontSize: 15.0,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
+                          // TODO: MAKE CHANGES HERE
 
-                              (starterV)
-                                  ? StarterPlan(package: package)
-                                  : const SizedBox(),
-                              (proV)
-                                  ? ProPlan(
-                                      package: package,
-                                    )
-                                  : const SizedBox(),
-                              (premiumV)
-                                  ? PremiumPlan(
-                                      package: package,
-                                    )
-                                  : const SizedBox(),
-
-                              // ^ button
-                              Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: ElevatedButton.icon(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: CustomColors.buttonColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    minimumSize: Size(
-                                      MediaQuery.sizeOf(context).width * 0.9,
-                                      50.0,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    navigateToPage(context, const Checkout());
-                                  },
-                                  icon: const Directionality(
-                                    textDirection: TextDirection.ltr,
-                                    child: Icon(
-                                      Icons.trending_flat,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  label: Text(
-                                    'Continue',
-                                    style: GoogleFonts.roboto(
-                                      color: Colors.white,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 30.0),
-                              const AboutUsSection(),
-                              const SizedBox(height: 10.0),
-                              const RatingsSection(),
-                              const SizedBox(height: 30.0),
-                              const AppFooter(),
-                            ],
-                          ),
+                          // ^ after pricing section
+                          // const SizedBox(height: 30.0),
+                          // const AboutUsSection(),
+                          // const SizedBox(height: 10.0),
+                          const RatingsSection(),
+                          const SizedBox(height: 30.0),
+                          const AppFooter(),
                         ],
                       ),
                     );
