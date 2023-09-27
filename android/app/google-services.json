@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:586917316827:android:30d85e12cc56771311a4fe",
+        "mobilesdk_app_id": "1:586917316827:android:50cfcb5578668a4411a4fe",
         "android_client_info": {
-          "package_name": "com.kyptronix.freelance"
+          "package_name": "com.kyptronix.freelancer"
         }
       },
       "oauth_client": [
