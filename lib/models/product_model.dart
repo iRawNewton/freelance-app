@@ -125,7 +125,7 @@ class Project {
   String projectServiceId;
   DateTime projectCreatedAt;
   DateTime projectUpdatedAt;
-  Images images;
+  List<String> images;
 
   Project({
     required this.projectId,
@@ -166,7 +166,7 @@ class Project {
         projectServiceId: json["project_service_id"],
         projectCreatedAt: DateTime.parse(json["project_created_at"]),
         projectUpdatedAt: DateTime.parse(json["project_updated_at"]),
-        images: Images.fromJson(json["images"]),
+        images: List<String>.from(json["images"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -187,38 +187,6 @@ class Project {
         "project_service_id": projectServiceId,
         "project_created_at": projectCreatedAt.toIso8601String(),
         "project_updated_at": projectUpdatedAt.toIso8601String(),
-        "images": images.toJson(),
-      };
-}
-
-class Images {
-  String gallery1;
-  String gallery2;
-  String gallery3;
-  String gallery4;
-  String gallery5;
-
-  Images({
-    required this.gallery1,
-    required this.gallery2,
-    required this.gallery3,
-    required this.gallery4,
-    required this.gallery5,
-  });
-
-  factory Images.fromJson(Map<String, dynamic> json) => Images(
-        gallery1: json["gallery_1"],
-        gallery2: json["gallery_2"],
-        gallery3: json["gallery_3"],
-        gallery4: json["gallery_4"],
-        gallery5: json["gallery_5"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "gallery_1": gallery1,
-        "gallery_2": gallery2,
-        "gallery_3": gallery3,
-        "gallery_4": gallery4,
-        "gallery_5": gallery5,
+        "images": List<dynamic>.from(images.map((x) => x)),
       };
 }

@@ -5,41 +5,25 @@ import 'package:flutter/material.dart';
 import '../../models/product_model.dart';
 import '../constants/strings.dart';
 
-class CustomCarousel extends StatelessWidget {
+class CustomCarousel extends StatefulWidget {
   const CustomCarousel({super.key, required this.images});
   final List<Project>? images;
 
   @override
+  State<CustomCarousel> createState() => _CustomCarouselState();
+}
+
+class _CustomCarouselState extends State<CustomCarousel> {
+  @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      items: [
-        CachedNetworkImage(
-          imageUrl: '$productImage/${images![0].images.gallery1}',
+      items: widget.images![0].images.map((image) {
+        print('Image URL: $productImage/$image');
+        return CachedNetworkImage(
+          imageUrl: '$productImage/$image',
           fit: BoxFit.fitWidth,
-        ),
-
-        CachedNetworkImage(
-          imageUrl: '$productImage/${images![0].images.gallery2}',
-          fit: BoxFit.fitWidth,
-        ),
-        //
-        CachedNetworkImage(
-          imageUrl: '$productImage/${images![0].images.gallery3}',
-          fit: BoxFit.fitWidth,
-        ),
-        (images![0].images.gallery4.isNotEmpty)
-            ? CachedNetworkImage(
-                imageUrl: '$productImage/${images![0].images.gallery4}',
-                fit: BoxFit.fitWidth,
-              )
-            : const SizedBox(),
-        (images![0].images.gallery5.isNotEmpty)
-            ? CachedNetworkImage(
-                imageUrl: '$productImage/${images![0].images.gallery5}',
-                fit: BoxFit.fitWidth,
-              )
-            : const SizedBox(),
-      ],
+        );
+      }).toList(),
       options: CarouselOptions(
         aspectRatio: 16 / 9,
         viewportFraction: 0.8,

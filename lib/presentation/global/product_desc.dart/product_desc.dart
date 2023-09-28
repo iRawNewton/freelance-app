@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_app/presentation/global/checkout/checkout.dart';
-import 'package:freelance_app/presentation/global/product_desc.dart/views/about_us.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/basic.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/basic_stats.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/faqs.dart';
@@ -539,7 +538,6 @@ class _ProductDescState extends State<ProductDesc> {
                                     ),
                                   ],
                                 ),
-                          // TODO: MAKE CHANGES HERE
 
                           // ^ after pricing section
                           // const SizedBox(height: 30.0),

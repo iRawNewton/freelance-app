@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
+// import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,7 +17,7 @@ class HomeWidget1 extends StatefulWidget {
 
 class _HomeWidget1State extends State<HomeWidget1> {
   // String _selectedItem = 'Option 1'; // Default selected item
-  final TextEditingController _category = TextEditingController();
+  // final TextEditingController _category = TextEditingController();
 
   List<ServiceCategory>? serviceCategory = [];
 
@@ -81,9 +81,9 @@ class _HomeWidget1State extends State<HomeWidget1> {
                       // fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const Spacer(),
 
                   // ^ card
+                  const SizedBox(height: 40.0),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -92,6 +92,7 @@ class _HomeWidget1State extends State<HomeWidget1> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 15.0),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
@@ -116,61 +117,62 @@ class _HomeWidget1State extends State<HomeWidget1> {
                           const Divider(),
 
                           // ^ category
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: DropdownButtonFormField2<String>(
-                              hint: const Text(
-                                'Choose category',
-                                style: TextStyle(fontSize: 14.0),
-                              ),
-                              items: serviceCategory?.map((category) {
-                                    return DropdownMenuItem<String>(
-                                      value: category.categoryId,
-                                      child: Text(category.categoryName),
-                                    );
-                                  }).toList() ??
-                                  [],
-                              // validator: (value) {
-                              //   if (value == null) {
-                              //     return 'Please select any one option.';
-                              //   }
-                              //   return null;
-                              // },
-                              onChanged: (value) {
-                                //Do something when selected item is changed.
-                                setState(() {
-                                  _category.text = value.toString();
-                                });
-                              },
-                              buttonStyleData: ButtonStyleData(
-                                height: 50.0,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 0,
-                                    color: Colors.transparent,
-                                  ),
-                                ),
-                              ),
-                              iconStyleData: const IconStyleData(
-                                icon: Icon(
-                                  Icons.arrow_drop_down,
-                                  color: Colors.black45,
-                                ),
-                                iconSize: 24.0,
-                              ),
-                              dropdownStyleData: DropdownStyleData(
-                                decoration: BoxDecoration(
-                                  border: Border.all(),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
-                              menuItemStyleData: const MenuItemStyleData(
-                                padding: EdgeInsets.symmetric(horizontal: 16),
-                              ),
-                            ),
-                          ),
+                          // ! currently hidden
+                          // Padding(
+                          //   padding: const EdgeInsets.only(left: 20.0),
+                          //   child: DropdownButtonFormField2<String>(
+                          //     hint: const Text(
+                          //       'Choose category',
+                          //       style: TextStyle(fontSize: 14.0),
+                          //     ),
+                          //     items: serviceCategory?.map((category) {
+                          //           return DropdownMenuItem<String>(
+                          //             value: category.categoryId,
+                          //             child: Text(category.categoryName),
+                          //           );
+                          //         }).toList() ??
+                          //         [],
+                          //     // validator: (value) {
+                          //     //   if (value == null) {
+                          //     //     return 'Please select any one option.';
+                          //     //   }
+                          //     //   return null;
+                          //     // },
+                          //     onChanged: (value) {
+                          //       //Do something when selected item is changed.
+                          //       setState(() {
+                          //         _category.text = value.toString();
+                          //       });
+                          //     },
+                          //     buttonStyleData: ButtonStyleData(
+                          //       height: 50.0,
+                          //       decoration: BoxDecoration(
+                          //         border: Border.all(
+                          //           width: 0,
+                          //           color: Colors.transparent,
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     iconStyleData: const IconStyleData(
+                          //       icon: Icon(
+                          //         Icons.arrow_drop_down,
+                          //         color: Colors.black45,
+                          //       ),
+                          //       iconSize: 24.0,
+                          //     ),
+                          //     dropdownStyleData: DropdownStyleData(
+                          //       decoration: BoxDecoration(
+                          //         border: Border.all(),
+                          //         borderRadius: BorderRadius.circular(10.0),
+                          //       ),
+                          //     ),
+                          //     menuItemStyleData: const MenuItemStyleData(
+                          //       padding: EdgeInsets.symmetric(horizontal: 16),
+                          //     ),
+                          //   ),
+                          // ),
 
-                          const SizedBox(height: 10.0),
+                          // const SizedBox(height: 10.0),
 
                           // ^ search button
                           Padding(
@@ -199,7 +201,7 @@ class _HomeWidget1State extends State<HomeWidget1> {
                       ),
                     ),
                   ),
-
+                  const Spacer(),
                   // ^ Popular searches
                   Text(
                     'Popular Searches : Designer, Web, IOS, PHP, Senior, Engineer',

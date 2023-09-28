@@ -112,17 +112,17 @@ class Project {
 
 class Images {
   String gallery1;
-  String gallery2;
-  String gallery3;
-  String gallery4;
-  String gallery5;
+  String? gallery2;
+  String? gallery3;
+  String? gallery4;
+  String? gallery5;
 
   Images({
     required this.gallery1,
-    required this.gallery2,
-    required this.gallery3,
-    required this.gallery4,
-    required this.gallery5,
+    this.gallery2,
+    this.gallery3,
+    this.gallery4,
+    this.gallery5,
   });
 
   factory Images.fromJson(Map<String, dynamic> json) => Images(

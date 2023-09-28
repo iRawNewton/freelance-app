@@ -134,6 +134,7 @@ class PostRemoteService {
 
         if (fileName.isNotEmpty) {
           var response = await ImageUpload().uploadProductImage(file, fileName);
+
           if (response == '"Image uploaded successfully"') {
             imageResult = 'Product Upload Successful';
           }
