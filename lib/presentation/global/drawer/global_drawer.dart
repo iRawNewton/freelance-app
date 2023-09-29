@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:freelance_app/auth/screens/login.dart';
 import 'package:freelance_app/presentation/global/home/home.dart';
+import 'package:freelance_app/presentation/job/home/home.dart';
 import 'package:freelance_app/presentation/user/profile_info/profile_info.dart';
 import 'package:freelance_app/resources/widgets/drawer_list.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
@@ -136,7 +137,7 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
 
                 // ^HOME
                 DrawerList(
-                  icon: Icons.home,
+                  icon: Icons.home_outlined,
                   title: 'Home',
                   onTap: () {
                     Navigator.push(
@@ -150,11 +151,22 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
 
                 // ^Profile
                 DrawerList(
-                  icon: Icons.person,
+                  icon: Icons.person_outline,
                   title: 'Profile',
                   onTap: () {
                     FirebaseAuth.instance.currentUser != null
                         ? navigateToPage(context, const UserProfile())
+                        : navigateToPage(context, const LoginPage());
+                  },
+                ),
+
+                // ^Find Jobs
+                DrawerList(
+                  icon: Icons.work_outline,
+                  title: 'Find Jobs',
+                  onTap: () {
+                    FirebaseAuth.instance.currentUser != null
+                        ? navigateToPage(context, const JobHome())
                         : navigateToPage(context, const LoginPage());
                   },
                 ),

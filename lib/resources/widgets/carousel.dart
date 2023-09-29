@@ -18,7 +18,6 @@ class _CustomCarouselState extends State<CustomCarousel> {
   Widget build(BuildContext context) {
     return CarouselSlider(
       items: widget.images![0].images.map((image) {
-        print('Image URL: $productImage/$image');
         return CachedNetworkImage(
           imageUrl: '$productImage/$image',
           fit: BoxFit.fitWidth,

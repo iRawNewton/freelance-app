@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                                   'Browse talent by category',
                                   style: GoogleFonts.roboto(
                                     fontSize: 23.0,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                                 const SizedBox(height: 10.0),
