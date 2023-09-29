@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:freelance_app/presentation/job/home/views/home_banner.dart';
 import 'package:freelance_app/presentation/job/home/views/job_category.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
-import 'package:freelance_app/resources/widgets/text_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../resources/widgets/appbar.dart';
-import '../../global/home/views/category.dart';
 
 class JobHome extends StatefulWidget {
   const JobHome({super.key});
