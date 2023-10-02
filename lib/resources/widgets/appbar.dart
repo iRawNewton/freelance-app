@@ -46,7 +46,6 @@ class _JobAppBarState extends State<JobAppBar> {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: JobCustomColors.primaryBackground,
       toolbarHeight: 70.0,
       leading: Padding(
         padding: const EdgeInsets.only(left: 8.0),

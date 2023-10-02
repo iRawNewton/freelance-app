@@ -15,6 +15,7 @@ class JobHome extends StatefulWidget {
 
 class _JobHomeState extends State<JobHome> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,51 +30,72 @@ class _JobHomeState extends State<JobHome> {
             body: Container(
               height: double.infinity,
               width: double.infinity,
-              color: JobCustomColors.primaryBackground,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const JobBannerView(),
-                  const SizedBox(height: 10.0),
+              color: const Color(0xffFEFEFE),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    JobBannerView(controller: controller),
+                    const SizedBox(height: 10.0),
 
-                  // ^ column for horizontal body padding
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Column(
-                      children: [
-                        // ^ trending job title
-                        Text(
-                          'Trending job categories',
-                          style: GoogleFonts.roboto(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w500,
-                              color: JobCustomColors.textColor2),
-                        ),
+                    // ^ column for horizontal body padding
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 20.0),
+                          // ^ popular category
+                          Text(
+                            'Popular categories',
+                            style: GoogleFonts.roboto(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w500,
+                                color: JobCustomColors.textColor),
+                          ),
+                          const Row(
+                            children: [
+                              Expanded(child: Divider()),
+                              SizedBox(width: 20.0),
+                              Text('x'),
+                              SizedBox(width: 20.0),
+                              Expanded(child: Divider()),
+                            ],
+                          ),
 
-                        // ^ category cards
-                        const SizedBox(height: 24.0),
-                        /*
-                        f4f4f9 ghost white 
-                        b8dbd9 light blue 
-                        586f7c payne's gray
-                        2f4550 charcoal
-                        000000 black
-                         */
-                        const JobSpace(
-                          serviceid1: '1',
-                          iconAsset1: 'category[0]!.categoryImage',
-                          services1: '8 Services',
-                          title1: 'asdfasdfasdf',
-                          // ----------
-                          serviceid2: '1',
-                          iconAsset2: 'category[1]!.categoryImage',
-                          services2: '1 Services',
-                          title2: 'category[1]!.categoryName',
-                        ),
-                      ],
+                          // ^ height space
+                          const SizedBox(height: 25.0),
+
+                          const JobSpace(
+                            serviceid1: '1',
+                            iconAsset1: 'category[0]!.categoryImage',
+                            services1: '8 Services',
+                            title1: 'Accounts/Finance',
+                            // ----------
+                            serviceid2: '2',
+                            iconAsset2: 'category[1]!.categoryImage',
+                            services2: '1 Services',
+                            title2: 'Health & Fitness',
+                          ),
+
+                          // ^ height space
+                          const SizedBox(height: 25.0),
+
+                          const JobSpace(
+                            serviceid1: '1',
+                            iconAsset1: 'category[0]!.categoryImage',
+                            services1: '8 Services',
+                            title1: 'IT & Consulting',
+                            // ----------
+                            serviceid2: '2',
+                            iconAsset2: 'category[1]!.categoryImage',
+                            services2: '1 Services',
+                            title2: 'Telecommunication',
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             )),
       ),

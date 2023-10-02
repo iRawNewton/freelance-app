@@ -18,12 +18,13 @@ class CustomColors {
 }
 
 class JobCustomColors {
-  static const Color primaryBackground = Color(0xffB0D7FF);
-  static const Color secondaryBackground = Color(0xff2D3142);
-  static const Color accentColor = Color(0xffADACB5);
-  static const Color textColor = Color(0xffD8D5DB);
-  static const Color textColor2 = Color(0xff2F4550);
-  static const Color accentColor2 = Color(0xffEAE8FF);
+  static const Color green = Color(0xff03A84E);
+  // static const Color secondaryBackground = Color(0xff2D3142);
+  // static const Color accentColor = Color(0xffADACB5);
+  static const Color textColor = Colors.black87;
+  static const Color textColor2 = Color(0xffFEFEFE);
+  // static const Color textColor2 = Color(0xff2F4550);
+  // static const Color accentColor2 = Color(0xffEAE8FF);
 }
 
 /*

@@ -46,12 +46,12 @@ class _JobSpaceState extends State<JobSpace> {
             height: ScreenSize.height(context) * 0.2,
             width: ScreenSize.width(context) * 0.4,
             decoration: BoxDecoration(
-              color: JobCustomColors.secondaryBackground,
+              color: Colors.grey.shade200,
               borderRadius: BorderRadius.circular(10.0),
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
-                  color: JobCustomColors.secondaryBackground,
-                  spreadRadius: 1,
+                  color: Colors.grey.shade300,
+                  spreadRadius: 2,
                   // offset: Offset(0, 1),
                 ),
               ],
@@ -72,7 +72,7 @@ class _JobSpaceState extends State<JobSpace> {
                           alignment: Alignment.bottomRight,
                           child: CircleAvatar(
                               radius: 20.0,
-                              backgroundColor: Colors.grey.shade800),
+                              backgroundColor: Colors.grey.shade400),
                         ),
                         Align(
                           alignment: Alignment.topLeft,
@@ -124,12 +124,12 @@ class _JobSpaceState extends State<JobSpace> {
             height: ScreenSize.height(context) * 0.2,
             width: ScreenSize.width(context) * 0.4,
             decoration: BoxDecoration(
-              color: JobCustomColors.secondaryBackground,
+              color: Colors.grey.shade200,
               borderRadius: BorderRadius.circular(10.0),
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
-                  color: JobCustomColors.secondaryBackground,
-                  spreadRadius: 1,
+                  color: Colors.grey.shade300,
+                  spreadRadius: 2,
                   // offset: Offset(0, 1),
                 ),
               ],
@@ -149,7 +149,7 @@ class _JobSpaceState extends State<JobSpace> {
                         Align(
                           alignment: Alignment.bottomRight,
                           child: CircleAvatar(
-                            backgroundColor: Colors.grey.shade800,
+                            backgroundColor: Colors.grey.shade400,
                           ),
                         ),
                         Align(

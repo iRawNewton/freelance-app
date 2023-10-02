@@ -5,13 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:freelance_app/resources/widgets/textfields.dart';
 
 import '../../../../models/service_category.dart';
 import '../../../../services/get_remote_services.dart';
 
 class JobBannerView extends StatefulWidget {
-  const JobBannerView({super.key});
+  const JobBannerView({super.key, required this.controller});
+  final TextEditingController controller;
 
   @override
   State<JobBannerView> createState() => _JobBannerViewState();
@@ -47,178 +48,69 @@ class _JobBannerViewState extends State<JobBannerView> {
       width: MediaQuery.sizeOf(context).width,
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('lib/resources/assets/icons/job_banner.webp'),
+          image: AssetImage('lib/resources/assets/icons/job_banner02.webp'),
           fit: BoxFit.fitHeight,
         ),
       ),
-      child: ClipRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-          child: Container(
-            color: Colors.black.withOpacity(0.7),
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
-              child: Column(
-                children: [
-                  const SizedBox(height: 10.0),
-                  // ^ title
-                  Text(
-                    'Discover top talent and find the perfect job opportunities, all in one place.',
-                    style: GoogleFonts.openSans(
-                      color: JobCustomColors.textColor,
-                      fontSize: 23.0,
-                      fontWeight: FontWeight.bold,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: Column(
+          children: [
+            const SizedBox(height: 40.0),
+            const CustomText(
+              title: 'Find a perfect candidate with',
+              size: 26.0,
+              color: Color(0xffFEFEFE),
+              textAlign: TextAlign.center,
+              weight: FontWeight.bold,
+            ),
+            const CustomText(
+              title: 'Freelance.io',
+              size: 26.0,
+              color: Color(0xff03A84E),
+              textAlign: TextAlign.center,
+              weight: FontWeight.bold,
+            ),
+            const SizedBox(height: 20.0),
+            const CustomText(
+              title:
+                  'Find great job for build your bright career. Have many job in this platform.',
+              size: 14.0,
+              color: Color(0xffFEFEFE),
+              textAlign: TextAlign.center,
+              weight: FontWeight.w500,
+            ),
+            const Spacer(),
+            MyCustomJobTextField(
+              controller: widget.controller,
+              inputType: TextInputType.name,
+              icon: Icons.work_outline,
+              iconColor: Colors.black54,
+              fontsize: 14.0,
+              fontstyle: 'roboto',
+              // labeltext: 'Job title or keywords',
+              hinttext: 'Job title or keywords',
+            ),
+            const SizedBox(height: 10.0),
+            SizedBox(
+              height: 60.0,
+              width: MediaQuery.sizeOf(context).width * 0.95,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      const MaterialStatePropertyAll(Color(0xff03A84E)),
+                  shape: MaterialStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
-                  const SizedBox(height: 20.0),
-
-                  // ^ sub title
-                  Text(
-                    'Countless job seekers trust JobFinderApp to transform their career aspirations into reality.',
-                    style: GoogleFonts.openSans(
-                      color: JobCustomColors.textColor,
-                      fontSize: 15.0,
-                      // fontWeight: FontWeight.bold,
-                    ),
-                  ),
-
-                  // ^ card
-                  const SizedBox(height: 40.0),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: JobCustomColors.secondaryBackground,
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 15.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              const Icon(
-                                CupertinoIcons.search,
-                                color: JobCustomColors.textColor,
-                              ),
-                              SizedBox(
-                                width: MediaQuery.sizeOf(context).width * 0.8,
-                                child: const Padding(
-                                  padding: EdgeInsets.only(left: 10.0),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      hintText: 'What are you looking for?',
-                                      hintStyle: TextStyle(
-                                          color: JobCustomColors.textColor),
-                                      border: InputBorder.none,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Divider(),
-
-                          // ^ category
-                          // ! currently hidden
-                          // Padding(
-                          //   padding: const EdgeInsets.only(left: 20.0),
-                          //   child: DropdownButtonFormField2<String>(
-                          //     hint: const Text(
-                          //       'Choose category',
-                          //       style: TextStyle(fontSize: 14.0),
-                          //     ),
-                          //     items: serviceCategory?.map((category) {
-                          //           return DropdownMenuItem<String>(
-                          //             value: category.categoryId,
-                          //             child: Text(category.categoryName),
-                          //           );
-                          //         }).toList() ??
-                          //         [],
-                          //     // validator: (value) {
-                          //     //   if (value == null) {
-                          //     //     return 'Please select any one option.';
-                          //     //   }
-                          //     //   return null;
-                          //     // },
-                          //     onChanged: (value) {
-                          //       //Do something when selected item is changed.
-                          //       setState(() {
-                          //         _category.text = value.toString();
-                          //       });
-                          //     },
-                          //     buttonStyleData: ButtonStyleData(
-                          //       height: 50.0,
-                          //       decoration: BoxDecoration(
-                          //         border: Border.all(
-                          //           width: 0,
-                          //           color: Colors.transparent,
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     iconStyleData: const IconStyleData(
-                          //       icon: Icon(
-                          //         Icons.arrow_drop_down,
-                          //         color: Colors.black45,
-                          //       ),
-                          //       iconSize: 24.0,
-                          //     ),
-                          //     dropdownStyleData: DropdownStyleData(
-                          //       decoration: BoxDecoration(
-                          //         border: Border.all(),
-                          //         borderRadius: BorderRadius.circular(10.0),
-                          //       ),
-                          //     ),
-                          //     menuItemStyleData: const MenuItemStyleData(
-                          //       padding: EdgeInsets.symmetric(horizontal: 16),
-                          //     ),
-                          //   ),
-                          // ),
-
-                          // const SizedBox(height: 10.0),
-
-                          // ^ search button
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: SizedBox(
-                              width: MediaQuery.sizeOf(context).width,
-                              height: 40.0,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  elevation: 0,
-                                  backgroundColor: JobCustomColors.accentColor,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                ),
-                                onPressed: () {},
-                                child: const CustomText(
-                                  title: 'Search',
-                                  size: 16.0,
-                                  color: JobCustomColors.textColor2,
-                                  weight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  // ^ Popular searches
-                  Text(
-                    'Popular Searches : Designer, Web, IOS, PHP, Senior, Engineer',
-                    style: GoogleFonts.roboto(
-                      color: Colors.white,
-                      fontSize: 15.0,
-                      letterSpacing: 1.0,
-                    ),
-                  ),
-                ],
+                ),
+                onPressed: () {},
+                child: const Icon(Icons.search, color: Colors.white),
               ),
             ),
-          ),
+            const SizedBox(height: 15.0),
+          ],
         ),
       ),
     );
