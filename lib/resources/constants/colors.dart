@@ -23,6 +23,7 @@ class JobCustomColors {
   // static const Color accentColor = Color(0xffADACB5);
   static const Color textColor = Colors.black87;
   static const Color textColor2 = Color(0xffFEFEFE);
+  static const Color textColor3 = Color(0xff656565);
   // static const Color textColor2 = Color(0xff2F4550);
   // static const Color accentColor2 = Color(0xffEAE8FF);
 }
