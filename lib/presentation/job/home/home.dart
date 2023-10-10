@@ -3,12 +3,12 @@ import 'package:freelance_app/presentation/job/home/views/home_banner.dart';
 import 'package:freelance_app/presentation/job/home/views/job_carousel.dart';
 import 'package:freelance_app/presentation/job/home/views/job_category.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
-import 'package:freelance_app/resources/widgets/buttons.dart';
-import 'package:freelance_app/resources/widgets/text_widget.dart';
+import 'package:freelance_app/resources/functions/navigate_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:neumorphic_ui/neumorphic_ui.dart';
 
 import '../../../resources/widgets/appbar.dart';
+import '../description/job_desc.dart';
 
 class JobHome extends StatefulWidget {
   const JobHome({super.key});
@@ -34,7 +34,7 @@ class _JobHomeState extends State<JobHome> {
             body: Container(
               height: double.infinity,
               width: double.infinity,
-              color: const Color(0xffFEFEFE),
+              color: const Color.fromARGB(255, 222, 221, 221),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,19 +126,42 @@ class _JobHomeState extends State<JobHome> {
                           // ^ Recent Job Openings
                           // ************************************
 
-                          Text(
-                            'Recent Job Openings',
-                            style: GoogleFonts.roboto(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w500,
-                                color: JobCustomColors.textColor),
-                          ),
-
-                          // ^ height space
-                          const SizedBox(height: 25.0),
-
                           // ^ jobs list
-                          const JobCarousel(),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              'Recent Job Openings',
+                              style: GoogleFonts.roboto(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: JobCustomColors.textColor),
+                            ),
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    navigateToPage(
+                                        context, const JobDescription());
+                                  },
+                                  child: const JobCarousel(
+                                    jobType: 'Full-time',
+                                    color: JobCustomColors.green,
+                                  ),
+                                ),
+                                const JobCarousel(
+                                  jobType: 'Part-time',
+                                  color: Color(0xffFF7E00),
+                                ),
+                                const JobCarousel(
+                                  jobType: 'Remote',
+                                  color: Color(0xff0054FF),
+                                ),
+                              ],
+                            ),
+                          ),
 
                           // ^ height space
                           const SizedBox(height: 25.0),

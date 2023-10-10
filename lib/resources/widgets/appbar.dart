@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:freelance_app/resources/constants/colors.dart';
 
 class TopAppBar extends StatefulWidget {
   const TopAppBar({super.key, required this.onTap});
