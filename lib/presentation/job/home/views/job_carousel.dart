@@ -72,14 +72,14 @@ class _JobCarouselState extends State<JobCarousel> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CustomText(
+                            CustomJobText(
                               title: 'Darkento Ltd.',
                               size: 18.0,
                               color: JobCustomColors.textColor,
                               weight: FontWeight.w500,
                             ),
                             SizedBox(height: 5.0),
-                            CustomText(
+                            CustomJobText(
                               title: 'New York, USA',
                               size: 14.0,
                               color: Color(0xff656565),
@@ -95,13 +95,13 @@ class _JobCarouselState extends State<JobCarousel> {
                   const SizedBox(height: 20.0),
 
                   // ^ title & type
-                  const CustomText(
+                  const CustomJobText(
                     title: 'Front-End Developer',
                     size: 18.0,
                     color: JobCustomColors.textColor,
                     weight: FontWeight.w600,
                   ),
-                  CustomText(
+                  CustomJobText(
                     title: widget.jobType,
                     size: 14.0,
                     color: widget.color,
@@ -110,7 +110,7 @@ class _JobCarouselState extends State<JobCarousel> {
 
                   // ^ skills
                   const SizedBox(height: 20.0),
-                  const CustomText(
+                  const CustomJobText(
                     title: 'CSS3, HTML5, Javascript, Bootstrap, Jquery',
                     size: 14.0,
                     color: JobCustomColors.textColor3,
@@ -121,13 +121,13 @@ class _JobCarouselState extends State<JobCarousel> {
                   const SizedBox(height: 15.0),
                   Row(
                     children: [
-                      const CustomText(
+                      const CustomJobText(
                         title: '\$5000',
                         size: 18.0,
                         color: JobCustomColors.textColor,
                         weight: FontWeight.w600,
                       ),
-                      const CustomText(
+                      const CustomJobText(
                         title: '/month',
                         size: 14.0,
                         color: JobCustomColors.textColor,

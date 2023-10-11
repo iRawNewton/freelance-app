@@ -19,6 +19,7 @@ class CustomColors {
 
 class JobCustomColors {
   static const Color green = Color(0xff03A84E);
+  static const Color green2 = Color(0xff1CA774);
   // static const Color secondaryBackground = Color(0xff2D3142);
   // static const Color accentColor = Color(0xffADACB5);
   static const Color textColor = Colors.black87;

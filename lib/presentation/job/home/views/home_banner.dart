@@ -52,14 +52,14 @@ class _JobBannerViewState extends State<JobBannerView> {
         child: Column(
           children: [
             const SizedBox(height: 40.0),
-            const CustomText(
+            const CustomJobText(
               title: 'Find a perfect candidate with',
               size: 26.0,
               color: Color(0xffFEFEFE),
               textAlign: TextAlign.center,
               weight: FontWeight.bold,
             ),
-            const CustomText(
+            const CustomJobText(
               title: 'Freelance.io',
               size: 26.0,
               color: Color(0xff03A84E),
@@ -67,7 +67,7 @@ class _JobBannerViewState extends State<JobBannerView> {
               weight: FontWeight.bold,
             ),
             const SizedBox(height: 20.0),
-            const CustomText(
+            const CustomJobText(
               title:
                   'Find great job for build your bright career. Have many job in this platform.',
               size: 14.0,
