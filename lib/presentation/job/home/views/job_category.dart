@@ -43,7 +43,7 @@ class _JobSpaceState extends State<JobSpace> {
             // switchCategoryList(context, widget.serviceid1);
           },
           child: Container(
-            height: ScreenSize.height(context) * 0.2,
+            height: ScreenSize.height(context) * 0.22,
             width: ScreenSize.width(context) * 0.4,
             decoration: BoxDecoration(
               color: Colors.grey.shade200,
@@ -121,7 +121,7 @@ class _JobSpaceState extends State<JobSpace> {
             switchCategoryList(context, widget.serviceid2);
           },
           child: Container(
-            height: ScreenSize.height(context) * 0.2,
+            height: ScreenSize.height(context) * 0.22,
             width: ScreenSize.width(context) * 0.4,
             decoration: BoxDecoration(
               color: Colors.grey.shade200,
