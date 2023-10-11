@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freelance_app/auth/screens/widgets.dart';
 import 'package:freelance_app/resources/widgets/footer.dart';
@@ -6,7 +7,6 @@ import 'package:freelance_app/resources/widgets/snackbar.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:freelance_app/services/post_remote_services.dart';
-import 'package:neumorphic_ui/neumorphic_ui.dart';
 
 import '../../presentation/global/home/home.dart';
 import '../../resources/functions/convert.dart';

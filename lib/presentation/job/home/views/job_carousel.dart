@@ -1,4 +1,4 @@
-import 'package:neumorphic_ui/neumorphic_ui.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../resources/constants/colors.dart';
 import '../../../../resources/widgets/buttons.dart';
@@ -61,7 +61,8 @@ class _JobCarouselState extends State<JobCarousel> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(7.0),
-                          child: Neumorphic(
+                          // TODO neumorphic
+                          child: Container(
                             child: Image.network(
                                 'https://htmldemo.net/finate/finate/assets/img/companies/1.webp'),
                           ),

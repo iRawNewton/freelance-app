@@ -5,7 +5,6 @@ import 'package:freelance_app/presentation/global/checkout/widget/text_field.dar
 import 'package:freelance_app/resources/widgets/text_widget.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:neumorphic_ui/neumorphic_ui.dart';
 
 import '../../../resources/constants/strings.dart';
 

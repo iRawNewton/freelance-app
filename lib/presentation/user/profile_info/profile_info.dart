@@ -10,7 +10,6 @@ import 'package:freelance_app/resources/widgets/timeline/experience/exp_timeline
 import 'package:freelance_app/services/get_remote_services.dart';
 import 'package:intl/intl.dart';
 
-import 'package:neumorphic_ui/neumorphic_ui.dart';
 import '../../../models/education_model.dart';
 import '../../../resources/widgets/appbar.dart';
 import '../../../resources/widgets/text_widget.dart';

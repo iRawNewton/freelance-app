@@ -5,7 +5,6 @@ import 'package:freelance_app/presentation/job/home/views/job_category.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:freelance_app/resources/functions/navigate_page.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:neumorphic_ui/neumorphic_ui.dart';
 
 import '../../../resources/widgets/appbar.dart';
 import '../description/job_desc.dart';
