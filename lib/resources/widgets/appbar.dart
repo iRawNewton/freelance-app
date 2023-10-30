@@ -17,7 +17,7 @@ class _TopAppBarState extends State<TopAppBar> {
       leading: Padding(
         padding: const EdgeInsets.only(left: 8.0),
         child: SvgPicture.network(
-            'https://demoapus1.com/freeio/wp-content/themes/freeio/images/logo.svg'),
+            'https://demoapus1.com/freeio-new/wp-content/themes/freeio/images/logo.svg'),
       ),
       leadingWidth: 120.0,
       actions: [
@@ -49,17 +49,40 @@ class _JobAppBarState extends State<JobAppBar> {
       leading: Padding(
         padding: const EdgeInsets.only(left: 8.0),
         child: SvgPicture.network(
-          'https://demoapus1.com/freeio/wp-content/themes/freeio/images/logo.svg',
+          'https://demoapus1.com/freeio-new/wp-content/themes/freeio/images/logo.svg',
         ),
       ),
       leadingWidth: 120.0,
       actions: [
         const SizedBox(width: 15.0),
-        IconButton(
-          onPressed: widget.onTap,
-          icon: SvgPicture.asset(
-              'lib/resources/assets/icons/menu-strawberry.svg'),
+        InkWell(
+          onTap: widget.onTap,
+          child: Container(
+            height: 50.0,
+            width: 50.0,
+            decoration: BoxDecoration(
+              color:
+                  const Color.fromARGB(255, 233, 234, 237), // Background color
+              borderRadius: BorderRadius.circular(15.0),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color.fromARGB(255, 206, 209, 213),
+                  offset: Offset(8, 10),
+                  blurRadius: 20.0,
+                ),
+              ],
+            ),
+            child: SvgPicture.asset(
+              'lib/resources/assets/icons/menu-strawberry.svg',
+              fit: BoxFit.scaleDown,
+            ),
+          ),
         ),
+        // IconButton(
+        //   onPressed: widget.onTap,
+        //   icon: SvgPicture.asset(
+        //       'lib/resources/assets/icons/menu-strawberry.svg'),
+        // ),
         const SizedBox(width: 8.0),
       ],
     );

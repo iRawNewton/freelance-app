@@ -19,13 +19,14 @@ class _CustomJobAppBarState extends State<CustomJobAppBar> {
             height: 50.0,
             width: 50.0,
             decoration: BoxDecoration(
-              color: const Color(0xFFE0E5EC), // Background color
-              borderRadius: BorderRadius.circular(20),
+              color:
+                  const Color.fromARGB(255, 233, 234, 237), // Background color
+              borderRadius: BorderRadius.circular(15.0),
               boxShadow: const [
                 BoxShadow(
-                  color: Color(0xFFA3B1C6),
-                  offset: Offset(8, 8),
-                  blurRadius: 12,
+                  color: Color.fromARGB(255, 206, 209, 213),
+                  offset: Offset(8, 10),
+                  blurRadius: 20.0,
                 ),
               ],
             ),
@@ -36,13 +37,14 @@ class _CustomJobAppBarState extends State<CustomJobAppBar> {
             height: 50.0,
             width: 50.0,
             decoration: BoxDecoration(
-              color: const Color(0xFFE0E5EC), // Background color
-              borderRadius: BorderRadius.circular(20),
+              color:
+                  const Color.fromARGB(255, 233, 234, 237), // Background color
+              borderRadius: BorderRadius.circular(15.0),
               boxShadow: const [
                 BoxShadow(
-                  color: Color(0xFFA3B1C6),
-                  offset: Offset(8, 8),
-                  blurRadius: 12,
+                  color: Color.fromARGB(255, 206, 209, 213),
+                  offset: Offset(8, 10),
+                  blurRadius: 20.0,
                 ),
               ],
             ),

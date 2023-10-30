@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../resources/constants/colors.dart';
 import '../../../../resources/widgets/text_widget.dart';
@@ -24,6 +25,17 @@ class _JobDetailsCardState extends State<JobDetailsCard> {
       'Candidate must have a good working knowledge of Javascript and Jquery.';
   String req3 = 'Good knowledge of HTML and CSS is required.';
   String req4 = 'Experience in Word press is an advantage';
+
+  String res1 = 'Write clean, maintainable and efficient code.';
+  String res2 = 'Design robust, scalable and secure features.';
+  String res3 =
+      'Work on bug fixing, identifying performance issues and improving application performance';
+  String res4 = 'Write unit and functional testcases.';
+
+  String qs1 = 'Bachelor\'s degree';
+  String qs2 = 'BCA/MCA';
+  String qs3 = 'BSC IT/Msc IT';
+  String qs4 = 'Or any other equivalent degree';
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +86,9 @@ class _JobDetailsCardState extends State<JobDetailsCard> {
               color: JobCustomColors.textColor,
             ),
 
-            // ^ job requirements
+            // ^ ====================================
+            // * job requirements
+            // ^ ====================================
             const SizedBox(height: 20.0),
             const CustomJobText(
               title: 'Job Requirements',
@@ -84,7 +98,7 @@ class _JobDetailsCardState extends State<JobDetailsCard> {
             ),
             const SizedBox(height: 10.0),
             const CustomJobText(
-              title: 'Requirements',
+              title: 'Requirements:',
               size: 16.0,
               color: Colors.black87,
               weight: FontWeight.w800,
@@ -179,7 +193,253 @@ class _JobDetailsCardState extends State<JobDetailsCard> {
               ],
             ),
 
-            // ^
+            const SizedBox(height: 30.0),
+            const CustomJobText(
+              title: 'Responsibilities:',
+              size: 16.0,
+              color: Colors.black87,
+              weight: FontWeight.w800,
+            ),
+
+            // ^ res 1
+            const SizedBox(height: 10.0),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(
+                  Icons.radio_button_checked,
+                  color: Color.fromRGBO(0, 44, 63, 0.6),
+                ),
+                const SizedBox(width: 10.0),
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width * 0.7,
+                  child: CustomJobText(
+                    title: res1,
+                    size: 14.0,
+                    color: const Color.fromRGBO(0, 44, 63, 0.6),
+                    textAlign: TextAlign.justify,
+                  ),
+                )
+              ],
+            ),
+
+            // ^ res 2
+            const SizedBox(height: 10.0),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(
+                  Icons.radio_button_checked,
+                  color: Color.fromRGBO(0, 44, 63, 0.6),
+                ),
+                const SizedBox(width: 10.0),
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width * 0.7,
+                  child: CustomJobText(
+                    title: res2,
+                    size: 14.0,
+                    color: const Color.fromRGBO(0, 44, 63, 0.6),
+                    textAlign: TextAlign.justify,
+                  ),
+                )
+              ],
+            ),
+
+            // ^ res 3
+            const SizedBox(height: 10.0),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(
+                  Icons.radio_button_checked,
+                  color: Color.fromRGBO(0, 44, 63, 0.6),
+                ),
+                const SizedBox(width: 10.0),
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width * 0.7,
+                  child: CustomJobText(
+                    title: res3,
+                    size: 14.0,
+                    color: const Color.fromRGBO(0, 44, 63, 0.6),
+                    textAlign: TextAlign.justify,
+                  ),
+                )
+              ],
+            ),
+
+            // ^ ====================================
+            // * Qualifications and Skills
+            // ^ ====================================
+
+            const SizedBox(height: 20.0),
+            const CustomJobText(
+              title: 'Qualifications and Skills',
+              size: 20.0,
+              color: Colors.black87,
+              weight: FontWeight.w800,
+            ),
+            const SizedBox(height: 10.0),
+
+            // ^ q and s 1
+            const SizedBox(height: 10.0),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(
+                  Icons.check_circle_outline,
+                  color: Color.fromRGBO(0, 44, 63, 0.6),
+                ),
+                const SizedBox(width: 10.0),
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width * 0.7,
+                  child: CustomJobText(
+                    title: qs1,
+                    size: 14.0,
+                    color: const Color.fromRGBO(0, 44, 63, 0.6),
+                    textAlign: TextAlign.justify,
+                  ),
+                )
+              ],
+            ),
+
+            // ^ q and s 2
+            const SizedBox(height: 10.0),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(
+                  Icons.check_circle_outline,
+                  color: Color.fromRGBO(0, 44, 63, 0.6),
+                ),
+                const SizedBox(width: 10.0),
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width * 0.7,
+                  child: CustomJobText(
+                    title: qs2,
+                    size: 14.0,
+                    color: const Color.fromRGBO(0, 44, 63, 0.6),
+                    textAlign: TextAlign.justify,
+                  ),
+                )
+              ],
+            ),
+
+            // ^ q and s 3
+            const SizedBox(height: 10.0),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(
+                  Icons.check_circle_outline,
+                  color: Color.fromRGBO(0, 44, 63, 0.6),
+                ),
+                const SizedBox(width: 10.0),
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width * 0.7,
+                  child: CustomJobText(
+                    title: qs3,
+                    size: 14.0,
+                    color: const Color.fromRGBO(0, 44, 63, 0.6),
+                    textAlign: TextAlign.justify,
+                  ),
+                )
+              ],
+            ),
+
+            // ^ q and s 4
+            const SizedBox(height: 10.0),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(
+                  Icons.check_circle_outline,
+                  color: Color.fromRGBO(0, 44, 63, 0.6),
+                ),
+                const SizedBox(width: 10.0),
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width * 0.7,
+                  child: CustomJobText(
+                    title: qs4,
+                    size: 14.0,
+                    color: const Color.fromRGBO(0, 44, 63, 0.6),
+                    textAlign: TextAlign.justify,
+                  ),
+                )
+              ],
+            ),
+
+            const SizedBox(height: 30.0),
+
+            // ^ divider
+            const Divider(),
+            const SizedBox(height: 10.0),
+            Row(
+              children: [
+                const CustomJobText(
+                  title: 'Share This Job:',
+                  size: 16.0,
+                  color: Colors.black,
+                  weight: FontWeight.bold,
+                ),
+                const SizedBox(width: 15.0),
+                Container(
+                  height: 30.0,
+                  width: 30.0,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: SvgPicture.asset(
+                      'lib/resources/assets/icons/facebook.svg',
+                      colorFilter: const ColorFilter.mode(
+                        Colors.black54,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 15.0),
+                Container(
+                  height: 30.0,
+                  width: 30.0,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: SvgPicture.asset(
+                      'lib/resources/assets/icons/instagram.svg',
+                      colorFilter: const ColorFilter.mode(
+                        Colors.black54,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 15.0),
+                Container(
+                  height: 30.0,
+                  width: 30.0,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: SvgPicture.asset(
+                      'lib/resources/assets/icons/twitter.svg',
+                      colorFilter: const ColorFilter.mode(
+                        Colors.black54,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            )
           ],
         ),
       ),

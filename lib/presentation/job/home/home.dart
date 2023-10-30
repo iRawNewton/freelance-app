@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_app/presentation/job/drawyer/job_drawer.dart';
 import 'package:freelance_app/presentation/job/home/views/home_banner.dart';
 import 'package:freelance_app/presentation/job/home/views/job_carousel.dart';
 import 'package:freelance_app/presentation/job/home/views/job_category.dart';
@@ -24,6 +25,8 @@ class _JobHomeState extends State<JobHome> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        key: _scaffoldKey,
+        drawer: const JobDrawer(),
         body: NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) => [
                   JobAppBar(

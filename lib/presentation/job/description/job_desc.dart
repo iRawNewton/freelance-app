@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:freelance_app/presentation/job/description/views/appbar.dart';
 import 'package:freelance_app/presentation/job/description/views/job_details_card.dart';
+import 'package:freelance_app/presentation/job/drawyer/job_drawer.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:freelance_app/resources/widgets/buttons.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
+
+import '../../../resources/widgets/appbar.dart';
 
 class JobDescription extends StatefulWidget {
   const JobDescription({super.key});
@@ -14,6 +17,7 @@ class JobDescription extends StatefulWidget {
 }
 
 class _JobDescriptionState extends State<JobDescription> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String para1 =
       'Themezhub Web provides equal employment opportunities to all qualified individuals without regard to race, color, religion, sex, gender identity, sexual orientation, pregnancy, age, national origin, physical or mental disability, military or veteran status, genetic information, or any other protected classification. Equal employment opportunity includes, but is not limited to, hiring, training, promotion, demotion, transfer, leaves of absence, and termination. Thynk Web takes allegations of discrimination, harassment, and retaliation seriously, and will promptly investigate when such behavior is reported.';
   String para2 =
@@ -32,147 +36,187 @@ class _JobDescriptionState extends State<JobDescription> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              // ^ ********************************
-              // ^ appbar starts
-              // ^ ********************************
-              const SizedBox(height: 15.0),
-              const CustomJobAppBar(),
-              const SizedBox(height: 15.0),
-              // ^ ********************************
-              // ^ appbar ends
-              // ^ ********************************
+        key: _scaffoldKey,
+        drawer: const JobDrawer(),
+        body: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            JobAppBar(
+              onTap: () => _scaffoldKey.currentState?.openDrawer(),
+            ),
+          ],
+          body: Container(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  // ^ ==============================
+                  // * appbar starts
+                  // ^ ==============================
+                  const SizedBox(height: 15.0),
+                  const CustomJobAppBar(),
+                  const SizedBox(height: 15.0),
 
-              // ^ ********************************
-              // ^ banner starts
-              // ^ ********************************
-              Container(
-                width: double.infinity,
-                color: const Color(0xff081721),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 30.0),
-                      // ^ job type | full time| Part time| Remote
-                      SizedBox(
-                        width: 100.0,
-                        height: 30.0,
-                        child: CustomButton(
-                          color: const Color(0xff7BBD15),
-                          title: 'Full-time',
-                          textColor: Colors.white,
-                          titleSize: 12.0,
-                          onPressed: () {},
-                        ),
-                      ),
-
-                      // ^ job title
-                      const SizedBox(height: 10.0),
-                      const CustomJobText(
-                        title: 'Front-End Developer',
-                        size: 24.0,
-                        color: Color(0xffd7dde2),
-                        weight: FontWeight.bold,
-                      ),
-
-                      // ^ location & ratings
-                      const SizedBox(height: 10.0),
-                      Row(
+                  // ^ ==============================
+                  // * banner starts
+                  // ^ ==============================
+                  Container(
+                    width: double.infinity,
+                    color: const Color(0xff081721),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Icon(
-                            Icons.location_on,
-                            color: Color(0xffd7dde2),
-                          ),
-                          const CustomJobText(
-                            title: 'California, US',
-                            size: 14.0,
-                            color: Color(0xffd7dde2),
-                          ),
-                          const SizedBox(width: 40.0),
-                          RatingBar.builder(
-                            initialRating: 3,
-                            minRating: 1,
-                            direction: Axis.horizontal,
-                            allowHalfRating: false,
-                            itemCount: 5,
-                            itemSize: 15.0,
-                            itemPadding:
-                                const EdgeInsets.symmetric(horizontal: 2.0),
-                            itemBuilder: (context, _) => const Icon(
-                              Icons.star,
-                              color: Colors.amber,
+                          const SizedBox(height: 30.0),
+                          // ^ job type | full time| Part time| Remote
+                          SizedBox(
+                            width: 100.0,
+                            height: 30.0,
+                            child: CustomButton(
+                              color: const Color(0xff7BBD15),
+                              title: 'Full-time',
+                              textColor: Colors.white,
+                              titleSize: 12.0,
+                              onPressed: () {},
                             ),
-                            unratedColor: const Color(0xffd7dde2),
-                            onRatingUpdate: (rating) {
-                              // print(rating);
-                            },
                           ),
+
+                          // ^ job title
+                          const SizedBox(height: 10.0),
                           const CustomJobText(
-                            title: '4.6',
-                            size: 14.0,
-                            color: Color(0xffF8F9FA),
+                            title: 'Front-End Developer',
+                            size: 24.0,
+                            color: Color(0xffd7dde2),
+                            weight: FontWeight.bold,
                           ),
-                        ],
-                      ),
 
-                      // ^ description
-                      const SizedBox(height: 20.0),
-                      const CustomJobText(
-                        title:
-                            'We are looking for a experienced Senior Front-End Developer with an advanced level of english to design UI/UX interface for web and mobile apps.',
-                        size: 14.0,
-                        color: Color(0xffd7dde2),
-                      ),
-
-                      // ^ apply button
-                      const SizedBox(height: 20.0),
-                      CustomButton(
-                        color: JobCustomColors.green,
-                        title: 'Apply',
-                        textColor: Colors.white,
-                        titleSize: 16.0,
-                        weight: FontWeight.w500,
-                        onPressed: () {},
-                      ),
-
-                      // ^ department and location
-                      const SizedBox(height: 30.0),
-                      const Row(
-                        children: [
+                          // ^ location & ratings
+                          const SizedBox(height: 10.0),
                           Row(
                             children: [
-                              Icon(
-                                Icons.work_history,
-                                color: Colors.white,
-                                size: 50.0,
+                              const Icon(
+                                Icons.location_on,
+                                color: Color(0xffd7dde2),
                               ),
-                              SizedBox(width: 5.0),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              const CustomJobText(
+                                title: 'California, US',
+                                size: 14.0,
+                                color: Color(0xffd7dde2),
+                              ),
+                              const SizedBox(width: 40.0),
+                              RatingBar.builder(
+                                initialRating: 3,
+                                minRating: 1,
+                                direction: Axis.horizontal,
+                                allowHalfRating: false,
+                                itemCount: 5,
+                                itemSize: 15.0,
+                                itemPadding:
+                                    const EdgeInsets.symmetric(horizontal: 2.0),
+                                itemBuilder: (context, _) => const Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                                unratedColor: const Color(0xffd7dde2),
+                                onRatingUpdate: (rating) {
+                                  // print(rating);
+                                },
+                              ),
+                              const CustomJobText(
+                                title: '4.6',
+                                size: 14.0,
+                                color: Color(0xffF8F9FA),
+                              ),
+                            ],
+                          ),
+
+                          // ^ description
+                          const SizedBox(height: 20.0),
+                          const CustomJobText(
+                            title:
+                                'We are looking for a experienced Senior Front-End Developer with an advanced level of english to design UI/UX interface for web and mobile apps.',
+                            size: 14.0,
+                            color: Color(0xffd7dde2),
+                          ),
+
+                          // ^ apply button
+                          const SizedBox(height: 20.0),
+                          CustomButton(
+                            color: JobCustomColors.green,
+                            title: 'Apply',
+                            textColor: Colors.white,
+                            titleSize: 16.0,
+                            weight: FontWeight.w500,
+                            onPressed: () {},
+                          ),
+
+                          // ^ department and location
+                          const SizedBox(height: 30.0),
+                          const Row(
+                            children: [
+                              Row(
                                 children: [
-                                  CustomJobText(
-                                    title: 'Category',
-                                    size: 14.0,
-                                    color: Color(0xffF8F9FA),
+                                  Icon(
+                                    Icons.work_history,
+                                    color: Colors.white,
+                                    size: 30.0,
                                   ),
-                                  CustomJobText(
-                                    title: 'Software',
-                                    size: 16.0,
-                                    color: Color(0xffF8F9FA),
-                                    weight: FontWeight.w700,
+                                  SizedBox(width: 5.0),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CustomJobText(
+                                        title: 'Category',
+                                        size: 14.0,
+                                        color: Color(0xffF8F9FA),
+                                      ),
+                                      CustomJobText(
+                                        title: 'Software',
+                                        size: 16.0,
+                                        color: Color(0xffF8F9FA),
+                                        weight: FontWeight.w700,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(width: 15.0),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.location_on,
+                                    color: Colors.white,
+                                    size: 30.0,
+                                  ),
+                                  SizedBox(width: 5.0),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CustomJobText(
+                                        title: 'Location',
+                                        size: 14.0,
+                                        color: Color(0xffF8F9FA),
+                                      ),
+                                      CustomJobText(
+                                        title: 'California, USA',
+                                        size: 16.0,
+                                        color: Color(0xffF8F9FA),
+                                        weight: FontWeight.w700,
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
                             ],
                           ),
-                          Row(
+
+                          // ^ salary
+                          const SizedBox(height: 20.0),
+                          const Row(
                             children: [
                               Icon(
-                                Icons.location_on_rounded,
+                                Icons.attach_money_rounded,
                                 color: Colors.white,
                                 size: 50.0,
                               ),
@@ -195,56 +239,39 @@ class _JobDescriptionState extends State<JobDescription> {
                               ),
                             ],
                           ),
+                          const SizedBox(height: 20.0),
                         ],
                       ),
-
-                      // ^ salary
-                      const SizedBox(height: 20.0),
-                      const Row(
-                        children: [
-                          Icon(
-                            Icons.attach_money_rounded,
-                            color: Colors.white,
-                            size: 50.0,
-                          ),
-                          SizedBox(width: 5.0),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CustomJobText(
-                                title: 'Location',
-                                size: 14.0,
-                                color: Color(0xffF8F9FA),
-                              ),
-                              CustomJobText(
-                                title: 'California, USA',
-                                size: 16.0,
-                                color: Color(0xffF8F9FA),
-                                weight: FontWeight.w700,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20.0),
-                    ],
+                    ),
                   ),
-                ),
+
+                  // ^ ==============================
+                  // * job details starts
+                  // ^ ==============================
+
+                  const SizedBox(height: 20.0),
+                  const JobDetailsCard(),
+
+                  // const SizedBox(height: 10.0),
+
+                  // ^ ==============================
+                  // * apply button
+                  // ^ ==============================
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width * 0.8,
+                    child: CustomButton(
+                      color: JobCustomColors.green,
+                      title: 'Apply',
+                      textColor: Colors.white,
+                      titleSize: 16.0,
+                      weight: FontWeight.w500,
+                      onPressed: () {},
+                    ),
+                  ),
+                  const SizedBox(height: 10.0),
+                ],
               ),
-              // ^ ********************************
-              // ^ banner ends
-              // ^ ********************************
-
-              // ^ ********************************
-              // ^ job details starts
-              // ^ ********************************
-
-              const SizedBox(height: 20.0),
-              const JobDetailsCard(),
-              // ^ ********************************
-              // ^ job details ends
-              // ^ ********************************
-            ],
+            ),
           ),
         ),
       ),

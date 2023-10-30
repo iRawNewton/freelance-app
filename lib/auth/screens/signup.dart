@@ -80,7 +80,7 @@ class _SignUpPageState extends State<SignUpPage> {
           leading: Padding(
             padding: const EdgeInsets.only(left: 8.0),
             child: SvgPicture.network(
-                'https://demoapus1.com/freeio/wp-content/themes/freeio/images/logo.svg'),
+                'https://demoapus1.com/freeio-new/wp-content/themes/freeio/images/logo.svg'),
           ),
           leadingWidth: 120.0,
           actions: const [
