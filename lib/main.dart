@@ -27,7 +27,10 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade900),
           useMaterial3: true,
         ),
+        // theme: lightTheme,
+        // darkTheme: darkTheme,
         home: const HomePage(),
+        // home: const MyTestWidgettoCheck(),
       ),
     );
   }

@@ -15,7 +15,6 @@ import 'package:freelance_app/resources/widgets/appbar.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
 import 'package:freelance_app/services/get_remote_services.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../models/home_model.dart';
 
 class HomePage extends StatefulWidget {

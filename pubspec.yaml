@@ -63,7 +63,7 @@ dependencies:
   shimmer: ^3.0.0
   youtube_player_flutter: ^8.1.2
   timeline_tile: ^2.0.0
-  lottie: ^2.6.0
+  lottie: ^2.7.0
   glassmorphism: ^3.0.0
 
 dev_dependencies:

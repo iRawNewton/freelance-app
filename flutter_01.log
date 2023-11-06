@@ -7,7 +7,7 @@ flutter pub get
 
 ## exception
 
-FileSystemException: FileSystemException: Cannot create link, path = 'D:\FlutterApplication\Copied from c drive\GitHub\freelance-app\windows\flutter\ephemeral\.plugin_symlinks\file_selector_windows' (OS Error: Incorrect function.
+FileSystemException: FileSystemException: Cannot create link, path = 'D:\FlutterApplication\freelance-app\windows\flutter\ephemeral\.plugin_symlinks\file_selector_windows' (OS Error: Incorrect function.
 , errno = 1)
 
 ```
@@ -49,7 +49,7 @@ FileSystemException: FileSystemException: Cannot create link, path = 'D:\Flutter
 [32m[✓][39m Flutter (Channel stable, 3.13.6, on Microsoft Windows [Version 10.0.19045.3570], locale en-US)
     [32m•[39m Flutter version 3.13.6 on channel stable at C:\src\flutter
     [32m•[39m Upstream repository https://github.com/flutter/flutter.git
-    [32m•[39m Framework revision ead455963c (4 weeks ago), 2023-09-26 18:28:17 -0700
+    [32m•[39m Framework revision ead455963c (6 weeks ago), 2023-09-26 18:28:17 -0700
     [32m•[39m Engine revision a794cf2681
     [32m•[39m Dart version 3.1.3
     [32m•[39m DevTools version 2.25.0
@@ -79,15 +79,15 @@ FileSystemException: FileSystemException: Cannot create link, path = 'D:\Flutter
       🔨 https://plugins.jetbrains.com/plugin/6351-dart
     [32m•[39m Java version OpenJDK Runtime Environment (build 11.0.15+0-b2043.56-9505619)
 
-[32m[✓][39m VS Code (version 1.83.1)
+[32m[✓][39m VS Code (version 1.84.0)
     [32m•[39m VS Code at C:\Users\Admin\AppData\Local\Programs\Microsoft VS Code
-    [32m•[39m Flutter extension version 3.74.0
+    [32m•[39m Flutter extension version 3.76.0
 
 [32m[✓][39m Connected device (4 available)
     [32m•[39m sdk gphone64 x86 64 (mobile) • emulator-5554 • android-x64    • Android 13 (API 33) (emulator)
     [32m•[39m Windows (desktop)            • windows       • windows-x64    • Microsoft Windows [Version 10.0.19045.3570]
-    [32m•[39m Chrome (web)                 • chrome        • web-javascript • Google Chrome 118.0.5993.72
-    [32m•[39m Edge (web)                   • edge          • web-javascript • Microsoft Edge 118.0.2088.61
+    [32m•[39m Chrome (web)                 • chrome        • web-javascript • Google Chrome 119.0.6045.106
+    [32m•[39m Edge (web)                   • edge          • web-javascript • Microsoft Edge 119.0.2151.44
 
 [32m[✓][39m Network resources
     [32m•[39m All expected network resources are available.

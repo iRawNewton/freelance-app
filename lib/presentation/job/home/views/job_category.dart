@@ -6,6 +6,9 @@ import 'package:freelance_app/resources/constants/dimens.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../resources/functions/navigate_page.dart';
+import '../../job_list/job_list.dart';
+
 class JobSpace extends StatefulWidget {
   const JobSpace({
     super.key,
@@ -40,7 +43,10 @@ class _JobSpaceState extends State<JobSpace> {
         // first-category
         InkWell(
           onTap: () {
-            // switchCategoryList(context, widget.serviceid1);
+            navigateToPage(
+              context,
+              const JobList(),
+            );
           },
           child: Container(
             height: ScreenSize.height(context) * 0.22,

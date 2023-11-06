@@ -11,6 +11,7 @@ import 'package:freelance_app/resources/widgets/text_widget.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 
 import '../../../resources/functions/navigate_page.dart';
+import '../../job/upload/job_upload.dart';
 import '../../post_service/post_service.dart';
 
 class UserDrawer extends StatefulWidget {
@@ -231,8 +232,20 @@ class _UserDrawerState extends State<UserDrawer> {
                             navigateToPage(
                                 context, const ServicePost(userId: '18'));
                           },
-                          icon: Icons.home_repair_service_outlined,
+                          icon: Icons.cleaning_services_outlined,
                           title: 'Service',
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 18.0),
+                        child: DrawerList(
+                          onTap: () {
+                            // TODO: make userid dynamic
+                            navigateToPage(
+                                context, const JobPost(userId: '18'));
+                          },
+                          icon: Icons.work_outline,
+                          title: 'Job',
                         ),
                       ),
                     ],
