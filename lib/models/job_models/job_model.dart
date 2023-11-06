@@ -27,6 +27,8 @@ class JobDetails {
   String skills;
   String jobCategory;
   String jobSubCategory;
+  String categoryName;
+  String subcategoryName;
 
   JobDetails({
     required this.jobId,
@@ -45,6 +47,8 @@ class JobDetails {
     required this.skills,
     required this.jobCategory,
     required this.jobSubCategory,
+    required this.categoryName,
+    required this.subcategoryName,
   });
 
   factory JobDetails.fromJson(Map<String, dynamic> json) => JobDetails(
@@ -64,6 +68,8 @@ class JobDetails {
         skills: json["skills"],
         jobCategory: json["job_category"],
         jobSubCategory: json["job_sub_category"],
+        categoryName: json["category_name"],
+        subcategoryName: json["subcategory_name"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -83,5 +89,7 @@ class JobDetails {
         "skills": skills,
         "job_category": jobCategory,
         "job_sub_category": jobSubCategory,
+        "category_name": categoryName,
+        "subcategory_name": subcategoryName,
       };
 }

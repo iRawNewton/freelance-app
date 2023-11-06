@@ -74,10 +74,30 @@ class _JobListState extends State<JobList> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: categoriesInfo!.length,
                         itemBuilder: (context, index) {
-                          return const Center(
+                          return Center(
                             child: JobCarousel(
-                              jobType: 'Remote',
-                              color: Color(0xff0054FF),
+                              jobId: categoriesInfo![index].jobId,
+                              jobTitle: categoriesInfo![index].jobTitle,
+                              jobType: categoriesInfo![index].jobType,
+                              companyName: categoriesInfo![index].companyName,
+                              jobLocation: categoriesInfo![index].location,
+                              salaryMin: categoriesInfo![index].salaryMin,
+                              salaryMax: categoriesInfo![index].salaryMax,
+                              shortDescription:
+                                  categoriesInfo![index].shortDescription,
+                              longDescription:
+                                  categoriesInfo![index].longDescription,
+                              jobRequirements:
+                                  categoriesInfo![index].jobRequirements,
+                              jobResponsibilities:
+                                  categoriesInfo![index].jobResponsibilities,
+                              jobQualification:
+                                  categoriesInfo![index].qualifications,
+                              jobSkills: categoriesInfo![index].skills,
+                              jobCategoryName:
+                                  categoriesInfo![index].categoryName,
+                              jobSubCategoryName:
+                                  categoriesInfo![index].subcategoryName,
                             ),
                           );
                           // return Center(child: Text('data'));
@@ -94,9 +114,3 @@ class _JobListState extends State<JobList> {
     );
   }
 }
-
-
-// const JobCarousel(
-//             jobType: 'Remote',
-//             color: Color(0xff0054FF),
-//           ),

@@ -63,6 +63,8 @@ class _CustomJobTextState extends State<CustomJobText> {
         fontWeight: widget.weight ?? FontWeight.normal,
       ),
       textAlign: widget.textAlign,
+      maxLines: 3,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

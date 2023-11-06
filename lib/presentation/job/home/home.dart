@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_app/presentation/job/drawyer/job_drawer.dart';
 import 'package:freelance_app/presentation/job/home/views/home_banner.dart';
-import 'package:freelance_app/presentation/job/home/views/job_carousel.dart';
 import 'package:freelance_app/presentation/job/home/views/job_category.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
-import 'package:freelance_app/resources/functions/navigate_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../resources/widgets/appbar.dart';
-import '../description/job_desc.dart';
 
 class JobHome extends StatefulWidget {
   const JobHome({super.key});
@@ -54,7 +51,6 @@ class _JobHomeState extends State<JobHome> {
                           // ************************************
                           // ^ Popular Categories
                           // ************************************
-
                           // ^ popular category
                           Align(
                             alignment: Alignment.center,
@@ -145,22 +141,24 @@ class _JobHomeState extends State<JobHome> {
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    navigateToPage(
-                                        context, const JobDescription());
+                                    // navigateToPage(
+                                    //     context, const JobDescription());
                                   },
-                                  child: const JobCarousel(
-                                    jobType: 'Full-time',
-                                    color: JobCustomColors.green,
-                                  ),
+                                  child: const Text('JobCarouseld'),
                                 ),
-                                const JobCarousel(
-                                  jobType: 'Part-time',
-                                  color: Color(0xffFF7E00),
-                                ),
-                                const JobCarousel(
-                                  jobType: 'Remote',
-                                  color: Color(0xff0054FF),
-                                ),
+                                //   child: const JobCarousel(
+                                //     jobType: 'Full-time',
+                                //     color: JobCustomColors.green,
+                                //   ),
+                                // ),
+                                // const JobCarousel(
+                                //   jobType: 'Part-time',
+                                //   color: Color(0xffFF7E00),
+                                // ),
+                                // const JobCarousel(
+                                //   jobType: 'Remote',
+                                //   color: Color(0xff0054FF),
+                                // ),
                               ],
                             ),
                           ),
