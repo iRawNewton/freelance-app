@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/job_models/job_model.dart';
-import '../../../resources/widgets/appbar.dart';
-import '../../../services/job_services/get_job_info.dart';
+import '../../models/job_models/job_model.dart';
+import '../../resources/widgets/appbar.dart';
+import '../../services/job_services/get_job_info.dart';
 import '../home/views/job_carousel.dart';
 
 class JobList extends StatefulWidget {

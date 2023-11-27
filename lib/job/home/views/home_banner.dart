@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
 import 'package:freelance_app/resources/widgets/textfields.dart';
 
-import '../../../../models/service_category.dart';
-import '../../../../services/get_remote_services.dart';
+import '../../../models/service_category.dart';
+import '../../../services/get_remote_services.dart';
 
 class JobBannerView extends StatefulWidget {
   const JobBannerView({super.key, required this.controller});

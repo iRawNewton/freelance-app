@@ -11,7 +11,7 @@ import 'package:freelance_app/resources/widgets/text_widget.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 
 import '../../../resources/functions/navigate_page.dart';
-import '../../job/upload/job_upload.dart';
+import '../../../job/upload/job_upload.dart';
 import '../../post_service/post_service.dart';
 
 class UserDrawer extends StatefulWidget {
@@ -191,7 +191,7 @@ class _UserDrawerState extends State<UserDrawer> {
                   ),
                   child: ExpansionTile(
                     title: const CustomText(
-                      title: 'Upload',
+                      title: 'Seller',
                       size: 14.0,
                       color: Colors.black87,
                     ),

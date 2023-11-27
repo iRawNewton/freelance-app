@@ -14,7 +14,7 @@ import '../../../models/education_model.dart';
 import '../../../resources/widgets/appbar.dart';
 import '../../../resources/widgets/text_widget.dart';
 import '../../../resources/widgets/timeline/education/timeline_tile.dart';
-import '../dashboard/views/profile_stats.dart';
+import '../dashboard_x/views/profile_stats.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
@@ -223,8 +223,8 @@ class _UserProfileState extends State<UserProfile> {
                                           UserProfileStats(
                                             image1: 'contract.svg',
                                             image2: 'checked.svg',
-                                            title1: 'Posted Projects',
-                                            title2: 'Completed Projects',
+                                            title1: 'Job Posted',
+                                            title2: 'Freelance',
                                             stat1: '5',
                                             stat2: '0',
                                           ),
@@ -235,7 +235,7 @@ class _UserProfileState extends State<UserProfile> {
                                           UserProfileStats(
                                             image1: 'sand-clock.svg',
                                             image2: 'testimonial.svg',
-                                            title1: 'Proposals',
+                                            title1: 'Services',
                                             title2: 'Reviews',
                                             stat1: '1',
                                             stat2: '0',

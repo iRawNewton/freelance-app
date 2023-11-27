@@ -15,12 +15,12 @@ import 'package:freelance_app/services/get_remote_services.dart';
 import 'package:freelance_app/services/post_remote_services.dart';
 import 'package:freelance_app/services/upload_image.dart';
 
-import '../../../resources/constants/colors.dart';
-import '../../../resources/widgets/appbar.dart';
-import '../../../resources/widgets/loading_indicator.dart';
-import '../../../resources/widgets/text_widget.dart';
-import '../../../services/pick_image.dart';
-import '../../global/checkout/widget/text_field.dart';
+import '../../resources/constants/colors.dart';
+import '../../resources/widgets/appbar.dart';
+import '../../resources/widgets/loading_indicator.dart';
+import '../../resources/widgets/text_widget.dart';
+import '../../services/pick_image.dart';
+import '../../presentation/global/checkout/widget/text_field.dart';
 
 class JobPost extends StatefulWidget {
   const JobPost({super.key, required this.userId});

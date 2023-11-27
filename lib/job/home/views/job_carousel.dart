@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_app/presentation/job/description/job_desc.dart';
+import 'package:freelance_app/job/description/frontend/job_desc.dart';
 import 'package:freelance_app/resources/functions/navigate_page.dart';
 
-import '../../../../resources/constants/colors.dart';
-import '../../../../resources/widgets/buttons.dart';
-import '../../../../resources/widgets/text_widget.dart';
+import '../../../resources/constants/colors.dart';
+import '../../../resources/widgets/buttons.dart';
+import '../../../resources/widgets/text_widget.dart';
 
 class JobCarousel extends StatefulWidget {
   const JobCarousel({
@@ -184,7 +184,7 @@ class _JobCarouselState extends State<JobCarousel> {
                             transitionOnUserGestures: true,
                             child: CustomButton(
                               color: JobCustomColors.green,
-                              title: 'Apply Now',
+                              title: 'See More',
                               textColor: Colors.white,
                               onPressed: () {
                                 navigateToPage(

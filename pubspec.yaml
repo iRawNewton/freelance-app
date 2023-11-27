@@ -65,6 +65,7 @@ dependencies:
   timeline_tile: ^2.0.0
   lottie: ^2.7.0
   glassmorphism: ^3.0.0
+  agora_rtc_engine: ^6.2.4
 
 dev_dependencies:
   flutter_test:

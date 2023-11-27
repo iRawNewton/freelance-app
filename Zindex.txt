@@ -1,0 +1,8 @@
+Create company profile for upload jobs.
+Create profile for applying jobs.
+Create separate profile for dashboard.
+
+
+job id 
+user id
+timestamp

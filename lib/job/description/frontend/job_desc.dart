@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:freelance_app/presentation/job/description/views/job_details_card.dart';
-import 'package:freelance_app/presentation/job/drawyer/job_drawer.dart';
+import 'package:freelance_app/job/description/frontend/views/job_details_card.dart';
+import 'package:freelance_app/job/drawyer/job_drawer.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:freelance_app/resources/widgets/buttons.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
@@ -147,17 +147,6 @@ class _JobDescriptionState extends State<JobDescription> {
                               color: const Color(0xffd7dde2),
                             ),
 
-                            // ^ apply button
-                            const SizedBox(height: 20.0),
-                            CustomButton(
-                              color: JobCustomColors.green,
-                              title: 'Apply',
-                              textColor: Colors.white,
-                              titleSize: 16.0,
-                              weight: FontWeight.w500,
-                              onPressed: () {},
-                            ),
-
                             // ^ department and company
                             const SizedBox(height: 30.0),
 
@@ -253,6 +242,22 @@ class _JobDescriptionState extends State<JobDescription> {
                                   ],
                                 ),
                               ],
+                            ),
+
+                            // ^ apply button
+                            const SizedBox(height: 10.0),
+                            SizedBox(
+                              width: MediaQuery.sizeOf(context).width * 0.9,
+                              child: CustomButton(
+                                color: JobCustomColors.green,
+                                title: 'Apply Now',
+                                textColor: Colors.white,
+                                titleSize: 16.0,
+                                weight: FontWeight.w500,
+                                onPressed: () {
+                                  // TODO: POST BUTTON API
+                                },
+                              ),
                             ),
                           ],
                         ),

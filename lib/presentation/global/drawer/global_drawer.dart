@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:freelance_app/auth/screens/login.dart';
 import 'package:freelance_app/presentation/global/home/home.dart';
-import 'package:freelance_app/presentation/job/home/home.dart';
+import 'package:freelance_app/job/home/home.dart';
 import 'package:freelance_app/presentation/user/profile_info/profile_info.dart';
 import 'package:freelance_app/resources/widgets/drawer_list.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';

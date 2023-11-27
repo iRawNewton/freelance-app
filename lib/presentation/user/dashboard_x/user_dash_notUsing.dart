@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_app/presentation/user/dashboard/views/profile_stats.dart';
-import 'package:freelance_app/presentation/user/dashboard/views/select_service.dart';
+import 'package:freelance_app/presentation/user/dashboard_x/views/profile_stats.dart';
+import 'package:freelance_app/presentation/user/dashboard_x/views/select_service.dart';
 import 'package:freelance_app/presentation/user/drawer/user_drawer.dart';
 import 'package:freelance_app/presentation/user/profile_info/profile_info.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 import '../../../resources/widgets/appbar.dart';
 
-class UserDashboard extends StatefulWidget {
-  const UserDashboard({super.key});
+class UserDashboadd extends StatefulWidget {
+  const UserDashboadd({super.key});
 
   @override
-  State<UserDashboard> createState() => _UserDashboardState();
+  State<UserDashboadd> createState() => _UserDashboaddState();
 }
 
-class _UserDashboardState extends State<UserDashboard> {
+class _UserDashboaddState extends State<UserDashboadd> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
