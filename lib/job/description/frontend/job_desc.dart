@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:freelance_app/job/description/backend/job_post_service.dart';
 import 'package:freelance_app/job/description/frontend/views/job_details_card.dart';
 import 'package:freelance_app/job/drawyer/job_drawer.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:freelance_app/resources/widgets/buttons.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
 import '../../../resources/widgets/appbar.dart';
+import '../../../resources/widgets/snackbar.dart';
 
 class JobDescription extends StatefulWidget {
   const JobDescription({
@@ -48,6 +50,38 @@ class JobDescription extends StatefulWidget {
 
 class _JobDescriptionState extends State<JobDescription> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  Future<dynamic> applyJob(
+      // userId,
+      // projectCategory,
+      // projectSubcategory,
+      ) async {
+    var response = await JobRemoteService().applyJob(
+      '1',
+      '18',
+      'yes',
+    );
+    // setState(() {
+    //   isLoading = false;
+    // });
+
+    if (response == 'Successfully uploaded') {
+      setState(() {
+        customSnackBar(context, 'Product Uploaded Successfully',
+            CustomColors.success, Colors.white);
+        // navigateToPage(
+        //   context,
+        //   const HomePage(),
+        // );
+      });
+    } else {
+      setState(() {
+        customSnackBar(context, 'Something went wrong. Please try again!',
+            CustomColors.danger, Colors.white);
+      });
+    }
+    return response;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -256,6 +290,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                 weight: FontWeight.w500,
                                 onPressed: () {
                                   // TODO: POST BUTTON API
+                                  applyJob();
                                 },
                               ),
                             ),
@@ -285,3 +320,37 @@ class _JobDescriptionState extends State<JobDescription> {
     );
   }
 }
+
+
+
+/* 
+Future<dynamic> applyJob(
+    userId,
+    projectCategory,
+    projectSubcategory,
+   
+  ) async {
+    var response = await PostRemoteService().postProducts(
+      userId,
+      projectCategory,
+      projectSubcategory,
+    );
+    setState(() {
+      isLoading = false;
+    });
+
+    if (response == 'Successfully uploaded') {
+      setState(() {
+        customSnackBar(context, 'Product Uploaded Successfully',
+            CustomColors.success, Colors.white);
+        navigateToPage(context, const HomePage());
+      });
+    } else {
+      setState(() {
+        customSnackBar(context, 'Something went wrong. Please try again!',
+            CustomColors.danger, Colors.white);
+      });
+    }
+    return response;
+  }
+*/
