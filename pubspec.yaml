@@ -66,6 +66,7 @@ dependencies:
   lottie: ^2.7.0
   glassmorphism: ^3.0.0
   agora_rtc_engine: ^6.2.4
+  gap: ^3.0.1
 
 dev_dependencies:
   flutter_test:

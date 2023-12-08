@@ -72,7 +72,7 @@ class _JobCarouselState extends State<JobCarousel> {
                 ],
               ),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 12.0),
+                padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 0.0),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,13 +163,13 @@ class _JobCarouselState extends State<JobCarousel> {
                         children: [
                           CustomJobText(
                             title: '\$ ${widget.salaryMin}',
-                            size: 18.0,
+                            size: 16.0,
                             color: JobCustomColors.textColor,
                             weight: FontWeight.w600,
                           ),
                           CustomJobText(
                             title: ' - ${widget.salaryMax}',
-                            size: 18.0,
+                            size: 16.0,
                             color: JobCustomColors.textColor,
                             weight: FontWeight.w600,
                           ),

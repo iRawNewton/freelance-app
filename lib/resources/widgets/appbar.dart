@@ -16,8 +16,10 @@ class _TopAppBarState extends State<TopAppBar> {
       toolbarHeight: 70.0,
       leading: Padding(
         padding: const EdgeInsets.only(left: 8.0),
-        child: SvgPicture.network(
-            'https://demoapus1.com/freeio-new/wp-content/themes/freeio/images/logo.svg'),
+        child: Image.asset(
+          'lib/resources/assets/icons/CFC_Logo.png',
+          fit: BoxFit.fitWidth,
+        ),
       ),
       leadingWidth: 120.0,
       actions: [
@@ -48,8 +50,9 @@ class _JobAppBarState extends State<JobAppBar> {
       toolbarHeight: 70.0,
       leading: Padding(
         padding: const EdgeInsets.only(left: 8.0),
-        child: SvgPicture.network(
-          'https://demoapus1.com/freeio-new/wp-content/themes/freeio/images/logo.svg',
+        child: Image.asset(
+          'lib/resources/assets/icons/CFC_Logo.png',
+          fit: BoxFit.fitWidth,
         ),
       ),
       leadingWidth: 120.0,
@@ -67,7 +70,7 @@ class _JobAppBarState extends State<JobAppBar> {
               boxShadow: const [
                 BoxShadow(
                   color: Color.fromARGB(255, 206, 209, 213),
-                  offset: Offset(8, 10),
+                  offset: Offset(8, -7),
                   blurRadius: 20.0,
                 ),
               ],

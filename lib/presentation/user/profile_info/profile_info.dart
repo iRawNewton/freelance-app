@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:freelance_app/models/experience_model.dart';
 import 'package:freelance_app/models/users_model.dart';
 import 'package:freelance_app/presentation/user/drawer/user_drawer.dart';
+import 'package:freelance_app/presentation/user/stats/job_posted/job_posted_byuser.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
+import 'package:freelance_app/resources/functions/navigate_page.dart';
 import 'package:freelance_app/resources/widgets/footer.dart';
 import 'package:freelance_app/resources/widgets/timeline/experience/exp_timeline_tile.dart';
 import 'package:freelance_app/services/get_remote_services.dart';
@@ -214,25 +216,32 @@ class _UserProfileState extends State<UserProfile> {
                                   // ^ stats
                                   Container(
                                     color: CustomColors.accentColor,
-                                    child: const Padding(
-                                      padding: EdgeInsets.symmetric(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 5.0, vertical: 20.0),
                                       child: Column(
                                         children: [
                                           // ^ first stat
                                           UserProfileStats(
+                                            onTap1: () {
+                                              navigateToPage(context,
+                                                  const JobPostedByUser());
+                                            },
+                                            onTap2: () {},
                                             image1: 'contract.svg',
                                             image2: 'checked.svg',
                                             title1: 'Job Posted',
                                             title2: 'Freelance',
-                                            stat1: '5',
+                                            stat1: '2',
                                             stat2: '0',
                                           ),
 
-                                          SizedBox(height: 15.0),
+                                          const SizedBox(height: 15.0),
 
                                           // ^ second stat
                                           UserProfileStats(
+                                            onTap1: () {},
+                                            onTap2: () {},
                                             image1: 'sand-clock.svg',
                                             image2: 'testimonial.svg',
                                             title1: 'Services',

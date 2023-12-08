@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_app/presentation/user/dashboard_x/views/profile_stats.dart';
+// import 'package:freelance_app/presentation/user/dashboard_x/views/profile_stats.dart';
 import 'package:freelance_app/presentation/user/dashboard_x/views/select_service.dart';
 import 'package:freelance_app/presentation/user/drawer/user_drawer.dart';
 import 'package:freelance_app/presentation/user/profile_info/profile_info.dart';
@@ -49,23 +49,23 @@ class _UserDashboaddState extends State<UserDashboadd> {
                       // weight: FontWeight.bold,
                     ),
                     const SizedBox(height: 24.0),
-                    const UserProfileStats(
-                      image1: 'contract.svg',
-                      image2: 'checked.svg',
-                      title1: 'Posted Projects',
-                      title2: 'Completed Projects',
-                      stat1: '5',
-                      stat2: '0',
-                    ),
+                    // const UserProfileStats(
+                    //   image1: 'contract.svg',
+                    //   image2: 'checked.svg',
+                    //   title1: 'Posted Projects',
+                    //   title2: 'Completed Projects',
+                    //   stat1: '5',
+                    //   stat2: '0',
+                    // ),
                     const SizedBox(height: 14.0),
-                    const UserProfileStats(
-                      image1: 'sand-clock.svg',
-                      image2: 'testimonial.svg',
-                      title1: 'Proposals',
-                      title2: 'Reviews',
-                      stat1: '1',
-                      stat2: '0',
-                    ),
+                    // const UserProfileStats(
+                    //   image1: 'sand-clock.svg',
+                    //   image2: 'testimonial.svg',
+                    //   title1: 'Proposals',
+                    //   title2: 'Reviews',
+                    //   stat1: '1',
+                    //   stat2: '0',
+                    // ),
                     const SizedBox(height: 14.0),
                     // const SearchBar(),
                     // post services
