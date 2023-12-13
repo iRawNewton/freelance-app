@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:freelance_app/presentation/global/category_list/func/switch_category.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:freelance_app/resources/constants/dimens.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,11 +11,11 @@ import '../../job_list/job_list.dart';
 class JobSpace extends StatefulWidget {
   const JobSpace({
     super.key,
-    required this.serviceid1,
+    required this.categoryid1,
     required this.iconAsset1,
     required this.services1,
     required this.title1,
-    required this.serviceid2,
+    required this.categoryid2,
     required this.iconAsset2,
     required this.services2,
     required this.title2,
@@ -27,8 +26,8 @@ class JobSpace extends StatefulWidget {
       iconAsset2,
       services2,
       title2,
-      serviceid1,
-      serviceid2;
+      categoryid1,
+      categoryid2;
 
   @override
   State<JobSpace> createState() => _JobSpaceState();
@@ -45,7 +44,7 @@ class _JobSpaceState extends State<JobSpace> {
           onTap: () {
             navigateToPage(
               context,
-              const JobList(),
+              JobList(jobCategory: widget.categoryid1),
             );
           },
           child: Container(
@@ -124,7 +123,10 @@ class _JobSpaceState extends State<JobSpace> {
 
         InkWell(
           onTap: () {
-            switchCategoryList(context, widget.serviceid2);
+            navigateToPage(
+              context,
+              JobList(jobCategory: widget.categoryid2),
+            );
           },
           child: Container(
             height: ScreenSize.height(context) * 0.22,

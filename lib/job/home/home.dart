@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_app/job/drawyer/job_drawer.dart';
 import 'package:freelance_app/job/home/views/home_banner.dart';
-import 'package:freelance_app/job/home/views/job_category.dart';
+import 'package:freelance_app/job/home/views/job_space.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -76,12 +76,12 @@ class _JobHomeState extends State<JobHome> {
                           const SizedBox(height: 25.0),
 
                           const JobSpace(
-                            serviceid1: '1',
+                            categoryid1: '2',
                             iconAsset1: 'category[0]!.categoryImage',
                             services1: '8 Services',
                             title1: 'Accounts/Finance',
                             // ----------
-                            serviceid2: '2',
+                            categoryid2: '',
                             iconAsset2: 'category[1]!.categoryImage',
                             services2: '1 Services',
                             title2: 'Health & Fitness',
@@ -91,12 +91,12 @@ class _JobHomeState extends State<JobHome> {
                           const SizedBox(height: 25.0),
 
                           const JobSpace(
-                            serviceid1: '1',
+                            categoryid1: '1',
                             iconAsset1: 'category[0]!.categoryImage',
                             services1: '8 Services',
                             title1: 'IT & Consulting',
                             // ----------
-                            serviceid2: '2',
+                            categoryid2: '',
                             iconAsset2: 'category[1]!.categoryImage',
                             services2: '1 Services',
                             title2: 'Telecommunication',
@@ -106,12 +106,12 @@ class _JobHomeState extends State<JobHome> {
                           const SizedBox(height: 25.0),
 
                           const JobSpace(
-                            serviceid1: '1',
+                            categoryid1: '',
                             iconAsset1: 'category[0]!.categoryImage',
                             services1: '8 Services',
                             title1: 'IT & Consulting',
                             // ----------
-                            serviceid2: '2',
+                            categoryid2: '',
                             iconAsset2: 'category[1]!.categoryImage',
                             services2: '1 Services',
                             title2: 'Telecommunication',
