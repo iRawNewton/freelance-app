@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:freelance_app/models/experience_model.dart';
 import 'package:freelance_app/models/users_model.dart';
 import 'package:freelance_app/presentation/user/drawer/user_drawer.dart';
-import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:freelance_app/resources/widgets/footer.dart';
 import 'package:freelance_app/resources/widgets/timeline/experience/exp_timeline_tile.dart';
 import 'package:freelance_app/services/get_remote_services.dart';

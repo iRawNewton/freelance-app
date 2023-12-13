@@ -57,7 +57,7 @@ class _JobDescriptionState extends State<JobDescription> {
       // projectSubcategory,
       ) async {
     var response = await JobRemoteService().applyJob(
-      '1',
+      '2',
       '18',
       'yes',
     );
@@ -65,9 +65,9 @@ class _JobDescriptionState extends State<JobDescription> {
     //   isLoading = false;
     // });
 
-    if (response == 'Successfully uploaded') {
+    if (response == 200) {
       setState(() {
-        customSnackBar(context, 'Product Uploaded Successfully',
+        customSnackBar(context, 'Job Applied Successfully',
             CustomColors.success, Colors.white);
         // navigateToPage(
         //   context,

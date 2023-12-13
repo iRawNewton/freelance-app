@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../resources/constants/strings.dart';
 
 class JobRemoteService {
-  Future<String> applyJob(jobId, userId, status) async {
+  Future<int> applyJob(jobId, userId, status) async {
     String baseUrl = ConstStrings.baseUrl;
     String apiUrl = '$baseUrl/job/job_applicants.php';
 
@@ -15,12 +14,9 @@ class JobRemoteService {
     });
 
     if (response.statusCode == 200) {
-      debugPrint('done');
-
-      return response.body;
+      return response.statusCode;
     } else {
-      debugPrint('not done');
-      return response.body;
+      return response.statusCode;
     }
   }
 }
