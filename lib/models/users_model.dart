@@ -25,6 +25,9 @@ class Users {
   String residenceCity;
   String userBio;
   String profilePictureUrl;
+  String freelanceProjects;
+  String serviceProjects;
+  String jobPostsCount;
 
   Users({
     required this.userId,
@@ -41,6 +44,9 @@ class Users {
     required this.residenceCity,
     required this.userBio,
     required this.profilePictureUrl,
+    required this.freelanceProjects,
+    required this.serviceProjects,
+    required this.jobPostsCount,
   });
 
   factory Users.fromJson(Map<String, dynamic> json) => Users(
@@ -58,6 +64,9 @@ class Users {
         residenceCity: json["residence_city"],
         userBio: json["user_bio"],
         profilePictureUrl: json["profile_picture_url"],
+        freelanceProjects: json["freelanceProjects"],
+        serviceProjects: json["serviceProjects"],
+        jobPostsCount: json["jobPostsCount"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -75,5 +84,8 @@ class Users {
         "residence_city": residenceCity,
         "user_bio": userBio,
         "profile_picture_url": profilePictureUrl,
+        "freelanceProjects": freelanceProjects,
+        "serviceProjects": serviceProjects,
+        "jobPostsCount": jobPostsCount,
       };
 }

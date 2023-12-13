@@ -67,6 +67,7 @@ dependencies:
   glassmorphism: ^3.0.0
   agora_rtc_engine: ^6.2.4
   gap: ^3.0.1
+  choice: ^2.3.0
 
 dev_dependencies:
   flutter_test:

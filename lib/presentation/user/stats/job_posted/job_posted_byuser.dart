@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_app/presentation/user/stats/job_posted/view_applicants.dart';
-import 'package:freelance_app/resources/functions/navigate_page.dart';
-import 'package:freelance_app/resources/widgets/buttons.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../job/home/views/job_carousel.dart';
 import '../../../../models/job_models/job_model.dart';
-import '../../../../resources/constants/colors.dart';
 import '../../../../resources/widgets/appbar.dart';
 import '../../../../services/job_services/get_job_info.dart';
+import 'job_list.dart';
 
 class JobPostedByUser extends StatefulWidget {
-  const JobPostedByUser({super.key});
+  const JobPostedByUser({super.key, required this.userId});
+  final String userId;
 
   @override
   State<JobPostedByUser> createState() => _JobPostedByUserState();
@@ -20,22 +17,19 @@ class JobPostedByUser extends StatefulWidget {
 class _JobPostedByUserState extends State<JobPostedByUser> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late Future getFutureMethodVariable;
-  List<JobDetails>? categoriesInfo;
+  List<JobDetails>? jobList;
 
-  Future<List<JobDetails>?> getFutureMethod() async {
-    categoriesInfo = await GetJobRemoteServices().getCategoriesList(
-      id: 'your_id_value',
-      categoryName: 'your_category_name_value',
-      categoryImage: 'your_category_image_value',
-      serviceId: 'your_service_id_value',
+  Future<List<JobDetails>?> getFutureMethod(String id) async {
+    jobList = await GetJobRemoteServices().getJobListByUser(
+      id: id,
       orderBy: 'your_order_by_value',
     );
-    return categoriesInfo;
+    return jobList;
 
-    // Handle the result (categoriesInfo) as needed
-    // if (categoriesInfo != null) {
+    // Handle the result (jobList) as needed
+    // if (jobList != null) {
     //   // Categories were successfully retrieved
-    //   debugPrint('Categories: ${categoriesInfo[0].jobTitle}');
+    //   debugPrint('Categories: ${jobList[0].jobTitle}');
     // } else {
     //  // Handle the case when there was an error or no data was retrieved
     //   print('Failed to retrieve categories.');
@@ -45,7 +39,7 @@ class _JobPostedByUserState extends State<JobPostedByUser> {
   @override
   void initState() {
     // await getFutureMethod();
-    // print(categoriesInfo![0].companyName);
+    // print(jobList![0].companyName);
     super.initState();
   }
 
@@ -68,7 +62,7 @@ class _JobPostedByUserState extends State<JobPostedByUser> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   FutureBuilder(
-                    future: getFutureMethod(),
+                    future: getFutureMethod('18'),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
@@ -78,32 +72,31 @@ class _JobPostedByUserState extends State<JobPostedByUser> {
                         return ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: categoriesInfo!.length,
+                          itemCount: jobList!.length,
                           itemBuilder: (context, index) {
                             return Center(
-                              child: JobCarousel(
-                                jobId: categoriesInfo![index].jobId,
-                                jobTitle: categoriesInfo![index].jobTitle,
-                                jobType: categoriesInfo![index].jobType,
-                                companyName: categoriesInfo![index].companyName,
-                                jobLocation: categoriesInfo![index].location,
-                                salaryMin: categoriesInfo![index].salaryMin,
-                                salaryMax: categoriesInfo![index].salaryMax,
+                              child: JobByUser(
+                                jobId: jobList![index].jobId,
+                                jobTitle: jobList![index].jobTitle,
+                                jobType: jobList![index].jobType,
+                                companyName: jobList![index].companyName,
+                                jobLocation: jobList![index].location,
+                                salaryMin: jobList![index].salaryMin,
+                                salaryMax: jobList![index].salaryMax,
                                 shortDescription:
-                                    categoriesInfo![index].shortDescription,
+                                    jobList![index].shortDescription,
                                 longDescription:
-                                    categoriesInfo![index].longDescription,
+                                    jobList![index].longDescription,
                                 jobRequirements:
-                                    categoriesInfo![index].jobRequirements,
+                                    jobList![index].jobRequirements,
                                 jobResponsibilities:
-                                    categoriesInfo![index].jobResponsibilities,
+                                    jobList![index].jobResponsibilities,
                                 jobQualification:
-                                    categoriesInfo![index].qualifications,
-                                jobSkills: categoriesInfo![index].skills,
-                                jobCategoryName:
-                                    categoriesInfo![index].categoryName,
+                                    jobList![index].qualifications,
+                                jobSkills: jobList![index].skills,
+                                jobCategoryName: jobList![index].categoryName,
                                 jobSubCategoryName:
-                                    categoriesInfo![index].subcategoryName,
+                                    jobList![index].subcategoryName,
                               ),
                             );
                             // return Center(child: Text('data'));
@@ -112,15 +105,16 @@ class _JobPostedByUserState extends State<JobPostedByUser> {
                       }
                     },
                   ),
-                  const Gap(10),
-                  CustomButton(
-                    color: JobCustomColors.green,
-                    title: 'View all applicants',
-                    textColor: Colors.white,
-                    onPressed: () {
-                      navigateToPage(context, const JobApplicationList());
-                    },
-                  )
+                  const Gap(20),
+
+                  // CustomButton(
+                  //   color: JobCustomColors.green,
+                  //   title: 'View all applicants',
+                  //   textColor: Colors.white,
+                  //   onPressed: () {
+                  //     navigateToPage(context, const JobApplicationList());
+                  //   },
+                  // )
                 ],
               ),
             ),

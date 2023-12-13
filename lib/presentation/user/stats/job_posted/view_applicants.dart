@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_app/presentation/user/stats/job_posted/applicants_data.dart';
+import 'package:freelance_app/resources/functions/navigate_page.dart';
 import 'package:freelance_app/resources/widgets/appbar.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
 import 'package:gap/gap.dart';
@@ -28,8 +30,8 @@ class _JobApplicationListState extends State<JobApplicationList> {
               decoration: const BoxDecoration(),
               child: Column(
                 children: [
-                  Gap(10),
-                  CustomText(
+                  const Gap(10),
+                  const CustomText(
                     title: 'List of all applicants',
                     size: 24.0,
                     color: Colors.black,
@@ -38,14 +40,20 @@ class _JobApplicationListState extends State<JobApplicationList> {
 
                   // users list
                   ListTile(
-                    leading: CircleAvatar(),
-                    title: CustomText(
+                    leading: const CircleAvatar(),
+                    title: const CustomText(
                       title: 'Gaurab Roy',
                       size: 16.0,
                       color: Colors.black,
                     ),
-                    trailing:
-                        IconButton(onPressed: () {}, icon: Icon(Icons.abc)),
+                    trailing: IconButton(
+                      onPressed: () {
+                        navigateToPage(context, const ApplicantData());
+                      },
+                      icon: const Icon(
+                        Icons.arrow_right,
+                      ),
+                    ),
                   ),
                 ],
               ),

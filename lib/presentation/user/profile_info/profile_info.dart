@@ -132,7 +132,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 // ^ name
                                                 CustomText(
                                                   title:
-                                                      '${users![index].firstName} ${users![0].lastName}',
+                                                      '${users![index].firstName} ${users![index].lastName}',
                                                   size: 16.0,
                                                   color: Colors.black,
                                                   weight: FontWeight.bold,
@@ -224,16 +224,21 @@ class _UserProfileState extends State<UserProfile> {
                                           // ^ first stat
                                           UserProfileStats(
                                             onTap1: () {
-                                              navigateToPage(context,
-                                                  const JobPostedByUser());
+                                              navigateToPage(
+                                                  context,
+                                                  JobPostedByUser(
+                                                    userId:
+                                                        users![index].userId,
+                                                  ));
                                             },
                                             onTap2: () {},
                                             image1: 'contract.svg',
                                             image2: 'checked.svg',
                                             title1: 'Job Posted',
                                             title2: 'Freelance',
-                                            stat1: '2',
-                                            stat2: '0',
+                                            stat1: users![index].jobPostsCount,
+                                            stat2:
+                                                users![index].freelanceProjects,
                                           ),
 
                                           const SizedBox(height: 15.0),
@@ -246,7 +251,8 @@ class _UserProfileState extends State<UserProfile> {
                                             image2: 'testimonial.svg',
                                             title1: 'Services',
                                             title2: 'Reviews',
-                                            stat1: '1',
+                                            stat1:
+                                                users![index].serviceProjects,
                                             stat2: '0',
                                           ),
                                         ],
@@ -255,50 +261,6 @@ class _UserProfileState extends State<UserProfile> {
                                   ),
 
                                   const SizedBox(height: 30.0),
-
-                                  // ^ posts
-                                  const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 12.0),
-                                    child: CustomText(
-                                      title: 'Posts',
-                                      size: 16.0,
-                                      color: Colors.black87,
-                                      weight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20.0),
-
-                                  // ^ posts data
-                                  SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: [
-                                        Card(
-                                          color: Colors.amber.shade50,
-                                          child: const SizedBox(
-                                            height: 150,
-                                            width: 300,
-                                          ),
-                                        ),
-                                        Card(
-                                          color: Colors.red.shade50,
-                                          child: const SizedBox(
-                                            height: 150,
-                                            width: 300,
-                                          ),
-                                        ),
-                                        Card(
-                                          color: Colors.green.shade50,
-                                          child: const SizedBox(
-                                            height: 150,
-                                            width: 300,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20.0),
 
                                   // ^education
                                   const Padding(
@@ -314,41 +276,44 @@ class _UserProfileState extends State<UserProfile> {
                                   const SizedBox(height: 10.0),
 
                                   // ^ Education view
-                                  Container(
-                                    color: CustomColors.accentColor2,
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          12.0, 28.0, 12.0, 16.0),
-                                      child: ListView.builder(
-                                          shrinkWrap: true,
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          itemCount: education!.length,
-                                          itemBuilder: (context, index) {
-                                            // ^ Education view
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      color: CustomColors.accentColor2,
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            12.0, 28.0, 12.0, 16.0),
+                                        child: ListView.builder(
+                                            shrinkWrap: true,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            itemCount: education!.length,
+                                            itemBuilder: (context, index) {
+                                              // ^ Education view
 
-                                            return CustomTimelineTile(
-                                              iconData: Icons.school,
-                                              // isFirst: true,
-                                              isFirst:
-                                                  (index == 1) ? true : false,
-                                              isLast: (index ==
-                                                      (education!.length) - 1)
-                                                  ? true
-                                                  : false,
-                                              isPast: true,
-                                              instituteName: education![index]
-                                                  .institutionName,
-                                              degree: education![index]
-                                                  .degreeObtained,
-                                              year:
-                                                  '${DateFormat('MMMM').format(education![index].startDate)} ${DateFormat('yyyy').format(education![index].startDate)} - ${DateFormat('yyyy').format(education![index].endDate)}',
-                                              grade:
-                                                  'Grade: ${education![index].gradeOrGpa}',
-                                              studyField: education![index]
-                                                  .fieldOfStudy,
-                                            );
-                                          }),
+                                              return CustomTimelineTile(
+                                                iconData: Icons.school,
+                                                // isFirst: true,
+                                                isFirst:
+                                                    (index == 1) ? true : false,
+                                                isLast: (index ==
+                                                        (education!.length) - 1)
+                                                    ? true
+                                                    : false,
+                                                isPast: true,
+                                                instituteName: education![index]
+                                                    .institutionName,
+                                                degree: education![index]
+                                                    .degreeObtained,
+                                                year:
+                                                    '${DateFormat('MMMM').format(education![index].startDate)} ${DateFormat('yyyy').format(education![index].startDate)} - ${DateFormat('yyyy').format(education![index].endDate)}',
+                                                grade:
+                                                    'Grade: ${education![index].gradeOrGpa}',
+                                                studyField: education![index]
+                                                    .fieldOfStudy,
+                                              );
+                                            }),
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(height: 20.0),
@@ -367,42 +332,46 @@ class _UserProfileState extends State<UserProfile> {
                                   const SizedBox(height: 10.0),
 
                                   // ^ experience view
-                                  Container(
-                                    color: CustomColors.accentColor2,
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          12.0, 28.0, 12.0, 16.0),
-                                      child: ListView.builder(
-                                          shrinkWrap: true,
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          itemCount: exp!.length,
-                                          itemBuilder: (context, index) {
-                                            // ^ Experience view
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      color: CustomColors.accentColor2,
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            12.0, 28.0, 12.0, 16.0),
+                                        child: ListView.builder(
+                                            shrinkWrap: true,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            itemCount: exp!.length,
+                                            itemBuilder: (context, index) {
+                                              // ^ Experience view
 
-                                            return CustomTimelineTileExp(
-                                              iconData: Icons.apartment,
-                                              // isFirst: true,
-                                              isFirst:
-                                                  (index == 1) ? true : false,
-                                              isLast:
-                                                  (index == (exp!.length) - 1)
-                                                      ? true
-                                                      : false,
-                                              isPast: true,
-                                              companyName:
-                                                  exp![index].companyName,
-                                              jobTitle: exp![index].jobTitle,
-                                              description:
-                                                  exp![index].description,
-                                              startDate:
-                                                  '${DateFormat('MMMM').format(education![index].startDate)} ${DateFormat('yyyy').format(education![index].startDate)}',
-                                              endDate: (exp![index].isCurrent ==
-                                                      '1')
-                                                  ? 'Currently Working'
-                                                  : '${DateFormat('MMMM').format(education![index].startDate)} ${DateFormat('yyyy').format(education![index].startDate)}',
-                                            );
-                                          }),
+                                              return CustomTimelineTileExp(
+                                                iconData: Icons.apartment,
+                                                // isFirst: true,
+                                                isFirst:
+                                                    (index == 1) ? true : false,
+                                                isLast:
+                                                    (index == (exp!.length) - 1)
+                                                        ? true
+                                                        : false,
+                                                isPast: true,
+                                                companyName:
+                                                    exp![index].companyName,
+                                                jobTitle: exp![index].jobTitle,
+                                                description:
+                                                    exp![index].description,
+                                                startDate:
+                                                    '${DateFormat('MMMM').format(education![index].startDate)} ${DateFormat('yyyy').format(education![index].startDate)}',
+                                                endDate: (exp![index]
+                                                            .isCurrent ==
+                                                        '1')
+                                                    ? 'Currently Working'
+                                                    : '${DateFormat('MMMM').format(education![index].startDate)} ${DateFormat('yyyy').format(education![index].startDate)}',
+                                              );
+                                            }),
+                                      ),
                                     ),
                                   ),
 

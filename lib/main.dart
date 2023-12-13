@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
           ProfileInfoBloc()..add(ProfileInfoLoadedEvent() as ProfileInfoEvent),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Freelancer Application',
+        title: 'CFC Contract',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade900),
           useMaterial3: true,
