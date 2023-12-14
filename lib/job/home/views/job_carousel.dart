@@ -92,7 +92,6 @@ class _JobCarouselState extends State<JobCarousel> {
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(7.0),
-                              // TODO neumorphic
                               child: SizedBox(
                                 child: Image.network(
                                     'https://htmldemo.net/finate/finate/assets/img/companies/1.webp'),

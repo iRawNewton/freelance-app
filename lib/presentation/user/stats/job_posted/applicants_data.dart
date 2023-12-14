@@ -16,8 +16,8 @@ import '../../../../resources/widgets/text_widget.dart';
 import '../../../../resources/widgets/timeline/education/timeline_tile.dart';
 
 class ApplicantData extends StatefulWidget {
-  const ApplicantData({super.key});
-
+  const ApplicantData({super.key, required this.userId});
+  final String userId;
   @override
   State<ApplicantData> createState() => _ApplicantDataState();
 }

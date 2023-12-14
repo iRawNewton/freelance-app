@@ -93,7 +93,6 @@ class _JobByUserState extends State<JobByUser> {
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(7.0),
-                              // TODO neumorphic
                               child: SizedBox(
                                 child: Image.network(
                                     'https://htmldemo.net/finate/finate/assets/img/companies/1.webp'),
@@ -188,7 +187,11 @@ class _JobByUserState extends State<JobByUser> {
                           title: 'View Applicants',
                           textColor: Colors.white,
                           onPressed: () {
-                            navigateToPage(context, const JobApplicationList());
+                            navigateToPage(
+                                context,
+                                JobApplicationList(
+                                  jobId: widget.jobId,
+                                ));
                             // navigateToPage(
                             //   context,
                             //   JobDescription(

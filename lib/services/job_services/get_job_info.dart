@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:freelance_app/models/job_models/job_model.dart';
 import 'package:http/http.dart' as http;
+
+import '../../models/job_models/user_id.dart';
 
 import '../../resources/constants/strings.dart';
 
@@ -83,7 +86,7 @@ class GetJobRemoteServices {
       }
     } catch (e) {
       // Handle exceptions here (e.g., network errors, timeouts, etc.)
-      print('Error: $e');
+      debugPrint('Error: $e');
     }
 
     return null;
@@ -119,7 +122,72 @@ class GetJobRemoteServices {
       }
     } catch (e) {
       // Handle exceptions here (e.g., network errors, timeouts, etc.)
-      print('Error: $e');
+      debugPrint('Error: $e');
+    }
+
+    return null;
+  }
+
+  Future<List<UserIdModel>?> getUserIdbyEmail({
+    String? email,
+  }) async {
+    const String baseUrl = ConstStrings.baseUrl;
+    const String apiUrl = '$baseUrl/users/user_id.php';
+
+    // Create query parameters
+    final Map<String, String?> headers = {
+      'email': email,
+    };
+
+    try {
+      final http.Response response = await http
+          .get(Uri.parse(apiUrl).replace(queryParameters: headers))
+          .timeout(const Duration(seconds: 30));
+
+      if (response.statusCode == 200) {
+        List<dynamic> jsonResponse = jsonDecode(response.body);
+
+        List<UserIdModel> userIdFromApi =
+            jsonResponse.map((data) => UserIdModel.fromJson(data)).toList();
+
+        return userIdFromApi;
+      }
+    } catch (e) {
+      // Handle exceptions here (e.g., network errors, timeouts, etc.)
+      debugPrint('Error: $e');
+    }
+
+    return null;
+  }
+
+  Future<List<ApplicantDataModel>?> getApplicantData({
+    String? jobId,
+  }) async {
+    const String baseUrl = ConstStrings.baseUrl;
+    const String apiUrl = '$baseUrl/job/job_applicants.php';
+
+    // Create query parameters
+    final Map<String, String?> headers = {
+      'job_id': jobId,
+    };
+
+    try {
+      final http.Response response = await http
+          .get(Uri.parse(apiUrl).replace(queryParameters: headers))
+          .timeout(const Duration(seconds: 30));
+
+      if (response.statusCode == 200) {
+        List<dynamic> jsonResponse = jsonDecode(response.body);
+
+        List<ApplicantDataModel> applicantData = jsonResponse
+            .map((data) => ApplicantDataModel.fromJson(data))
+            .toList();
+
+        return applicantData;
+      }
+    } catch (e) {
+      // Handle exceptions here (e.g., network errors, timeouts, etc.)
+      debugPrint('Error: $e');
     }
 
     return null;

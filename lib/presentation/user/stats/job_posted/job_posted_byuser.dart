@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../models/job_models/job_model.dart';
+import '../../../../models/job_models/user_id.dart';
 import '../../../../resources/widgets/appbar.dart';
 import '../../../../services/job_services/get_job_info.dart';
 import 'job_list.dart';
@@ -15,31 +17,46 @@ class JobPostedByUser extends StatefulWidget {
 }
 
 class _JobPostedByUserState extends State<JobPostedByUser> {
+  // variables
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  late Future getFutureMethodVariable;
-  List<JobDetails>? jobList;
 
-  Future<List<JobDetails>?> getFutureMethod(String id) async {
+  String userEmail =
+      FirebaseAuth.instance.currentUser!.email ?? ''; // email from firebase
+
+  String uId = '';
+  List<JobDetails>? jobList;
+  List<UserIdModel>? userIdFromApi;
+  late Future getFutureMethodVariable; // future variable
+
+  // ^ job data
+  Future<List<JobDetails>?> getFutureMethod() async {
+    await getIdofUser(userEmail);
+
     jobList = await GetJobRemoteServices().getJobListByUser(
-      id: id,
+      id: uId,
       orderBy: 'your_order_by_value',
     );
     return jobList;
+  }
 
-    // Handle the result (jobList) as needed
-    // if (jobList != null) {
-    //   // Categories were successfully retrieved
-    //   debugPrint('Categories: ${jobList[0].jobTitle}');
-    // } else {
-    //  // Handle the case when there was an error or no data was retrieved
-    //   print('Failed to retrieve categories.');
-    // }
+  // ^ get id by email
+  Future<List<UserIdModel>?> getIdofUser(String id) async {
+    userIdFromApi = await GetJobRemoteServices().getUserIdbyEmail(
+      email: id,
+    );
+    setState(() {
+      uId = userIdFromApi![0].userId;
+    });
+
+    return userIdFromApi;
   }
 
   @override
   void initState() {
-    // await getFutureMethod();
-    // print(jobList![0].companyName);
+    setState(() {
+      getFutureMethodVariable = getFutureMethod();
+    });
+
     super.initState();
   }
 
@@ -62,7 +79,7 @@ class _JobPostedByUserState extends State<JobPostedByUser> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   FutureBuilder(
-                    future: getFutureMethod('18'),
+                    future: getFutureMethodVariable,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
