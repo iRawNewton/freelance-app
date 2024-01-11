@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -71,10 +70,7 @@ class BlogSection extends StatelessWidget {
                       topLeft: Radius.circular(8.0),
                       topRight: Radius.circular(8.0),
                     ),
-                    child: CachedNetworkImage(
-                      imageUrl:
-                          'https://demoapus1.com/freeio/wp-content/uploads/elementor/thumbs/blog1-py2khtjwrnw0b3grtsble8dlu9uoigamwm9lqxh46e.jpg',
-                    ),
+                    child: Image.asset('lib/resources/assets/images/blog.jpg'),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:freelance_app/presentation/global/drawer/global_drawer.dart';
 import 'package:freelance_app/presentation/global/home/views/blog.dart';
@@ -217,9 +216,7 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 24.0),
                   const StaticSectionOne(),
                   SizedBox(
-                    child: CachedNetworkImage(
-                        imageUrl:
-                            'https://demoapus1.com/freeio/wp-content/uploads/2022/09/h1.jpg'),
+                    child: Image.asset('lib/resources/assets/images/h1.jpg'),
                   ),
                   const SizedBox(height: 24.0),
                   const StatsApp(),

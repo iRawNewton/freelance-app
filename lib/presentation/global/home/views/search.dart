@@ -1,6 +1,4 @@
 import 'dart:ui';
-import 'package:cached_network_image/cached_network_image.dart';
-// import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,8 +43,7 @@ class _HomeWidget1State extends State<HomeWidget1> {
       width: MediaQuery.sizeOf(context).width,
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: CachedNetworkImageProvider(
-              'https://demoapus1.com/freeio/wp-content/uploads/2022/10/slider1.jpg'),
+          image: AssetImage('lib/resources/assets/images/slider1.jpg'),
           fit: BoxFit.fitHeight,
         ),
       ),

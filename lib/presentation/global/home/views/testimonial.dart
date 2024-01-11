@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -31,9 +30,7 @@ class _TestimonialSectionState extends State<TestimonialSection> {
             ),
           ),
           const SizedBox(height: 24.0),
-          CachedNetworkImage(
-              imageUrl:
-                  'https://demoapus1.com/freeio/wp-content/uploads/2022/09/icon-test.png'),
+          Image.asset('lib/resources/assets/images/icon-test.png'),
           const SizedBox(height: 16.0),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),

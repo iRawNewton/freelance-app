@@ -289,7 +289,6 @@ class _JobDescriptionState extends State<JobDescription> {
                                 titleSize: 16.0,
                                 weight: FontWeight.w500,
                                 onPressed: () {
-                                  // TODO: POST BUTTON API
                                   applyJob();
                                 },
                               ),

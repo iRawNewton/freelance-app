@@ -80,7 +80,7 @@ class _CategoryPageState extends State<CategoryPage> {
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: CachedNetworkImageProvider(
-                            'https://demoapus1.com/freeio/wp-content/uploads/2022/09/bg-filter1.jpg'),
+                            'https://demoapus1.com/freeio-new/wp-content/uploads/2022/09/bg-filter1.jpg'),
                         fit: BoxFit.fitHeight,
                       ),
                     ),
@@ -135,7 +135,7 @@ class _CategoryPageState extends State<CategoryPage> {
                               ),
                               const SizedBox(width: 20.0),
                               Text(
-                                'How Freeio Works',
+                                'How CFC Works',
                                 style: GoogleFonts.roboto(
                                   fontSize: 14.0,
                                   color: Colors.black87,
