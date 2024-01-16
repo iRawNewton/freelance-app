@@ -251,43 +251,38 @@ class _CategoryPageState extends State<CategoryPage> {
                               ],
                             ),
                           ),
+                          // TODO: FREELANCE FROM HERE
                           child: FutureBuilder(
                             future: categoryProductList(),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return ListView.builder(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount: projectsList.length,
-                                    itemBuilder: (context, index) {
-                                      // return Text(projectsList[index].categoryName);
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 10.0,
-                                        ),
-                                        child: ProductList(
-                                          // $productImage/${projectsList[index].images}
-                                          productId:
-                                              projectsList[index].projectId,
-                                          imgUrl:
-                                              '$productImage${projectsList[index].images.gallery1}',
-                                          category:
-                                              projectsList[index].categoryName,
-                                          title:
-                                              projectsList[index].projectTitle,
-                                          user:
-                                              '${projectsList[index].firstName} ${projectsList[index].lastName}',
-                                          price: '29',
-                                        ),
-                                      );
-                                    });
-                              }
-
-                              // else if(projectsList.length ) {
-
-                              // }
-                              else {
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: projectsList.length,
+                                  itemBuilder: (context, index) {
+                                    // return Text(projectsList[index].categoryName);
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 10.0,
+                                      ),
+                                      child: ProductList(
+                                        // $productImage/${projectsList[index].images}
+                                        productId:
+                                            projectsList[index].projectId,
+                                        imgUrl:
+                                            '$productImage${projectsList[index].images.gallery1}',
+                                        category:
+                                            projectsList[index].categoryName,
+                                        title: projectsList[index].projectTitle,
+                                        user:
+                                            '${projectsList[index].firstName} ${projectsList[index].lastName}',
+                                        price: '29',
+                                      ),
+                                    );
+                                  },
+                                );
+                              } else {
                                 return const ProductListLoading();
                               }
                             },

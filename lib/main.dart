@@ -4,6 +4,8 @@ import 'logic/bloc/profile_info_bloc.dart';
 import 'presentation/global/home/home.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// fix profile stats number
+
 void main() async {
   // firebase
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,12 +29,9 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade900),
           useMaterial3: true,
         ),
-
         home: const HomePage(),
         // home: const MyTestWidgettoCheck(),
       ),
     );
   }
 }
-
-// seller

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:freelance_app/models/experience_model.dart';
 import 'package:freelance_app/models/users_model.dart';
 import 'package:freelance_app/presentation/user/drawer/user_drawer.dart';
+import 'package:freelance_app/presentation/user/stats/freelance_posted/freelance_posted.dart';
 import 'package:freelance_app/presentation/user/stats/job_posted/job_posted_byuser.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:freelance_app/resources/functions/navigate_page.dart';
@@ -231,7 +232,12 @@ class _UserProfileState extends State<UserProfile> {
                                                         users![index].userId,
                                                   ));
                                             },
-                                            onTap2: () {},
+                                            onTap2: () {
+                                              navigateToPage(
+                                                context,
+                                                const FreelancePostedByUser(),
+                                              );
+                                            },
                                             image1: 'contract.svg',
                                             image2: 'checked.svg',
                                             title1: 'Job Posted',

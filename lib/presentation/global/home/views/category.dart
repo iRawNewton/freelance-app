@@ -170,7 +170,7 @@ class _CategorySpaceState extends State<CategorySpace> {
                   ),
                   const SizedBox(height: 24.0),
                   Text(
-                    widget.services1,
+                    widget.services2,
                     style: GoogleFonts.roboto(
                       fontSize: 13.0,
                       fontWeight: FontWeight.w400,
