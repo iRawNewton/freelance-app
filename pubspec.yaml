@@ -67,6 +67,7 @@ dependencies:
   glassmorphism: ^3.0.0
   gap: ^3.0.1
   choice: ^2.3.0
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:

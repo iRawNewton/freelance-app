@@ -178,37 +178,33 @@ class _JobCarouselState extends State<JobCarousel> {
                             color: JobCustomColors.textColor,
                           ),
                           const Spacer(),
-                          Hero(
-                            tag: 'tag-1',
-                            transitionOnUserGestures: true,
-                            child: CustomButton(
-                              color: JobCustomColors.green,
-                              title: 'See More',
-                              textColor: Colors.white,
-                              onPressed: () {
-                                navigateToPage(
-                                  context,
-                                  JobDescription(
-                                    jobId: widget.jobId,
-                                    jobTitle: widget.jobTitle,
-                                    jobType: widget.jobType,
-                                    companyName: widget.companyName,
-                                    jobLocation: widget.jobLocation,
-                                    salaryMin: widget.salaryMin,
-                                    salaryMax: widget.salaryMax,
-                                    shortDescription: widget.shortDescription,
-                                    longDescription: widget.longDescription,
-                                    jobRequirements: widget.jobRequirements,
-                                    jobResponsibilities:
-                                        widget.jobResponsibilities,
-                                    jobQualification: widget.jobQualification,
-                                    jobSkills: widget.jobSkills,
-                                    jobCategory: widget.jobCategoryName,
-                                    jobSubCategory: widget.jobSubCategoryName,
-                                  ),
-                                );
-                              },
-                            ),
+                          CustomButton(
+                            color: JobCustomColors.green,
+                            title: 'See More',
+                            textColor: Colors.white,
+                            onPressed: () {
+                              navigateToPage(
+                                context,
+                                JobDescription(
+                                  jobId: widget.jobId,
+                                  jobTitle: widget.jobTitle,
+                                  jobType: widget.jobType,
+                                  companyName: widget.companyName,
+                                  jobLocation: widget.jobLocation,
+                                  salaryMin: widget.salaryMin,
+                                  salaryMax: widget.salaryMax,
+                                  shortDescription: widget.shortDescription,
+                                  longDescription: widget.longDescription,
+                                  jobRequirements: widget.jobRequirements,
+                                  jobResponsibilities:
+                                      widget.jobResponsibilities,
+                                  jobQualification: widget.jobQualification,
+                                  jobSkills: widget.jobSkills,
+                                  jobCategory: widget.jobCategoryName,
+                                  jobSubCategory: widget.jobSubCategoryName,
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),

@@ -192,4 +192,38 @@ class GetJobRemoteServices {
 
     return null;
   }
+
+  // only for services
+  Future<List<ApplicantDataModel>?> getServicesApplicantData({
+    String? serviceId,
+  }) async {
+    const String baseUrl = ConstStrings.baseUrl;
+    const String apiUrl = '$baseUrl/job/job_applicants.php';
+
+    // Create query parameters
+    final Map<String, String?> headers = {
+      'job_id': serviceId,
+    };
+
+    try {
+      final http.Response response = await http
+          .get(Uri.parse(apiUrl).replace(queryParameters: headers))
+          .timeout(const Duration(seconds: 30));
+
+      if (response.statusCode == 200) {
+        List<dynamic> jsonResponse = jsonDecode(response.body);
+
+        List<ApplicantDataModel> applicantData = jsonResponse
+            .map((data) => ApplicantDataModel.fromJson(data))
+            .toList();
+
+        return applicantData;
+      }
+    } catch (e) {
+      // Handle exceptions here (e.g., network errors, timeouts, etc.)
+      debugPrint('Error: $e');
+    }
+
+    return null;
+  }
 }

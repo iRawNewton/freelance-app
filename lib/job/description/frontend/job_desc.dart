@@ -1,3 +1,5 @@
+// TODO: 1 FEB FRONTEND
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:freelance_app/job/description/backend/job_post_service.dart';
@@ -8,6 +10,7 @@ import 'package:freelance_app/resources/widgets/buttons.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
 import '../../../resources/widgets/appbar.dart';
 import '../../../resources/widgets/snackbar.dart';
+import '../model/user_idmodel.dart';
 
 class JobDescription extends StatefulWidget {
   const JobDescription({
@@ -50,29 +53,26 @@ class JobDescription extends StatefulWidget {
 
 class _JobDescriptionState extends State<JobDescription> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  bool jobApplied = false;
 
-  Future<dynamic> applyJob(
-      // userId,
-      // projectCategory,
-      // projectSubcategory,
-      ) async {
+  Future<dynamic> applyJob(jobId) async {
+    //get user id
+    List<UseridModel> responseId = [];
+    responseId = await JobRemoteService()
+        .getUserId(FirebaseAuth.instance.currentUser!.email);
+
+    // then here
     var response = await JobRemoteService().applyJob(
-      '2',
-      '18',
+      jobId,
+      responseId[0].userId,
       'yes',
     );
-    // setState(() {
-    //   isLoading = false;
-    // });
 
     if (response == 200) {
+      checkJobAvailablity(widget.jobId);
       setState(() {
         customSnackBar(context, 'Job Applied Successfully',
             CustomColors.success, Colors.white);
-        // navigateToPage(
-        //   context,
-        //   const HomePage(),
-        // );
       });
     } else {
       setState(() {
@@ -81,6 +81,36 @@ class _JobDescriptionState extends State<JobDescription> {
       });
     }
     return response;
+  }
+
+  Future<dynamic> checkJobAvailablity(jobId) async {
+    //get user id
+    List<UseridModel> responseId = [];
+    responseId = await JobRemoteService()
+        .getUserId(FirebaseAuth.instance.currentUser!.email);
+
+    // then here
+    var response = await JobRemoteService().jobApplied(
+      responseId[0].userId,
+      jobId,
+    );
+
+    if (int.parse(response) <= 0) {
+      setState(() {
+        jobApplied = true;
+      });
+    } else {
+      setState(() {
+        jobApplied = false;
+      });
+    }
+    return response;
+  }
+
+  @override
+  void initState() {
+    checkJobAvailablity(widget.jobId);
+    super.initState();
   }
 
   @override
@@ -95,15 +125,14 @@ class _JobDescriptionState extends State<JobDescription> {
               onTap: () => _scaffoldKey.currentState?.openDrawer(),
             ),
           ],
-          body: SizedBox(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  // ^ job title
-                  Hero(
-                    tag: 'tag-1',
-                    transitionOnUserGestures: true,
-                    child: Container(
+          body: Hero(
+            tag: 'tag-1',
+            child: SizedBox(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // ^ job title
+                    Container(
                       width: double.infinity,
                       color: const Color(0xff081721),
                       child: Padding(
@@ -115,7 +144,6 @@ class _JobDescriptionState extends State<JobDescription> {
 
                             // ^ job type | full time| Part time| Remote
                             SizedBox(
-                              width: 100.0,
                               height: 30.0,
                               child: CustomButton(
                                 color: const Color(0xff7BBD15),
@@ -280,37 +308,51 @@ class _JobDescriptionState extends State<JobDescription> {
 
                             // ^ apply button
                             const SizedBox(height: 10.0),
-                            SizedBox(
-                              width: MediaQuery.sizeOf(context).width * 0.9,
-                              child: CustomButton(
-                                color: JobCustomColors.green,
-                                title: 'Apply Now',
-                                textColor: Colors.white,
-                                titleSize: 16.0,
-                                weight: FontWeight.w500,
-                                onPressed: () {
-                                  applyJob();
-                                },
-                              ),
-                            ),
+                            jobApplied
+                                ? SizedBox(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.9,
+                                    child: CustomButton(
+                                      color: JobCustomColors.green,
+                                      title: 'Apply Now',
+                                      textColor: Colors.white,
+                                      titleSize: 16.0,
+                                      weight: FontWeight.w500,
+                                      onPressed: () {
+                                        applyJob(widget.jobId);
+                                      },
+                                    ),
+                                  )
+                                : SizedBox(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.9,
+                                    child: CustomButton(
+                                      color: JobCustomColors.green,
+                                      title: 'Applied',
+                                      textColor: Colors.white,
+                                      titleSize: 16.0,
+                                      weight: FontWeight.w500,
+                                      onPressed: () {},
+                                    ),
+                                  ),
                           ],
                         ),
                       ),
                     ),
-                  ),
 
-                  // ^ ==============================
-                  // * job details starts
-                  // ^ ==============================
+                    // ^ ==============================
+                    // * job details starts
+                    // ^ ==============================
 
-                  const SizedBox(height: 20.0),
-                  JobDetailsCard(
-                    description: widget.longDescription,
-                    requirements: widget.jobRequirements,
-                    responsiblity: widget.jobResponsibilities,
-                    qualificatonSkill: widget.jobQualification,
-                  ),
-                ],
+                    const SizedBox(height: 20.0),
+                    JobDetailsCard(
+                      description: widget.longDescription,
+                      requirements: widget.jobRequirements,
+                      responsiblity: widget.jobResponsibilities,
+                      qualificatonSkill: widget.jobQualification,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -319,8 +361,6 @@ class _JobDescriptionState extends State<JobDescription> {
     );
   }
 }
-
-
 
 /* 
 Future<dynamic> applyJob(

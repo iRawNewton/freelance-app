@@ -10,6 +10,8 @@ import 'package:freelance_app/resources/widgets/drawer_list.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 
+import '../../../job/description/backend/job_post_service.dart';
+import '../../../job/description/model/user_idmodel.dart';
 import '../../../resources/functions/navigate_page.dart';
 import '../../../job/upload/job_upload.dart';
 import '../../post_service/post_service.dart';
@@ -24,6 +26,24 @@ class UserDrawer extends StatefulWidget {
 class _UserDrawerState extends State<UserDrawer> {
   double _turns = 0.0;
   double _turnsU = 0.0; // for upload product
+  String userId = '';
+
+  getUserId() async {
+    //get user id
+    List<UseridModel> responseId = [];
+    responseId = await JobRemoteService()
+        .getUserId(FirebaseAuth.instance.currentUser!.email);
+    setState(() {
+      userId = responseId[0].userId;
+    });
+  }
+
+  @override
+  void initState() {
+    getUserId();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -228,9 +248,10 @@ class _UserDrawerState extends State<UserDrawer> {
                         padding: const EdgeInsets.only(left: 18.0),
                         child: DrawerList(
                           onTap: () {
-                            // TODO: make userid dynamic
-                            navigateToPage(
-                                context, const ServicePost(userId: '18'));
+                            if (userId.isNotEmpty && userId != '') {
+                              navigateToPage(
+                                  context, ServicePost(userId: userId));
+                            }
                           },
                           icon: Icons.cleaning_services_outlined,
                           title: 'Service',
@@ -240,9 +261,9 @@ class _UserDrawerState extends State<UserDrawer> {
                         padding: const EdgeInsets.only(left: 18.0),
                         child: DrawerList(
                           onTap: () {
-                            // TODO: make userid dynamic
-                            navigateToPage(
-                                context, const JobPost(userId: '18'));
+                            if (userId.isNotEmpty && userId != '') {
+                              navigateToPage(context, JobPost(userId: userId));
+                            }
                           },
                           icon: Icons.work_outline,
                           title: 'Job',

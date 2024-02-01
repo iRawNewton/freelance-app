@@ -10,6 +10,7 @@ import '../models/education_model.dart';
 import '../models/experience_model.dart';
 import '../models/home_model.dart';
 import '../models/product_model.dart';
+import '../models/service_posted.dart';
 import '../models/service_subcategory.dart';
 import '../models/edit_user.dart';
 import '../models/users_model.dart';
@@ -324,6 +325,40 @@ class GetRemoteService {
       if (response.statusCode == 200) {
         // Parse and return the response data
         return categoryModelFromJson(response.body);
+      } else {
+        // Handle non-200 status codes by throwing an exception
+        throw Exception(
+            'HTTP ${response.statusCode}: ${response.reasonPhrase}');
+      }
+    } on TimeoutException catch (e) {
+      // Handle timeout errors.
+      debugPrint('Request timed out: $e');
+      throw TimeoutException('Request timed out');
+    } catch (e) {
+      // Handle other unexpected errors.
+      debugPrint('An error occurred: $e');
+      throw Exception('An error occurred');
+    }
+  }
+
+  // service list based on user
+  Future<List<ServicesPosted>> getServicesPostedFromUser(String userId) async {
+    try {
+      // Define constants for URL and headers
+      const String baseUrl = ConstStrings.baseUrl;
+      const String apiUrl = '$baseUrl/stats/services_posted_by_user.php';
+      final Map<String, String> headers = {'u_id': userId};
+
+      // Create and reuse an HTTP client
+      final http.Client client = http.Client();
+
+      final http.Response response = await client
+          .get(Uri.parse(apiUrl).replace(queryParameters: headers))
+          .timeout(const Duration(seconds: 30));
+
+      if (response.statusCode == 200) {
+        // Parse and return the response data
+        return servicesPostedFromJson(response.body);
       } else {
         // Handle non-200 status codes by throwing an exception
         throw Exception(

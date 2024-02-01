@@ -6,6 +6,7 @@ import 'package:freelance_app/models/users_model.dart';
 import 'package:freelance_app/presentation/user/drawer/user_drawer.dart';
 import 'package:freelance_app/presentation/user/stats/freelance_posted/freelance_posted.dart';
 import 'package:freelance_app/presentation/user/stats/job_posted/job_posted_byuser.dart';
+import 'package:freelance_app/presentation/user/stats/services_posted/services_posted.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:freelance_app/resources/functions/navigate_page.dart';
 import 'package:freelance_app/resources/widgets/footer.dart';
@@ -251,7 +252,12 @@ class _UserProfileState extends State<UserProfile> {
 
                                           // ^ second stat
                                           UserProfileStats(
-                                            onTap1: () {},
+                                            onTap1: () {
+                                              navigateToPage(
+                                                context,
+                                                const ServicePostedList(),
+                                              );
+                                            },
                                             onTap2: () {},
                                             image1: 'sand-clock.svg',
                                             image2: 'testimonial.svg',
