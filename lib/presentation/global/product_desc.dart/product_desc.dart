@@ -1,20 +1,22 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:freelance_app/presentation/global/checkout/checkout.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/basic.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/basic_stats.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/faqs.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/product_title.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/ratings.dart';
-import 'package:freelance_app/resources/functions/navigate_page.dart';
 import 'package:freelance_app/resources/widgets/footer.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
 import 'package:freelance_app/services/get_remote_services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../job/description/backend/job_post_service.dart';
+import '../../../job/description/model/user_idmodel.dart';
 import '../../../models/product_model.dart';
 import '../../../resources/widgets/appbar.dart';
 import '../../../resources/widgets/carousel.dart';
+import '../../../resources/widgets/snackbar.dart';
 
 class ProductDesc extends StatefulWidget {
   const ProductDesc({super.key, required this.productId});
@@ -43,6 +45,64 @@ class _ProductDescState extends State<ProductDesc> {
   Color? proColor;
   Color? premiumColor;
 
+  bool serviceApplied = false;
+
+// apply service
+  Future<dynamic> applyService(serviceId) async {
+    //get user id
+    List<UseridModel> responseId = [];
+    responseId = await JobRemoteService()
+        .getUserId(FirebaseAuth.instance.currentUser!.email);
+
+    // then here
+    var response = await GetRemoteService().applyForService(
+      serviceId,
+      responseId[0].userId,
+      'yes',
+    );
+
+    if (response == 200) {
+      checkServiceAvailablity(widget.productId);
+      setState(() {
+        customSnackBar(context, 'Applied Successfully', CustomColors.success,
+            Colors.white);
+      });
+    } else {
+      setState(() {
+        customSnackBar(context, 'Something went wrong. Please try again!',
+            CustomColors.danger, Colors.white);
+      });
+    }
+    return response;
+  }
+
+  // check whether service has been applied or not
+  Future<dynamic> checkServiceAvailablity(serviceId) async {
+    //get user id
+    List<UseridModel> responseId = [];
+    responseId = await JobRemoteService()
+        .getUserId(FirebaseAuth.instance.currentUser!.email);
+
+    // then here
+    var response = await GetRemoteService().serviceApplied(
+      responseId[0].userId,
+      serviceId,
+    );
+
+    if (int.parse(response) <= 0) {
+      setState(() {
+        serviceApplied = false;
+      });
+    } else {
+      setState(() {
+        serviceApplied = true;
+      });
+    }
+    return response;
+  }
+
+  //
+
   // & get product info
   Future<ProductModel?> getProductDetails(String id) async {
     ProductModel? response = await GetRemoteService().getProductInfo(id);
@@ -60,6 +120,12 @@ class _ProductDescState extends State<ProductDesc> {
     });
 
     return response;
+  }
+
+  @override
+  void initState() {
+    checkServiceAvailablity(widget.productId);
+    super.initState();
   }
 
   @override
@@ -409,42 +475,56 @@ class _ProductDescState extends State<ProductDesc> {
                                         : const SizedBox(),
 
                                     // ^ button
-                                    Directionality(
-                                      textDirection: TextDirection.rtl,
-                                      child: ElevatedButton.icon(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor:
-                                              CustomColors.buttonColor,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
+                                    serviceApplied
+                                        ? ElevatedButton(
+                                            onPressed: () {},
+                                            child: const CustomText(
+                                              title: 'Applied',
+                                              size: 14,
+                                              color: Colors.black,
+                                            ),
+                                          )
+                                        : Directionality(
+                                            textDirection: TextDirection.rtl,
+                                            child: ElevatedButton.icon(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    CustomColors.buttonColor,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                minimumSize: Size(
+                                                  MediaQuery.sizeOf(context)
+                                                          .width *
+                                                      0.9,
+                                                  50.0,
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                // TODO: Avoid checkout for now since no payment
+                                                // navigateToPage(
+                                                //     context, const Checkout());
+                                                applyService(widget.productId);
+                                              },
+                                              icon: const Directionality(
+                                                textDirection:
+                                                    TextDirection.ltr,
+                                                child: Icon(
+                                                  Icons.trending_flat,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              label: Text(
+                                                'Continue',
+                                                style: GoogleFonts.roboto(
+                                                  color: Colors.white,
+                                                  fontSize: 15.0,
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                          minimumSize: Size(
-                                            MediaQuery.sizeOf(context).width *
-                                                0.9,
-                                            50.0,
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          navigateToPage(
-                                              context, const Checkout());
-                                        },
-                                        icon: const Directionality(
-                                          textDirection: TextDirection.ltr,
-                                          child: Icon(
-                                            Icons.trending_flat,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        label: Text(
-                                          'Continue',
-                                          style: GoogleFonts.roboto(
-                                            color: Colors.white,
-                                            fontSize: 15.0,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
                                   ],
                                 )
                               : Column(
@@ -500,42 +580,56 @@ class _ProductDescState extends State<ProductDesc> {
 
                                     // ^ button
                                     const SizedBox(height: 30.0),
-                                    Directionality(
-                                      textDirection: TextDirection.rtl,
-                                      child: ElevatedButton.icon(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor:
-                                              CustomColors.buttonColor,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
+                                    serviceApplied
+                                        ? ElevatedButton(
+                                            onPressed: () {},
+                                            child: const CustomText(
+                                              title: 'Applied',
+                                              size: 14,
+                                              color: Colors.black,
+                                            ),
+                                          )
+                                        : Directionality(
+                                            textDirection: TextDirection.rtl,
+                                            child: ElevatedButton.icon(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    CustomColors.buttonColor,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                minimumSize: Size(
+                                                  MediaQuery.sizeOf(context)
+                                                          .width *
+                                                      0.9,
+                                                  50.0,
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                // TODO: Avoid checkout for now since no payment
+                                                // navigateToPage(
+                                                //     context, const Checkout());
+                                                applyService(widget.productId);
+                                              },
+                                              icon: const Directionality(
+                                                textDirection:
+                                                    TextDirection.ltr,
+                                                child: Icon(
+                                                  Icons.trending_flat,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              label: Text(
+                                                'Continue',
+                                                style: GoogleFonts.roboto(
+                                                  color: Colors.white,
+                                                  fontSize: 15.0,
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                          minimumSize: Size(
-                                            MediaQuery.sizeOf(context).width *
-                                                0.9,
-                                            50.0,
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          navigateToPage(
-                                              context, const Checkout());
-                                        },
-                                        icon: const Directionality(
-                                          textDirection: TextDirection.ltr,
-                                          child: Icon(
-                                            Icons.trending_flat,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        label: Text(
-                                          'Continue',
-                                          style: GoogleFonts.roboto(
-                                            color: Colors.white,
-                                            fontSize: 15.0,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
                                   ],
                                 ),
 

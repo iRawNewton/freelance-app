@@ -374,4 +374,72 @@ class GetRemoteService {
       throw Exception('An error occurred');
     }
   }
+
+  // apply for any service
+  Future<int> applyForService(serviceId, userId, status) async {
+    String baseUrl = ConstStrings.baseUrl;
+    String apiUrl = '$baseUrl/applicants/applicants.php';
+
+    var response = await http.post(
+      Uri.parse(apiUrl),
+      body: {
+        'applied_service_id': serviceId,
+        'applicant_user_id': userId,
+        'application_status': status,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return response.statusCode;
+    } else {
+      return response.statusCode;
+    }
+  }
+
+  // TODO: Working here
+  Future serviceApplied(String? id, String? serviceId) async {
+    try {
+      // Define constants for URL and headers
+      const String baseUrl = ConstStrings.baseUrl;
+      // change url
+      const String apiUrl = '$baseUrl/applicants/service_ifapplied.php';
+      final Map<String, String> headers = {
+        'user_id': id!,
+        'service_id': serviceId!,
+      };
+
+      // Create and reuse an HTTP client
+      final http.Client client = http.Client();
+
+      final http.Response response = await client
+          .get(Uri.parse(apiUrl).replace(queryParameters: headers))
+          .timeout(const Duration(seconds: 30));
+
+      if (response.statusCode == 200) {
+        // Parse and return the response data
+
+        // return useridModelFromJson(response.body);
+        var jsonResponse = jsonDecode(response.body);
+        if (jsonResponse is List && jsonResponse.isNotEmpty) {
+          var total = jsonResponse[0]['total'];
+
+          return total;
+        }
+        // print(jsonDecode(response.body));
+        // return response.body;
+      } else {
+        // Handle non-200 status codes by throwing an exception
+        throw Exception(
+            'HTTP ${response.statusCode}: ${response.reasonPhrase}');
+      }
+    } on TimeoutException catch (e) {
+      // Handle timeout errors.
+      debugPrint('Request timed out: $e');
+      throw TimeoutException('Request timed out');
+    } catch (e) {
+      // Handle other unexpected errors.
+      debugPrint('An error occurred: $e');
+      throw Exception('An error occurred');
+    }
+  }
 }
