@@ -150,21 +150,21 @@ class _UserProfileState extends State<UserProfile> {
                                                 // ^ review
                                                 // TODO: REVIEW NOT DYNAMIC
 
-                                                const Row(
-                                                  children: [
-                                                    CustomText(
-                                                      title: '★',
-                                                      size: 20.0,
-                                                      color: Color(0xffE1C03F),
-                                                    ),
-                                                    CustomText(
-                                                      title:
-                                                          ' 4.5  (56 Reviews)',
-                                                      size: 16.0,
-                                                      color: Colors.black87,
-                                                    ),
-                                                  ],
-                                                ),
+                                                // const Row(
+                                                //   children: [
+                                                //     CustomText(
+                                                //       title: '★',
+                                                //       size: 20.0,
+                                                //       color: Color(0xffE1C03F),
+                                                //     ),
+                                                //     CustomText(
+                                                //       title:
+                                                //           ' 4.5  (56 Reviews)',
+                                                //       size: 16.0,
+                                                //       color: Colors.black87,
+                                                //     ),
+                                                //   ],
+                                                // ),
                                               ],
                                             ),
                                             const SizedBox(),

@@ -4,7 +4,6 @@ import 'package:freelance_app/presentation/global/product_desc.dart/views/basic.
 import 'package:freelance_app/presentation/global/product_desc.dart/views/basic_stats.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/faqs.dart';
 import 'package:freelance_app/presentation/global/product_desc.dart/views/product_title.dart';
-import 'package:freelance_app/presentation/global/product_desc.dart/views/ratings.dart';
 import 'package:freelance_app/resources/widgets/footer.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
@@ -103,7 +102,7 @@ class _ProductDescState extends State<ProductDesc> {
 
   //
 
-  // & get product info
+  // TODO: 6TH Feb & get product info
   Future<ProductModel?> getProductDetails(String id) async {
     ProductModel? response = await GetRemoteService().getProductInfo(id);
 
@@ -113,7 +112,7 @@ class _ProductDescState extends State<ProductDesc> {
       package = response.packages;
 
       (package![0].type == 'multiple') ? isMultiple = true : isMultiple = false;
-
+      // print(productDetails!.isNotEmpty);
       if (productDetails!.isNotEmpty) {
         isLoading = false;
       }
@@ -476,12 +475,15 @@ class _ProductDescState extends State<ProductDesc> {
 
                                     // ^ button
                                     serviceApplied
-                                        ? ElevatedButton(
-                                            onPressed: () {},
-                                            child: const CustomText(
-                                              title: 'Applied',
-                                              size: 14,
-                                              color: Colors.black,
+                                        ? SizedBox(
+                                            width: double.infinity,
+                                            child: ElevatedButton(
+                                              onPressed: () {},
+                                              child: const CustomText(
+                                                title: 'Applied',
+                                                size: 14,
+                                                color: Colors.black,
+                                              ),
                                             ),
                                           )
                                         : Directionality(
@@ -506,6 +508,7 @@ class _ProductDescState extends State<ProductDesc> {
                                                 // TODO: Avoid checkout for now since no payment
                                                 // navigateToPage(
                                                 //     context, const Checkout());
+
                                                 applyService(widget.productId);
                                               },
                                               icon: const Directionality(
@@ -581,12 +584,15 @@ class _ProductDescState extends State<ProductDesc> {
                                     // ^ button
                                     const SizedBox(height: 30.0),
                                     serviceApplied
-                                        ? ElevatedButton(
-                                            onPressed: () {},
-                                            child: const CustomText(
-                                              title: 'Applied',
-                                              size: 14,
-                                              color: Colors.black,
+                                        ? SizedBox(
+                                            width: double.infinity,
+                                            child: ElevatedButton(
+                                              onPressed: () {},
+                                              child: const CustomText(
+                                                title: 'Applied',
+                                                size: 14,
+                                                color: Colors.black,
+                                              ),
                                             ),
                                           )
                                         : Directionality(
@@ -637,7 +643,7 @@ class _ProductDescState extends State<ProductDesc> {
                           // const SizedBox(height: 30.0),
                           // const AboutUsSection(),
                           // const SizedBox(height: 10.0),
-                          const RatingsSection(),
+                          // const RatingsSection(),
                           const SizedBox(height: 30.0),
                           const AppFooter(),
                         ],

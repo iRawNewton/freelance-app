@@ -35,6 +35,8 @@ class _HomePageState extends State<HomePage> {
   List<Category?> serviceCategory = [];
   List<Project?> projects = [];
 
+  Future<Object?>? futureVariable;
+
   Future<HomeModel?> getHomeInfo() async {
     homeData = (await GetRemoteService().getHomeDetails())!;
 
@@ -44,6 +46,15 @@ class _HomePageState extends State<HomePage> {
       serviceCategory = homeData.serviceCategory;
     });
     return homeData;
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      futureVariable = getHomeInfo();
+    });
+
+    super.initState();
   }
 
   @override

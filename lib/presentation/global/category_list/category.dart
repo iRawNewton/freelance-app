@@ -34,12 +34,13 @@ class _CategoryPageState extends State<CategoryPage> {
   ];
 
   final YoutubePlayerController _controller = YoutubePlayerController(
-    initialVideoId: 'J1gE9xvph-A',
+    initialVideoId: 'sPW7nDBqt8w',
   );
 
   String totalProducts = '';
   List<Project> projectsList = [];
   bool isVisible = true;
+  late Future<CategoryModel?> futureVariable;
 
   Future<CategoryModel?> categoryProductList() async {
     CategoryModel? response =
@@ -52,6 +53,14 @@ class _CategoryPageState extends State<CategoryPage> {
     });
 
     return response;
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      futureVariable = categoryProductList();
+    });
+    super.initState();
   }
 
   @override
@@ -253,7 +262,7 @@ class _CategoryPageState extends State<CategoryPage> {
                           ),
                           // TODO: FREELANCE FROM HERE
                           child: FutureBuilder(
-                            future: categoryProductList(),
+                            future: futureVariable,
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return ListView.builder(

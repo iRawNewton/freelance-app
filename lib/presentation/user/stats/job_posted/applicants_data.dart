@@ -28,6 +28,7 @@ class _ApplicantDataState extends State<ApplicantData> {
   List<Education>? education;
   List<Exp>? exp;
   String userEmail = FirebaseAuth.instance.currentUser!.email ?? '';
+  Future<List<Users>?>? futureVariable;
 
   // & functions ---------------------------------------------------------
 
@@ -55,6 +56,14 @@ class _ApplicantDataState extends State<ApplicantData> {
   }
 
   @override
+  void initState() {
+    setState(() {
+      futureVariable = getInfo();
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -71,7 +80,7 @@ class _ApplicantDataState extends State<ApplicantData> {
             width: double.infinity,
             height: double.infinity,
             child: FutureBuilder(
-              future: getInfo(),
+              future: futureVariable,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
