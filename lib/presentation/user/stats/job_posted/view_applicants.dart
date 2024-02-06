@@ -75,7 +75,8 @@ class _JobApplicationListState extends State<JobApplicationList> {
                     } else if (snapshot.connectionState ==
                         ConnectionState.done) {
                       if (snapshot.hasData) {
-                        return ListView.builder(
+                        if (applicantData!.isNotEmpty) {
+                          return ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: applicantData!.length,
@@ -102,7 +103,16 @@ class _JobApplicationListState extends State<JobApplicationList> {
                                   ),
                                 ),
                               );
-                            });
+                            },
+                          );
+                        } else {
+                          return const Center(
+                            child: CustomText(
+                                title: 'Sorry no records found',
+                                size: 14.0,
+                                color: Colors.black87),
+                          );
+                        }
                       } else {
                         return const Center(
                           child: CustomText(

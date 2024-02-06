@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:freelance_app/models/job_models/job_model.dart';
 import 'package:http/http.dart' as http;
 
+import '../../models/applicant_model_free.dart';
 import '../../models/job_models/user_id.dart';
 
 import '../../resources/constants/strings.dart';
@@ -194,11 +195,11 @@ class GetJobRemoteServices {
   }
 
   // only for services
-  Future<List<ApplicantDataModel>?> getServicesApplicantData({
+  Future<List<ApplicantFreelancer>?> getServicesApplicantData({
     String? serviceId,
   }) async {
     const String baseUrl = ConstStrings.baseUrl;
-    const String apiUrl = '$baseUrl/job/job_applicants.php';
+    const String apiUrl = '$baseUrl/applicants/service_applicant.php';
 
     // Create query parameters
     final Map<String, String?> headers = {
@@ -213,8 +214,8 @@ class GetJobRemoteServices {
       if (response.statusCode == 200) {
         List<dynamic> jsonResponse = jsonDecode(response.body);
 
-        List<ApplicantDataModel> applicantData = jsonResponse
-            .map((data) => ApplicantDataModel.fromJson(data))
+        List<ApplicantFreelancer> applicantData = jsonResponse
+            .map((data) => ApplicantFreelancer.fromJson(data))
             .toList();
 
         return applicantData;

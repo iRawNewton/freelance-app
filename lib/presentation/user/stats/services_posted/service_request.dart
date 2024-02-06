@@ -5,7 +5,7 @@ import 'package:freelance_app/resources/widgets/appbar.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../models/job_models/user_id.dart';
+import '../../../../models/applicant_model_free.dart';
 import '../../../../services/job_services/get_job_info.dart';
 
 class ServiceApplicants extends StatefulWidget {
@@ -18,16 +18,16 @@ class ServiceApplicants extends StatefulWidget {
 
 class _ServiceApplicantsState extends State<ServiceApplicants> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  List<ApplicantDataModel>? applicantData;
+  List<ApplicantFreelancer>? applicantData;
 
   late Future getFutureMethodVariable;
 
   // ^ get applicant data
-  Future<List<ApplicantDataModel>?> getIdofUser(String id) async {
+  Future<List<ApplicantFreelancer>?> getIdofUser(String id) async {
     applicantData = await GetJobRemoteServices().getServicesApplicantData(
       serviceId: id,
     );
-
+    // print(applicantData![0].applicantUserId);
     return applicantData;
   }
 
@@ -75,34 +75,43 @@ class _ServiceApplicantsState extends State<ServiceApplicants> {
                     } else if (snapshot.connectionState ==
                         ConnectionState.done) {
                       if (snapshot.hasData) {
-                        return ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: applicantData!.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                leading: const Icon(Icons.person),
-                                title: CustomText(
-                                  title:
-                                      '${applicantData![index].firstName} ${applicantData![index].lastName}',
-                                  size: 16.0,
-                                  color: Colors.black,
-                                ),
-                                trailing: IconButton(
-                                  onPressed: () {
-                                    navigateToPage(
-                                      context,
-                                      ApplicantData(
-                                        userId: applicantData![index].userId,
-                                      ),
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    Icons.arrow_right,
+                        if (applicantData!.isNotEmpty) {
+                          return ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: applicantData!.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  leading: const Icon(Icons.person),
+                                  title: CustomText(
+                                    title:
+                                        '${applicantData![index].firstName} ${applicantData![index].lastName}',
+                                    size: 16.0,
+                                    color: Colors.black,
                                   ),
-                                ),
-                              );
-                            });
+                                  trailing: IconButton(
+                                    onPressed: () {
+                                      navigateToPage(
+                                        context,
+                                        ApplicantData(
+                                          userId: applicantData![index].userId,
+                                        ),
+                                      );
+                                    },
+                                    icon: const Icon(
+                                      Icons.arrow_right,
+                                    ),
+                                  ),
+                                );
+                              });
+                        } else {
+                          return const Center(
+                            child: CustomText(
+                                title: 'No products found',
+                                size: 14.0,
+                                color: Colors.black87),
+                          );
+                        }
                       } else {
                         return const Center(
                           child: CustomText(

@@ -1,8 +1,11 @@
 // list of services
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:freelance_app/resources/functions/navigate_page.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
 
+import '../../../../job/description/backend/job_post_service.dart';
+import '../../../../job/description/model/user_idmodel.dart';
 import '../../../../models/service_posted.dart';
 import '../../../../services/get_remote_services.dart';
 import 'service_request.dart';
@@ -19,9 +22,12 @@ class _ServicePostedListState extends State<ServicePostedList> {
   List<ServicesPosted> getData = [];
 
   Future<List<ServicesPosted>> getInfoofServices() async {
-    getData = await GetRemoteService().getServicesPostedFromUser('18');
-
-    // print(getData[0].firstName);
+    List<UseridModel> responseId = [];
+    responseId = await JobRemoteService()
+        .getUserId(FirebaseAuth.instance.currentUser!.email);
+    //
+    getData = await GetRemoteService()
+        .getServicesPostedFromUser(responseId[0].userId);
 
     return getData;
   }
@@ -77,6 +83,7 @@ class _ServicePostedListState extends State<ServicePostedList> {
                                 horizontal: 8.0, vertical: 12.0),
                             child: InkWell(
                               onTap: () {
+                                // print(getData[index].projectId);
                                 navigateToPage(
                                     context,
                                     ServiceApplicants(
@@ -171,6 +178,5 @@ class _ServicePostedListState extends State<ServicePostedList> {
     );
   }
 }
-
 
 // TODO: Jan 29, 2024
