@@ -192,10 +192,10 @@ class _GlobalDrawerState extends State<GlobalDrawer> {
                 // ),
 
                 // ^Wishlist
-                const DrawerList(
-                  icon: Icons.favorite_outline,
-                  title: 'Wishlist',
-                ),
+                // const DrawerList(
+                //   icon: Icons.favorite_outline,
+                //   title: 'Wishlist',
+                // ),
 
                 // ^Logout
                 FirebaseAuth.instance.currentUser != null

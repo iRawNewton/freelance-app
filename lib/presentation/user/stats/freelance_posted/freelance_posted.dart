@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_app/resources/widgets/buttons.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
+import '../../../../resources/widgets/snackbar.dart';
+import '../../../../services/job_services/delete_services.dart';
 import 'views/product_view.dart';
 import '../../../../models/category_model.dart';
 import '../../../../resources/constants/strings.dart';
@@ -23,6 +26,7 @@ class _FreelancePostedByUserState extends State<FreelancePostedByUser> {
   List<Project> projectsList = [];
   bool isVisible = true;
   Future<CategoryModel?>? futureVariable;
+  bool isLoading = false;
 
   Future<CategoryModel?> categoryProductList() async {
     CategoryModel? response =
@@ -37,6 +41,40 @@ class _FreelancePostedByUserState extends State<FreelancePostedByUser> {
 
     return response;
   }
+
+  /* -------------------------------------------------------------------------- */
+  /*                               call delete api                              */
+  /* -------------------------------------------------------------------------- */
+  final DeleteRemoteService deleteRemoteService = DeleteRemoteService();
+
+  // Define a function to call the remote service
+  Future<void> callRemoteService(context, id) async {
+    try {
+      await deleteRemoteService.deleteService(
+        id,
+      );
+      customSnackBar(
+          context, 'Record Delete Successfully', Colors.green, Colors.white);
+
+      setState(() {
+        futureVariable = categoryProductList();
+        isLoading = false;
+      });
+    } catch (error) {
+      setState(() {
+        isLoading = false;
+      });
+      customSnackBar(
+        context,
+        'An Error Occured... Try again!',
+        Colors.red,
+        Colors.white,
+      );
+    }
+  }
+  /* -------------------------------------------------------------------------- */
+  /*                               call delete api                              */
+  /* -------------------------------------------------------------------------- */
 
   @override
   void initState() {
@@ -61,6 +99,7 @@ class _FreelancePostedByUserState extends State<FreelancePostedByUser> {
             child: Column(
               children: [
                 const Gap(20.0),
+
                 // const Align(
                 //   alignment: Alignment.centerLeft,
                 //   child: CustomText(
@@ -85,15 +124,39 @@ class _FreelancePostedByUserState extends State<FreelancePostedByUser> {
                               padding: const EdgeInsets.symmetric(
                                 vertical: 10.0,
                               ),
-                              child: ProductPostedView(
-                                productId: projectsList[index].projectId,
-                                imgUrl:
-                                    '$productImage${projectsList[index].images.gallery1}',
-                                category: projectsList[index].categoryName,
-                                title: projectsList[index].projectTitle,
-                                user:
-                                    '${projectsList[index].firstName} ${projectsList[index].lastName}',
-                                price: '29',
+                              child: Column(
+                                children: [
+                                  ProductPostedView(
+                                    productId: projectsList[index].projectId,
+                                    imgUrl:
+                                        '$productImage${projectsList[index].images.gallery1}',
+                                    category: projectsList[index].categoryName,
+                                    title: projectsList[index].projectTitle,
+                                    user:
+                                        '${projectsList[index].firstName} ${projectsList[index].lastName}',
+                                    price: '29',
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      child: CustomButton(
+                                        color: Colors.red,
+                                        title: 'Delete',
+                                        textColor: Colors.white,
+                                        onPressed: () {
+                                          setState(() {
+                                            isLoading = true;
+                                          });
+                                          callRemoteService(context,
+                                              projectsList[index].projectId);
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  const Gap(20.0),
+                                ],
                               ),
                             );
                           },

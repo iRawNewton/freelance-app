@@ -203,8 +203,6 @@ class GetRemoteService {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonResponse = jsonDecode(response.body);
       HomeModel homePageData = HomeModel.fromJson(jsonResponse);
-      // print(homePageData);
-      // print(homePageData.category[1].categoryId);
       return homePageData;
     }
     return null;

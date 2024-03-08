@@ -6,7 +6,6 @@ import 'package:freelance_app/models/users_model.dart';
 import 'package:freelance_app/presentation/user/drawer/user_drawer.dart';
 import 'package:freelance_app/presentation/user/stats/freelance_posted/freelance_posted.dart';
 import 'package:freelance_app/presentation/user/stats/job_posted/job_posted_byuser.dart';
-import 'package:freelance_app/presentation/user/stats/services_posted/services_posted.dart';
 import 'package:freelance_app/resources/constants/colors.dart';
 import 'package:freelance_app/resources/functions/navigate_page.dart';
 import 'package:freelance_app/resources/widgets/footer.dart';
@@ -19,6 +18,7 @@ import '../../../resources/widgets/appbar.dart';
 import '../../../resources/widgets/text_widget.dart';
 import '../../../resources/widgets/timeline/education/timeline_tile.dart';
 import '../dashboard_x/views/profile_stats.dart';
+import '../stats/services_posted/services_posted.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
@@ -85,7 +85,7 @@ class _UserProfileState extends State<UserProfile> {
                 } else if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {
                     return ListView.builder(
-                        itemCount: users!.length,
+                        itemCount: 1,
                         // !fix shrinkwrap
                         // shrinkWrap: true,
                         itemBuilder: (context, index) {

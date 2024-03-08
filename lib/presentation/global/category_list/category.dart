@@ -165,82 +165,82 @@ class _CategoryPageState extends State<CategoryPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Showing all results',
-                          style: GoogleFonts.roboto(),
-                        ),
-                        const SizedBox(height: 14.0),
+                        // Text(
+                        //   'Showing all results',
+                        //   style: GoogleFonts.roboto(),
+                        // ),
+                        // const SizedBox(height: 14.0),
 
                         // ^ filter and sort button
-                        Row(
-                          children: [
-                            SizedBox(
-                              height: 50.0,
-                              child: ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xffF1FCFA),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                ),
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.filter_list,
-                                  color: Colors.black87,
-                                ),
-                                // label: const Text('Filter',style: TextStyle(fontSize: 12.0, color: Colors.black87, )),
-                                label: Text(
-                                  'Filter',
-                                  style: GoogleFonts.roboto(
-                                    color: Colors.black87,
-                                    fontSize: 14.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 20.0),
-                            Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 1.0,
-                                    color: const Color(0xffE9E9E9),
-                                  ),
-                                  borderRadius: BorderRadius.circular(5.0)),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: DropdownButton(
-                                  underline: const SizedBox(),
-                                  // Initial Value
-                                  value: dropdownvalue,
-                                  // Down Arrow Icon
-                                  icon: const Icon(Icons.arrow_drop_down),
-                                  // Array list of items
-                                  items: items.map((String items) {
-                                    return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(
-                                        items,
-                                        style: GoogleFonts.roboto(
-                                          fontSize: 14.0,
-                                        ),
-                                      ),
-                                    );
-                                  }).toList(),
-                                  // After selecting the desired option,it will
-                                  // change button value to selected value
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      dropdownvalue = newValue!;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
+                        // Row(
+                        //   children: [
+                        //     SizedBox(
+                        //       height: 50.0,
+                        //       child: ElevatedButton.icon(
+                        //         style: ElevatedButton.styleFrom(
+                        //           backgroundColor: const Color(0xffF1FCFA),
+                        //           shape: RoundedRectangleBorder(
+                        //             borderRadius: BorderRadius.circular(8.0),
+                        //           ),
+                        //         ),
+                        //         onPressed: () {},
+                        //         icon: const Icon(
+                        //           Icons.filter_list,
+                        //           color: Colors.black87,
+                        //         ),
+                        //         // label: const Text('Filter',style: TextStyle(fontSize: 12.0, color: Colors.black87, )),
+                        //         label: Text(
+                        //           'Filter',
+                        //           style: GoogleFonts.roboto(
+                        //             color: Colors.black87,
+                        //             fontSize: 14.0,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     const SizedBox(width: 20.0),
+                        //     Container(
+                        //       decoration: BoxDecoration(
+                        //           border: Border.all(
+                        //             width: 1.0,
+                        //             color: const Color(0xffE9E9E9),
+                        //           ),
+                        //           borderRadius: BorderRadius.circular(5.0)),
+                        //       child: Padding(
+                        //         padding:
+                        //             const EdgeInsets.symmetric(horizontal: 8.0),
+                        //         child: DropdownButton(
+                        //           underline: const SizedBox(),
+                        //           // Initial Value
+                        //           value: dropdownvalue,
+                        //           // Down Arrow Icon
+                        //           icon: const Icon(Icons.arrow_drop_down),
+                        //           // Array list of items
+                        //           items: items.map((String items) {
+                        //             return DropdownMenuItem(
+                        //               value: items,
+                        //               child: Text(
+                        //                 items,
+                        //                 style: GoogleFonts.roboto(
+                        //                   fontSize: 14.0,
+                        //                 ),
+                        //               ),
+                        //             );
+                        //           }).toList(),
+                        //           // After selecting the desired option,it will
+                        //           // change button value to selected value
+                        //           onChanged: (String? newValue) {
+                        //             setState(() {
+                        //               dropdownvalue = newValue!;
+                        //             });
+                        //           },
+                        //         ),
+                        //       ),
+                        //     ),
 
-                            // ElevatedButton(onPressed: () {}, child: child)
-                          ],
-                        ),
+                        //     // ElevatedButton(onPressed: () {}, child: child)
+                        //   ],
+                        // ),
                         const SizedBox(height: 36.0),
 
                         // ^ category product list

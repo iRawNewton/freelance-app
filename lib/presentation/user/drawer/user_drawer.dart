@@ -274,10 +274,10 @@ class _UserDrawerState extends State<UserDrawer> {
                 ),
 
                 // ^Wishlist
-                const DrawerList(
-                  icon: Icons.favorite_outline,
-                  title: 'Wishlist',
-                ),
+                // const DrawerList(
+                //   icon: Icons.favorite_outline,
+                //   title: 'Wishlist',
+                // ),
 
                 // ^Logout
                 FirebaseAuth.instance.currentUser != null

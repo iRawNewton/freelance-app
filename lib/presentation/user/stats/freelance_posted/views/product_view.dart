@@ -34,6 +34,7 @@ class ProductPostedView extends StatelessWidget {
         );
       },
       child: Container(
+        width: double.infinity,
         decoration: BoxDecoration(
           color: CustomColors.accentColor,
           borderRadius: BorderRadiusDirectional.circular(10.0),
@@ -42,11 +43,18 @@ class ProductPostedView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: CachedNetworkImage(
-                  imageUrl: imgUrl,
-                  fit: BoxFit.fitWidth,
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: CachedNetworkImage(
+                    imageUrl: imgUrl,
+                    fit: BoxFit.fitWidth,
+                    height: 200,
+                  ),
                 ),
               ),
               const SizedBox(height: 24.0),

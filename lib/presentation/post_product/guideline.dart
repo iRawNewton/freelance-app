@@ -29,6 +29,12 @@ class _UploadGuidelineState extends State<UploadGuideline> {
   }
 
   @override
+  void initState() {
+    getUserId();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(

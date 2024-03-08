@@ -68,6 +68,7 @@ dependencies:
   gap: ^3.0.1
   choice: ^2.3.0
   shared_preferences: ^2.2.2
+  logger: ^2.1.0
 
 dev_dependencies:
   flutter_test:

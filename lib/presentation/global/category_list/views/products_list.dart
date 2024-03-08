@@ -51,22 +51,22 @@ class ProductList extends StatelessWidget {
                       imageUrl: imgUrl,
                       fit: BoxFit.fitWidth,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(7.0),
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.favorite_outline,
-                              color: Colors.black87,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(7.0),
+                    //   child: Align(
+                    //     alignment: Alignment.topRight,
+                    //     child: CircleAvatar(
+                    //       backgroundColor: Colors.white,
+                    //       child: IconButton(
+                    //         onPressed: () {},
+                    //         icon: const Icon(
+                    //           Icons.favorite_outline,
+                    //           color: Colors.black87,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
                 const SizedBox(height: 24.0),
