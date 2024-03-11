@@ -60,7 +60,7 @@ class _JobBannerViewState extends State<JobBannerView> {
               weight: FontWeight.bold,
             ),
             const CustomJobText(
-              title: 'Freelance.io',
+              title: 'CFC',
               size: 26.0,
               color: Color(0xff03A84E),
               textAlign: TextAlign.center,

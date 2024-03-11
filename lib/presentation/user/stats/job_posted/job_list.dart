@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_app/presentation/user/profile_info/profile_info.dart';
+import 'package:freelance_app/resources/widgets/loading_indicator.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../resources/constants/colors.dart';
 import '../../../../resources/functions/navigate_page.dart';
 import '../../../../resources/widgets/buttons.dart';
+import '../../../../resources/widgets/snackbar.dart';
 import '../../../../resources/widgets/text_widget.dart';
+import '../../../../services/job_services/delete_services.dart';
 import 'view_applicants.dart';
 
 class JobByUser extends StatefulWidget {
@@ -48,6 +52,37 @@ class JobByUser extends StatefulWidget {
 }
 
 class _JobByUserState extends State<JobByUser> {
+  bool isLoading = false;
+  /* -------------------------------------------------------------------------- */
+  /*                               call delete api                              */
+  /* -------------------------------------------------------------------------- */
+  final DeleteRemoteService deleteRemoteService = DeleteRemoteService();
+
+  // Define a function to call the remote service
+  Future<void> callRemoteService(context, id) async {
+    try {
+      await deleteRemoteService.deleteJob(
+        id,
+      );
+      customSnackBar(
+          context, 'Record Delete Successfully', Colors.green, Colors.white);
+
+      setState(() {
+        isLoading = false;
+        navigateToPage(context, const UserProfile());
+      });
+    } catch (error) {
+      setState(() {
+        isLoading = false;
+      });
+      customSnackBar(
+          context, 'An Error Occured... Try again!', Colors.red, Colors.white);
+    }
+  }
+  /* -------------------------------------------------------------------------- */
+  /*                               call delete api                              */
+  /* -------------------------------------------------------------------------- */
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -178,43 +213,64 @@ class _JobByUserState extends State<JobByUser> {
                             size: 14.0,
                             color: JobCustomColors.textColor,
                           ),
+                          const Spacer(),
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              callRemoteService(context, widget.jobId);
+                            },
+                            icon: Icon(
+                              Icons.delete_forever,
+                              color: Colors.red.shade800,
+                              size: 30.0,
+                            ),
+                          ),
                         ],
                       ),
-                      SizedBox(
-                        width: MediaQuery.sizeOf(context).width * 0.9,
-                        child: CustomButton(
-                          color: JobCustomColors.green,
-                          title: 'View Applicants',
-                          textColor: Colors.white,
-                          onPressed: () {
-                            navigateToPage(
-                                context,
-                                JobApplicationList(
-                                  jobId: widget.jobId,
-                                ));
-                            // navigateToPage(
-                            //   context,
-                            //   JobDescription(
-                            //     jobId: widget.jobId,
-                            //     jobTitle: widget.jobTitle,
-                            //     jobType: widget.jobType,
-                            //     companyName: widget.companyName,
-                            //     jobLocation: widget.jobLocation,
-                            //     salaryMin: widget.salaryMin,
-                            //     salaryMax: widget.salaryMax,
-                            //     shortDescription: widget.shortDescription,
-                            //     longDescription: widget.longDescription,
-                            //     jobRequirements: widget.jobRequirements,
-                            //     jobResponsibilities:
-                            //         widget.jobResponsibilities,
-                            //     jobQualification: widget.jobQualification,
-                            //     jobSkills: widget.jobSkills,
-                            //     jobCategory: widget.jobCategoryName,
-                            //     jobSubCategory: widget.jobSubCategoryName,
-                            //   ),
-                            // );
-                          },
-                        ),
+                      Stack(
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.sizeOf(context).width * 0.9,
+                            child: CustomButton(
+                              color: JobCustomColors.green,
+                              title: 'View Applicants',
+                              textColor: Colors.white,
+                              onPressed: () {
+                                navigateToPage(
+                                    context,
+                                    JobApplicationList(
+                                      jobId: widget.jobId,
+                                    ));
+                                // navigateToPage(
+                                //   context,
+                                //   JobDescription(
+                                //     jobId: widget.jobId,
+                                //     jobTitle: widget.jobTitle,
+                                //     jobType: widget.jobType,
+                                //     companyName: widget.companyName,
+                                //     jobLocation: widget.jobLocation,
+                                //     salaryMin: widget.salaryMin,
+                                //     salaryMax: widget.salaryMax,
+                                //     shortDescription: widget.shortDescription,
+                                //     longDescription: widget.longDescription,
+                                //     jobRequirements: widget.jobRequirements,
+                                //     jobResponsibilities:
+                                //         widget.jobResponsibilities,
+                                //     jobQualification: widget.jobQualification,
+                                //     jobSkills: widget.jobSkills,
+                                //     jobCategory: widget.jobCategoryName,
+                                //     jobSubCategory: widget.jobSubCategoryName,
+                                //   ),
+                                // );
+                              },
+                            ),
+                          ),
+                          isLoading
+                              ? const Center(child: LoadingIndicator1())
+                              : const SizedBox(),
+                        ],
                       ),
                       const Gap(8.0),
                     ],

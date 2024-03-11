@@ -227,11 +227,11 @@ class _UserProfileState extends State<UserProfile> {
                                           UserProfileStats(
                                             onTap1: () {
                                               navigateToPage(
-                                                  context,
-                                                  JobPostedByUser(
-                                                    userId:
-                                                        users![index].userId,
-                                                  ));
+                                                context,
+                                                JobPostedByUser(
+                                                  userId: users![index].userId,
+                                                ),
+                                              );
                                             },
                                             onTap2: () {
                                               navigateToPage(

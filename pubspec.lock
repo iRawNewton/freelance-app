@@ -297,27 +297,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
-  fluent_ui:
-    dependency: "direct main"
-    description:
-      name: fluent_ui
-      sha256: d6ffe21ff6bc61e98044a0529c139277dac2bbe6e71f868f7791d7eabc53d718
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.8.5"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_animate:
-    dependency: "direct main"
-    description:
-      name: flutter_animate
-      sha256: "2f3535790fff1ad21bca4f16b7435fa4af6a3c4b43e88e273a8683ed4ec26b26"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.4.0"
   flutter_bloc:
     dependency: "direct main"
     description:
@@ -350,11 +334,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
-  flutter_localizations:
-    dependency: transitive
-    description: flutter
-    source: sdk
-    version: "0.0.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -397,14 +376,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
-  glassmorphism:
-    dependency: "direct main"
-    description:
-      name: glassmorphism
-      sha256: c0f65ea2681d4ee6d4125b947946d983335cd44765e835cdc039894b076a6e31
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.0"
   google_fonts:
     dependency: "direct main"
     description:
@@ -573,14 +544,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
-  logger:
-    dependency: "direct main"
-    description:
-      name: logger
-      sha256: b3ff55aeb08d9d8901b767650285872cb1bb8f508373b3e348d60268b0c7f770
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
   lottie:
     dependency: "direct main"
     description:
@@ -605,14 +568,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.8.0"
-  math_expressions:
-    dependency: transitive
-    description:
-      name: math_expressions
-      sha256: "3576593617c3870d75728a751f6ec6e606706d44e363f088ac394b5a28a98064"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.0"
   meta:
     dependency: transitive
     description:
@@ -765,14 +720,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.1"
-  recase:
-    dependency: transitive
-    description:
-      name: recase
-      sha256: e4eb4ec2dcdee52dcf99cb4ceabaffc631d7424ee55e56f280bc039737f89213
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.1.0"
   rxdart:
     dependency: transitive
     description:
@@ -781,14 +728,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
-  scroll_pos:
-    dependency: transitive
-    description:
-      name: scroll_pos
-      sha256: cebf602b2dd939de6832bb902ffefb574608d1b84f420b82b381a4007d3c1e1b
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.0"
   shared_preferences:
     dependency: "direct main"
     description:
