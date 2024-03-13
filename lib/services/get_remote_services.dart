@@ -339,6 +339,42 @@ class GetRemoteService {
     }
   }
 
+/* ----------------------------- search keyword ----------------------------- */
+  Future<CategoryModel?> getProductsFromSearchKeyword(
+      String searchKeyword) async {
+    try {
+      // Define constants for URL and headers
+      const String baseUrl = ConstStrings.baseUrl;
+      const String apiUrl = '$baseUrl/search/search_service.php';
+      final Map<String, String> headers = {'id': searchKeyword};
+
+      // Create and reuse an HTTP client
+      final http.Client client = http.Client();
+
+      final http.Response response = await client
+          .get(Uri.parse(apiUrl).replace(queryParameters: headers))
+          .timeout(const Duration(seconds: 30));
+      if (response.statusCode == 200) {
+        // Parse and return the response data
+        return categoryModelFromJson(response.body);
+      } else {
+        // Handle non-200 status codes by throwing an exception
+        throw Exception(
+            'HTTP ${response.statusCode}: ${response.reasonPhrase}');
+      }
+    } on TimeoutException catch (e) {
+      // Handle timeout errors.
+      debugPrint('Request timed out: $e');
+      throw TimeoutException('Request timed out');
+    } catch (e) {
+      // Handle other unexpected errors.
+      debugPrint('An error occurred: $e');
+      throw Exception('An error occurred');
+    }
+  }
+
+/* ----------------------------- search keyword ----------------------------- */
+
   // service list based on user
   Future<List<ServicesPosted>> getServicesPostedFromUser(String userId) async {
     try {

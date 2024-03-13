@@ -1,10 +1,12 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:freelance_app/resources/functions/navigate_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../models/service_category.dart';
 import '../../../../services/get_remote_services.dart';
+import '../../../search/service/frontend/service_list.dart';
 
 class HomeWidget1 extends StatefulWidget {
   const HomeWidget1({super.key});
@@ -14,6 +16,7 @@ class HomeWidget1 extends StatefulWidget {
 }
 
 class _HomeWidget1State extends State<HomeWidget1> {
+  final TextEditingController _search = TextEditingController();
   // String _selectedItem = 'Option 1'; // Default selected item
   // final TextEditingController _category = TextEditingController();
 
@@ -99,10 +102,11 @@ class _HomeWidget1State extends State<HomeWidget1> {
                               ),
                               SizedBox(
                                 width: MediaQuery.sizeOf(context).width * 0.8,
-                                child: const Padding(
-                                  padding: EdgeInsets.only(left: 10.0),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
                                   child: TextField(
-                                    decoration: InputDecoration(
+                                    controller: _search,
+                                    decoration: const InputDecoration(
                                       hintText: 'What are you looking for?',
                                       border: InputBorder.none,
                                     ),
@@ -115,61 +119,6 @@ class _HomeWidget1State extends State<HomeWidget1> {
 
                           // ^ category
                           // ! currently hidden
-                          // Padding(
-                          //   padding: const EdgeInsets.only(left: 20.0),
-                          //   child: DropdownButtonFormField2<String>(
-                          //     hint: const Text(
-                          //       'Choose category',
-                          //       style: TextStyle(fontSize: 14.0),
-                          //     ),
-                          //     items: serviceCategory?.map((category) {
-                          //           return DropdownMenuItem<String>(
-                          //             value: category.categoryId,
-                          //             child: Text(category.categoryName),
-                          //           );
-                          //         }).toList() ??
-                          //         [],
-                          //     // validator: (value) {
-                          //     //   if (value == null) {
-                          //     //     return 'Please select any one option.';
-                          //     //   }
-                          //     //   return null;
-                          //     // },
-                          //     onChanged: (value) {
-                          //       //Do something when selected item is changed.
-                          //       setState(() {
-                          //         _category.text = value.toString();
-                          //       });
-                          //     },
-                          //     buttonStyleData: ButtonStyleData(
-                          //       height: 50.0,
-                          //       decoration: BoxDecoration(
-                          //         border: Border.all(
-                          //           width: 0,
-                          //           color: Colors.transparent,
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     iconStyleData: const IconStyleData(
-                          //       icon: Icon(
-                          //         Icons.arrow_drop_down,
-                          //         color: Colors.black45,
-                          //       ),
-                          //       iconSize: 24.0,
-                          //     ),
-                          //     dropdownStyleData: DropdownStyleData(
-                          //       decoration: BoxDecoration(
-                          //         border: Border.all(),
-                          //         borderRadius: BorderRadius.circular(10.0),
-                          //       ),
-                          //     ),
-                          //     menuItemStyleData: const MenuItemStyleData(
-                          //       padding: EdgeInsets.symmetric(horizontal: 16),
-                          //     ),
-                          //   ),
-                          // ),
-
-                          // const SizedBox(height: 10.0),
 
                           // ^ search button
                           Padding(
@@ -185,7 +134,13 @@ class _HomeWidget1State extends State<HomeWidget1> {
                                       borderRadius: BorderRadius.circular(5.0),
                                     ),
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    navigateToPage(
+                                        context,
+                                        ServiceSearchResult(
+                                          searchKeyword: _search.text,
+                                        ));
+                                  },
                                   child: Text(
                                     'Search',
                                     style: GoogleFonts.roboto(
