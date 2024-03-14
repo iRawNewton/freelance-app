@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_app/presentation/search/job/frontend/service_list.dart';
+import 'package:freelance_app/resources/functions/navigate_page.dart';
 import 'package:freelance_app/resources/widgets/text_widget.dart';
 import 'package:freelance_app/resources/widgets/textfields.dart';
 
@@ -6,8 +8,7 @@ import '../../../models/service_category.dart';
 import '../../../services/get_remote_services.dart';
 
 class JobBannerView extends StatefulWidget {
-  const JobBannerView({super.key, required this.controller});
-  final TextEditingController controller;
+  const JobBannerView({super.key});
 
   @override
   State<JobBannerView> createState() => _JobBannerViewState();
@@ -15,7 +16,7 @@ class JobBannerView extends StatefulWidget {
 
 class _JobBannerViewState extends State<JobBannerView> {
   // String _selectedItem = 'Option 1'; // Default selected item
-  // final TextEditingController _category = TextEditingController();
+  final TextEditingController _searchKeyword = TextEditingController();
 
   List<ServiceCategory>? serviceCategory = [];
 
@@ -77,7 +78,7 @@ class _JobBannerViewState extends State<JobBannerView> {
             ),
             const Spacer(),
             MyCustomJobTextField(
-              controller: widget.controller,
+              controller: _searchKeyword,
               inputType: TextInputType.name,
               icon: Icons.work_outline,
               iconColor: Colors.black54,
@@ -100,7 +101,12 @@ class _JobBannerViewState extends State<JobBannerView> {
                     ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  navigateToPage(
+                    context,
+                    JobSearchResult(searchKeyword: _searchKeyword),
+                  );
+                },
                 child: const Icon(Icons.search, color: Colors.white),
               ),
             ),

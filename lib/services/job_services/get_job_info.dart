@@ -93,6 +93,48 @@ class GetJobRemoteServices {
     return null;
   }
 
+  /* ----------------------------- search job ----------------------------- */
+  Future<List<JobDetails>?> getSearchJobList({
+    String? id,
+    String? categoryName,
+    String? categoryImage,
+    String? serviceId,
+    String? orderBy,
+  }) async {
+    const String baseUrl = ConstStrings.baseUrl;
+    const String apiUrl = '$baseUrl/search/job_search.php';
+
+    // Create query parameters
+    final Map<String, String?> headers = {
+      'id': id,
+      'category_name': categoryName,
+      'category_image': categoryImage,
+      'service_id': serviceId,
+      'orderby': orderBy,
+    };
+
+    try {
+      final http.Response response = await http
+          .get(Uri.parse(apiUrl).replace(queryParameters: headers))
+          .timeout(const Duration(seconds: 30));
+
+      if (response.statusCode == 200) {
+        List<dynamic> jsonResponse = jsonDecode(response.body);
+
+        List<JobDetails> serviceCategories =
+            jsonResponse.map((data) => JobDetails.fromJson(data)).toList();
+
+        return serviceCategories;
+      }
+    } catch (e) {
+      // Handle exceptions here (e.g., network errors, timeouts, etc.)
+      debugPrint('Error: $e');
+    }
+
+    return null;
+  }
+  /* ----------------------------------- end ---------------------------------- */
+
   // ^ get job list User
 
   Future<List<JobDetails>?> getJobListByUser({

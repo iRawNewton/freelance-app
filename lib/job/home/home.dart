@@ -16,7 +16,7 @@ class JobHome extends StatefulWidget {
 
 class _JobHomeState extends State<JobHome> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  TextEditingController controller = TextEditingController();
+  // TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,8 @@ class _JobHomeState extends State<JobHome> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    JobBannerView(controller: controller),
+                    /* --------------------------------- search --------------------------------- */
+                    const JobBannerView(),
                     const SizedBox(height: 10.0),
 
                     // ^ column for horizontal body padding
@@ -57,9 +58,10 @@ class _JobHomeState extends State<JobHome> {
                             child: Text(
                               'Popular categories',
                               style: GoogleFonts.roboto(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: JobCustomColors.textColor),
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w500,
+                                color: JobCustomColors.textColor,
+                              ),
                             ),
                           ),
                           const Row(
